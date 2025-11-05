@@ -2751,44 +2751,90 @@
       }
     });
 
+    // $(document).ready(function () {
+    //   var role = localStorage.getItem("role");
+
+
+    //   const user = getDecryptedUserData();
+    //   // console.log("Decrypted User Data:", user);
+    //   // var userAdminName = localStorage.getItem("userAdminName");
+    //   let userAdminName = user.role || "N/A";
+    //   if (role) {
+    //     $('.admin-name-change').text(userAdminName);
+    //     $('.js-tabLike .admin-menu-show').css('display', 'block');
+    //     var interval = setInterval(function () {
+    //       if ($('#t_MenuNav_7').length) {
+    //         $('#t_MenuNav_7').css('display', 'flex');
+    //       }
+    //       if ($('#t_MenuNav_8').length) {
+    //         $('#t_MenuNav_8').css('display', 'flex');
+    //       }
+
+    //       if ($('#t_MenuNav_7').length && $('#t_MenuNav_8').length) {
+    //         clearInterval(interval);
+    //       }
+    //     }, 100);
+    //   }
+    //   var appendSignout = '<div class="t-NavigationBar-menu showlink">' +
+    //     '<ul>' +
+    //     '<li>' +
+    //     '<a href="/index.html" class="signOutBtn">Sign Out</a>' +
+    //     '</li>' +
+    //     '</ul>' +
+    //     '</div>';
+    //   $('.t-NavigationBar-item.has-username.shownav').append(appendSignout);
+
+    //   $(".signOutBtn").on("click", function () {
+    //     event.preventDefault();
+    //     localStorage.removeItem("role");
+    //     localStorage.removeItem("userAdminName");
+    //     window.location.href = "index.html";
+    //   });
+    // });
+
     $(document).ready(function () {
-      var role = localStorage.getItem("role");
+      // ✅ Don’t redirect if not logged in
+      const user = getDecryptedUserData({ redirectOnFail: false });
 
-
-      const user = getDecryptedUserData();
-      // console.log("Decrypted User Data:", user);
-      // var userAdminName = localStorage.getItem("userAdminName");
-      let userAdminName = user.role || "N/A";
-      if (role) {
-        $('.admin-name-change').text(userAdminName);
+      // Handle menu based on login status
+      if (user && user.role) {
+        $('.admin-name-change').text(user.role);
         $('.js-tabLike .admin-menu-show').css('display', 'block');
-        var interval = setInterval(function () {
-          if ($('#t_MenuNav_7').length) {
-            $('#t_MenuNav_7').css('display', 'flex');
-          }
-          if ($('#t_MenuNav_8').length) {
-            $('#t_MenuNav_8').css('display', 'flex');
-          }
 
-          if ($('#t_MenuNav_7').length && $('#t_MenuNav_8').length) {
-            clearInterval(interval);
-          }
+        const interval = setInterval(function () {
+          if ($('#t_MenuNav_7').length) $('#t_MenuNav_7').css('display', 'flex');
+          if ($('#t_MenuNav_8').length) $('#t_MenuNav_8').css('display', 'flex');
+          if ($('#t_MenuNav_7').length && $('#t_MenuNav_8').length) clearInterval(interval);
         }, 100);
+      } else {
+        // ✅ Not logged in → hide admin-only elements
+        $('.js-tabLike .admin-menu-show').hide();
+        $('.admin-name-change').text('');
       }
-      var appendSignout = '<div class="t-NavigationBar-menu showlink">' +
-        '<ul>' +
-        '<li>' +
-        '<a href="/index.html" class="signOutBtn">Sign Out</a>' +
-        '</li>' +
-        '</ul>' +
-        '</div>';
-      $('.t-NavigationBar-item.has-username.shownav').append(appendSignout);
 
-      $(".signOutBtn").on("click", function () {
-        event.preventDefault();
-        localStorage.removeItem("role");
-        localStorage.removeItem("userAdminName");
-        window.location.href = "index.html";
+      // 🔹 Add Sign Out link dynamically only if logged in
+      if (user) {
+        const appendSignout = `
+      <div class="t-NavigationBar-menu showlink">
+        <ul>
+          <li><a href="/index.html" class="signOutBtn">Sign Out</a></li>
+        </ul>
+      </div>`;
+        $('.t-NavigationBar-item.has-username.shownav').append(appendSignout);
+
+        $(".signOutBtn").on("click", function (event) {
+          event.preventDefault();
+          localStorage.removeItem("role");
+          localStorage.removeItem("userAdminName");
+          window.location.href = "index.html";
+        });
+      }
+
+      // Language change handling
+      document.getElementById('P0_LANGUAGE').addEventListener('change', function () {
+        const selectedValue = this.value;
+        langSwitch = selectedValue === "en" ? "en" : "ta";
+        fetchData();
       });
     });
 
