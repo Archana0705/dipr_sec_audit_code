@@ -713,9 +713,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Info&#x26;PRDept" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <link rel="manifest"
+  <!-- <link rel="manifest"
     href="manifest.json_%3b%20filename_%3dUTF-8%27%27manifestf27b.json?v=24.1.1-41853896899929&amp;lang=en"
-    crossorigin="use-credentials" />
+    crossorigin="use-credentials" /> -->
+    
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#007bff">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -1020,13 +1023,18 @@
             </div>
             <div class="t-Header-navBar--center">
               <ul class="t-NavigationBar " id="32861498506172843">
-                <li class="t-NavigationBar-item a-pwaInstall">
+                <!-- <li class="t-NavigationBar-item a-pwaInstall">
                   <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#action$a-pwa-install"
                     title="" target="">
                     <span class="t-Icon fa&#x20;fa-cloud-download" aria-hidden="true"></span><span
                       class="t-Button-label">Install App</span><span class="t-Button-badge"></span>
                   </a>
-                </li>
+                </li> -->
+                <li class="t-NavigationBar-item a-pwaInstall"> <a class="t-Button t-Button--icon 
+              t-Button--header t-Button--navBar" href="#action$a-pwa-install" title="" target="" 
+              aria-roledescription="action link" style=""> <span class="t-Icon fa fa-cloud-download" 
+              aria-hidden="true"></span><span class="t-Button-label">Install App</span>
+              <span class="t-Button-badge"></span> </a> </li>
                 <li class="t-NavigationBar-item has-username shownav">
                   <button class="t-Button t-Button--icon t-Button--header t-Button--navBar" type="button">
                     <span class="t-Icon fa fa-user" aria-hidden="true"></span>
@@ -2025,6 +2033,8 @@
       });
     });
   </script>
+
+  <script src="assets/js/install.js"></script>
 
 </body>
 

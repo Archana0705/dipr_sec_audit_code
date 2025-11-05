@@ -676,14 +676,17 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="-1" />
   <meta http-equiv="Cache-Control" content="no-cache" />
-  <meta name="theme-color" content="&#x23;000000" />
+  <!-- <meta name="theme-color" content="&#x23;000000" /> -->
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Info&#x26;PRDept" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <link rel="manifest"
+  <!-- <link rel="manifest"
     href="manifest.json_%3b%20filename_%3dUTF-8%27%27manifestf27b.json?v=24.1.1-41853896899929&amp;lang=en"
-    crossorigin="use-credentials" />
+    crossorigin="use-credentials" /> -->
+
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#007bff">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Toast -->
@@ -753,13 +756,18 @@
         </div>
         <div class="t-Header-navBar--center">
           <ul class="t-NavigationBar " id="32861498506172843">
-            <li class="t-NavigationBar-item a-pwaInstall">
+            <!-- <li class="t-NavigationBar-item a-pwaInstall">
               <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#action$a-pwa-install" title=""
                 target="">
                 <span class="t-Icon fa&#x20;fa-cloud-download" aria-hidden="true"></span><span
                   class="t-Button-label">Install App</span><span class="t-Button-badge"></span>
               </a>
-            </li>
+            </li> -->
+            <li class="t-NavigationBar-item a-pwaInstall"> <a class="t-Button t-Button--icon 
+              t-Button--header t-Button--navBar" href="#action$a-pwa-install" title="" target="" 
+              aria-roledescription="action link" style=""> <span class="t-Icon fa fa-cloud-download" 
+              aria-hidden="true"></span><span class="t-Button-label">Install App</span>
+              <span class="t-Button-badge"></span> </a> </li>
             <li class="t-NavigationBar-item has-username shownav">
               <button class="t-Button t-Button--icon t-Button--header t-Button--navBar" type="button">
                 <span class="t-Icon fa fa-user" aria-hidden="true"></span>
@@ -2850,6 +2858,43 @@
     });
 
   </script>
+
+  <!-- install -->
+   <!-- <script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js')
+    .then(() => console.log('Service Worker registered'));
+}
+</script>
+<script>
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  $('.a-pwaInstall').show(); // show the button only when eligible
+});
+
+$('.a-pwaInstall a').on('click', async function() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') {
+    console.log('App installed');
+    $('.a-pwaInstall').hide();
+  }
+  deferredPrompt = null;
+});
+
+window.addEventListener('appinstalled', () => {
+  console.log('App successfully installed');
+  $('.a-pwaInstall').hide();
+});
+</script> -->
+   <!-- install -->
+
+
+   <script src="assets/js/install.js"></script>
 
 </body>
 
