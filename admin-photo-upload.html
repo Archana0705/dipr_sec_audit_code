@@ -426,7 +426,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
 
-  <div id="preloader"></div>
+  <!-- <div id="preloader"></div> -->
 </head>
 
 <body
@@ -633,6 +633,8 @@
               class="apex-page-success u-hidden"></span><span id="APEX_ERROR_MESSAGE"
               data-template-id="33086037481442559_E" class="apex-page-error u-hidden"></span>
             <div class="t-Body-fullContent"></div>
+            <!--  -->
+
             <div class="t-Body-contentInner">
               <div class="container">
                 <div class="row ">
@@ -640,73 +642,13 @@
                     <div id="R22879691196163085" class=""></div>
                   </div>
                 </div>
+
                 <div class="row ">
                   <div class="col col-12 apex-col-auto col-start col-end">
                     <div class="t-TabsRegion js-useLocalStorage t-TabsRegion-mod--simple apex-tabs-region"
                       id="R37494869251508934">
-                      <!-- CREATE ATTACHMENT MODAL (for both photo/video) -->
-                      <!-- ======= Modal HTML ======= -->
-                      <div class="modal fade" id="createAttachmentModal" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                          <div class="modal-content">
-                            <div class="modal-header bg-primary text-white">
-                              <h5 class="modal-title" id="modalTitle">Add New Attachment</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                            </div>
 
-                            <!-- note: still use a form for semantics, but we'll NOT use native submit -->
-                            <form id="createAttachmentForm" enctype="multipart/form-data" action="javascript:void(0);"
-                              novalidate>
-                              <div class="modal-body">
-                                <div class="row g-3">
-                                  <div class="col-md-6">
-                                    <label for="languageSelect" class="form-label">Language</label>
-                                    <select id="languageSelect" class="form-select" required>
-                                      <option value="">Select</option>
-                                      <option value="en">English</option>
-                                      <option value="ta">Tamil</option>
-                                    </select>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <label for="uploadDate" class="form-label">Date</label>
-                                    <input type="date" id="uploadDate" class="form-control" required />
-                                  </div>
-
-                                  <div class="col-md-12">
-                                    <label for="fileUpload" class="form-label">Choose File</label>
-                                    <input type="file" id="fileUpload" class="form-control"
-                                      accept=".jpg,.jpeg,.png,.pdf,.mp4,.mov,.avi,.mkv,.webm" required />
-                                    <input type="text" id="fileNameField" class="form-control mt-2"
-                                      placeholder="No file selected" readonly style="display:none;">
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" id="deleteAttachmentBtn" class="btn btn-danger d-none">
-                                  Delete
-                                </button>
-
-                                <!-- IMPORTANT: type="button" so browser won't try to submit form -->
-                                <button type="button" id="createAttachmentSubmitBtn" class="btn btn-primary">
-                                  <span id="submitBtnText">Submit</span>
-                                  <span id="submitBtnSpinner" class="spinner-border spinner-border-sm d-none"
-                                    role="status" aria-hidden="true"></span>
-                                </button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Example trigger buttons -->
-
-
-
-                      <!-- ================= TABS SECTION ================= -->
+                      <!-- =================== TABS =================== -->
                       <ul class="nav nav-tabs" id="uploadTabs">
                         <li class="nav-item">
                           <a class="nav-link active" id="photo-tab" data-bs-toggle="tab" href="#photoPane">Photo
@@ -718,10 +660,10 @@
                       </ul>
 
                       <div class="tab-content mt-3">
-                        <!-- PHOTO UPLOAD TAB -->
+                        <!-- =================== PHOTO TAB =================== -->
                         <div class="tab-pane fade show active" id="photoPane">
-                          <button id="openCreateModalPhotoBtn" class="btn btn-success">Create Photo Attachment</button>
-                          <table id="admin-photo-upload-table" class="table table-bordered table-striped">
+                          <button id="openPhotoModalBtn" class="btn btn-success mb-3">Create Photo Attachment</button>
+                          <table id="photoTable" class="table table-bordered table-striped">
                             <thead>
                               <tr>
                                 <th>Edit</th>
@@ -731,14 +673,14 @@
                                 <th>Created On</th>
                               </tr>
                             </thead>
-                            <tbody id="engSecContent"></tbody>
+                            <tbody></tbody>
                           </table>
                         </div>
 
-                        <!-- VIDEO UPLOAD TAB -->
+                        <!-- =================== VIDEO TAB =================== -->
                         <div class="tab-pane fade" id="videoPane">
-                          <button id="openCreateModalVideoBtn" class="btn btn-success">Create Video Attachment</button>
-                          <table id="video-upload-table" class="table table-bordered table-striped">
+                          <button id="openVideoModalBtn" class="btn btn-success mb-3">Create Video Attachment</button>
+                          <table id="videoTable" class="table table-bordered table-striped">
                             <thead>
                               <tr>
                                 <th>Edit</th>
@@ -748,18 +690,105 @@
                                 <th>Created On</th>
                               </tr>
                             </thead>
-                            <tbody id="TASecCon"></tbody>
+                            <tbody></tbody>
                           </table>
                         </div>
                       </div>
 
+                      <!-- =================== PHOTO MODAL =================== -->
+                      <div class="modal fade" id="photoAttachmentModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                              <h5 class="modal-title">Add New Photo Attachment</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <form id="photoAttachmentForm" enctype="multipart/form-data" action="javascript:void(0);">
+                              <div class="modal-body">
+                                <div class="row g-3">
+                                  <div class="col-md-6">
+                                    <label class="form-label">Language</label>
+                                    <select id="photoLanguage" class="form-select" required>
+                                      <option value="">Select</option>
+                                      <option value="en">English</option>
+                                      <option value="ta">Tamil</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <label class="form-label">Date</label>
+                                    <input type="date" id="photoDate" class="form-control" required>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label class="form-label">Choose File</label>
+                                    <input type="file" id="photoFile" class="form-control" accept=".jpg,.jpeg,.png,.pdf"
+                                      required>
+                                    <input type="text" id="photoFileName" class="form-control mt-2" readonly
+                                      placeholder="No file selected" style="display:none;">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" id="photoDeleteBtn" class="btn btn-danger d-none">Delete</button>
+                                <button type="button" id="photoSubmitBtn" class="btn btn-primary">Submit</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- =================== VIDEO MODAL =================== -->
+                      <div class="modal fade" id="videoAttachmentModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                              <h5 class="modal-title">Add New Video Attachment</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <form id="videoAttachmentForm" enctype="multipart/form-data" action="javascript:void(0);">
+                              <div class="modal-body">
+                                <div class="row g-3">
+                                  <div class="col-md-6">
+                                    <label class="form-label">Language</label>
+                                    <select id="videoLanguage" class="form-select" required>
+                                      <option value="">Select</option>
+                                      <option value="en">English</option>
+                                      <option value="ta">Tamil</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <label class="form-label">Date</label>
+                                    <input type="date" id="videoDate" class="form-control" required>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label class="form-label">Choose File</label>
+                                    <input type="file" id="videoFile" class="form-control"
+                                      accept=".mp4,.mov,.avi,.mkv,.webm,.pdf" required>
+                                    <input type="text" id="videoFileName" class="form-control mt-2" readonly
+                                      placeholder="No file selected" style="display:none;">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" id="videoDeleteBtn" class="btn btn-danger d-none">Delete</button>
+                                <button type="button" id="videoSubmitBtn" class="btn btn-primary">Submit</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
 
                     </div>
-
                   </div>
                 </div>
               </div>
             </div>
+
           </main>
           <footer class="t-Footer" id="t_Footer" role="contentinfo">
             <div class="t-Footer-body">
@@ -994,12 +1023,14 @@
         });
       });
     });
+
+
   </script>
 
 
 
 
-  <script>
+  <!-- <script>
     $(document).ready(function () {
       $('#preloader').hide();
       let langSwitch = 'en';
@@ -1036,24 +1067,32 @@
 
 
       // Open modal handlers — reset form safely when opened
+      function resetAttachmentModal() {
+        const form = $("#createAttachmentForm")[0];
+        if (form) form.reset();
+
+        // Reset all visual + logical states
+        $("#fileNameField").val("").hide();
+        $("#fileUpload").val("").show();
+        $("#languageSelect").val("");
+        $("#uploadDate").val("");
+        $("#deleteAttachmentBtn").addClass("d-none").removeData("id");
+        $("#createAttachmentSubmitBtn").removeClass("d-none");
+        $("#createAttachmentModal").removeData("type").removeData("id");
+      }
+
+      // ================= OPEN CREATE MODAL (Photo) =================
       $("#openCreateModalPhotoBtn").on("click", function () {
+        resetAttachmentModal(); // 🧹 full clean reset first
         $("#modalTitle").text("Add New Photo Attachment");
         $("#createAttachmentModal").data("type", "photo").modal("show");
-        const form = $("#createAttachmentForm")[0];
-        if (form) form.reset();
-
-        $("#createAttachmentSubmitBtn").removeClass("d-none");
-        $("#deleteAttachmentBtn").addClass("d-none");
       });
 
+      // ================= OPEN CREATE MODAL (Video) =================
       $("#openCreateModalVideoBtn").on("click", function () {
+        resetAttachmentModal();
         $("#modalTitle").text("Add New Video Attachment");
         $("#createAttachmentModal").data("type", "video").modal("show");
-        const form = $("#createAttachmentForm")[0];
-        if (form) form.reset();
-
-        $("#createAttachmentSubmitBtn").removeClass("d-none");
-        $("#deleteAttachmentBtn").addClass("d-none");
       });
 
       $(document).ready(function () {
@@ -1107,12 +1146,34 @@
             contentType: false,
             success: function (res) {
               console.log("✅ API success:", res);
-              alert("Attachment uploaded successfully (test mode)");
+              alert("Attachment uploaded successfully.");
+
               $('#preloader').hide();
               $('body').removeClass('user_loading');
               $("#createAttachmentModal").modal("hide");
               $("#createAttachmentForm")[0].reset();
+
+              // 🧩 Identify which type of upload
+              const currentType = $("#createAttachmentModal").data("type");
+
+              // 🌀 Delay a little to ensure modal fully hides before reload
+              setTimeout(() => {
+                if (currentType === "photo") {
+                  console.log("🔁 Refreshing photo DataTable...");
+                  // Works because photo table uses DataTable with AJAX
+                  if ($.fn.DataTable.isDataTable("#admin-photo-upload-table")) {
+                    $("#admin-photo-upload-table").DataTable().ajax.reload(null, false);
+                  } else {
+                    fetchPhotoData();
+                  }
+                } else {
+                  console.log("🔁 Refreshing video DataTable...");
+                  // Video table is built manually, so call fetchVideoData() again
+                  fetchVideoData();
+                }
+              }, 500);
             },
+
             error: function (err) {
               console.error("❌ API error:", err);
               alert("Error in uploading. Check console for details.");
@@ -1168,7 +1229,7 @@
                   const totalRecords = response.pagination?.total || decryptedData.length;
 
                   const formattedData = decryptedData.map((item) => ({
-                    edit: `<a data-id="${item.id}" href="javascript:void(0);"><i class="bi bi-pencil-square"></i></a>`,
+                    edit: `<a href="javascript:void(0);"><i class="bi bi-pencil-square" data-id="${item.id}"></i></a>`,
                     file_name: item.file_name || "N/A",
                     language: item.language || "N/A",
                     created_by: item.created_by || "N/A",
@@ -1263,13 +1324,18 @@
       // ================= INIT =================
       fetchPhotoData();
 
+      // ================= OPEN EDIT / DELETE MODAL =================
       $(document).on("click", ".bi-pencil-square", function () {
         const $row = $(this).closest("tr");
         const fileName = $row.find("td:eq(1)").text().trim();
         const language = $row.find("td:eq(2)").text().trim();
         const createdOn = $row.find("td:eq(4)").text().trim();
 
-        // Determine upload type
+        // ✅ Get the record ID from the clicked edit icon
+        // const recordId = $(this).data("id");
+        const recordId = $(this).data("id") || $(this).closest("a").data("id");
+
+        // Determine whether it's photo or video
         const uploadType = $(this).closest("table").attr("id").includes("video") ? "video" : "photo";
         $("#createAttachmentModal").data("type", uploadType);
 
@@ -1279,20 +1345,71 @@
         $("#uploadDate").val(createdOn);
 
         // ✅ Show filename inside text field
-        $("#fileUpload").hide(); // hide actual file picker
-        $("#fileNameField")
-          .val(fileName)
-          .show();
+        $("#fileUpload").hide();
+        $("#fileNameField").val(fileName).show();
 
-        // Hide add button, show delete
+        // ✅ Hide submit, show delete
         $("#createAttachmentSubmitBtn").addClass("d-none");
         $("#deleteAttachmentBtn").removeClass("d-none");
 
-        // Store ID for deletion
-        const recordId = $(this).data("id");
+        // ✅ Store the ID on the delete button for later use
         $("#deleteAttachmentBtn").data("id", recordId);
 
+        // 🟢 Open modal
         $("#createAttachmentModal").modal("show");
+
+        console.log("🆔 Record ID stored for deletion:", recordId);
+      });
+
+      // ================= DELETE ATTACHMENT =================
+      $(document).on("click", "#deleteAttachmentBtn", function () {
+        const recordId = $(this).data("id");
+
+        if (!recordId) {
+          showErrorToast("No record ID found for deletion.");
+          return;
+        }
+
+        if (!confirm("Are you sure you want to delete this attachment?")) {
+          return;
+        }
+
+        const payload = {
+          action: "function_call",
+          function_name: "fn_del_govt_attachments",
+          params: {
+            p_id: recordId
+          }
+        };
+
+        const formData = new FormData();
+        formData.append("data", encryptData(payload));
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            console.log("✅ Delete API success:", response);
+            showSuccessToast("Attachment deleted successfully.");
+
+            $("#createAttachmentModal").modal("hide");
+
+            // Refresh appropriate table
+            const currentType = $("#createAttachmentModal").data("type");
+            if (currentType === "photo") {
+              fetchPhotoData();
+            } else {
+              fetchVideoData();
+            }
+          },
+          error: function (err) {
+            console.error("❌ Delete API error:", err);
+            alert("Failed to delete attachment. Check console for details.");
+          }
+        });
       });
 
       let videoLoaded = false;
@@ -1319,8 +1436,337 @@
         location.reload();
       });
     });
-  </script>
+  </script> -->
+  <script>
+    $(document).ready(function () {
+      let langSwitch = "en";
 
+      // ==========================================================
+      // 🔹 Decrypt User Info
+      // ==========================================================
+      const secretKey = decryptKey();
+      const encryptedData = localStorage.getItem("userAdminName");
+      let userId = null;
+
+      if (encryptedData) {
+        try {
+          const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+          );
+          userId = decryptedData?.user_id || "Admin";
+        } catch (err) {
+          console.error("Error decrypting user data:", err);
+        }
+      }
+
+      // ==========================================================
+      // 🔹 COMMON UTILITY FUNCTION
+      // ==========================================================
+      function initDataTable(tableId) {
+        if ($.fn.DataTable.isDataTable(tableId)) {
+          $(tableId).DataTable().destroy();
+        }
+        $(tableId).DataTable({
+          paging: true,
+          searching: true,
+          ordering: true,
+          order: [[1, "asc"]],
+        });
+      }
+
+      // ==========================================================
+      // 🔹 PHOTO SECTION
+      // ==========================================================
+      function resetPhotoModal() {
+        const form = $("#photoAttachmentForm")[0];
+        if (form) form.reset();
+        $("#photoFileName").hide().val("");
+        $("#photoFile").show();
+        $("#photoSubmitBtn").removeClass("d-none");
+        $("#photoDeleteBtn").addClass("d-none").removeData("id");
+      }
+
+      $("#openPhotoModalBtn").on("click", function () {
+        resetPhotoModal();
+        $("#photoAttachmentModal .modal-title").text("Add New Photo Attachment");
+        $("#photoAttachmentModal").modal("show");
+      });
+
+      function fetchPhotoData() {
+        const payload = {
+          action: "function_call",
+          function_name: "fn_govt_attachments",
+          params: { p_language: langSwitch, p_mine: "image" },
+        };
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: { data: encryptData(payload) },
+          dataType: "json",
+          success: function (res) {
+            const data = decryptData(res.data) || [];
+            const tableBody = $("#photoTable tbody");
+            tableBody.empty();
+
+            if (!data.length) {
+              tableBody.html(
+                '<tr><td colspan="5" class="text-center">No Data Found</td></tr>'
+              );
+            } else {
+              data.forEach((item) => {
+                tableBody.append(`
+                <tr>
+                  <td><a href="javascript:void(0);" class="photo-edit" data-id="${item.id}"><i class="bi bi-pencil-square"></i></a></td>
+                  <td>${item.file_name || "-"}</td>
+                  <td>${item.language || "-"}</td>
+                  <td>${item.created_by || "-"}</td>
+                  <td>${item.created_on || "-"}</td>
+                </tr>`);
+              });
+            }
+
+            initDataTable("#photoTable");
+          },
+          error: function (xhr) {
+            console.error("Error fetching photo data:", xhr);
+          },
+        });
+      }
+
+      $(document).off("click", "#photoSubmitBtn").on("click", "#photoSubmitBtn", function () {
+        const file = $("#photoFile")[0].files[0];
+        if (!file) return alert("Select a file before submitting");
+
+        const payload = {
+          action: "function_call",
+          function_name: "fn_ins_govt_attachments",
+          params: {
+            p_file_attachment_name: `/uploads/${file.name}`,
+            p_file_name: file.name,
+            p_mimetype: file.type,
+            p_p_date: $("#photoDate").val(),
+            p_language: $("#photoLanguage").val(),
+            p_created_by: userId,
+          },
+        };
+
+        const formData = new FormData();
+        formData.append("data", encryptData(payload));
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function () {
+            alert("Photo uploaded successfully!");
+            $("#photoAttachmentModal").modal("hide");
+            fetchPhotoData();
+          },
+          error: function (xhr) {
+            console.error("Error uploading photo:", xhr);
+          },
+        });
+      });
+
+      $(document).on("click", ".photo-edit", function () {
+        const row = $(this).closest("tr");
+        $("#photoLanguage").val(row.find("td:eq(2)").text());
+        $("#photoDate").val(row.find("td:eq(4)").text());
+        $("#photoFileName").val(row.find("td:eq(1)").text()).show();
+        $("#photoFile").hide();
+        $("#photoSubmitBtn").addClass("d-none");
+        $("#photoDeleteBtn").removeClass("d-none").data("id", $(this).data("id"));
+        $("#photoAttachmentModal").modal("show");
+      });
+
+      $("#photoDeleteBtn").on("click", function () {
+        const id = $(this).data("id");
+        if (!id || !confirm("Delete this photo?")) return;
+
+        const payload = {
+          action: "function_call",
+          function_name: "fn_del_govt_attachments",
+          params: { p_id: id },
+        };
+
+        const formData = new FormData();
+        formData.append("data", encryptData(payload));
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function () {
+            alert("Photo deleted successfully.");
+            $("#photoAttachmentModal").modal("hide");
+            fetchPhotoData();
+          },
+          error: function (xhr) {
+            console.error("Error deleting photo:", xhr);
+          },
+        });
+      });
+
+      fetchPhotoData();
+
+      // ==========================================================
+      // 🔹 VIDEO SECTION
+      // ==========================================================
+      function resetVideoModal() {
+        const form = $("#videoAttachmentForm")[0];
+        if (form) form.reset();
+        $("#videoFileName").hide().val("");
+        $("#videoFile").show();
+        $("#videoSubmitBtn").removeClass("d-none");
+        $("#videoDeleteBtn").addClass("d-none").removeData("id");
+      }
+
+      $("#openVideoModalBtn").on("click", function () {
+        resetVideoModal();
+        $("#videoAttachmentModal .modal-title").text("Add New Video Attachment");
+        $("#videoAttachmentModal").modal("show");
+      });
+
+      function fetchVideoData() {
+        const payload = {
+          action: "function_call",
+          function_name: "fn_govt_attachments",
+          params: { p_language: langSwitch, p_mine: "video" },
+        };
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: { data: encryptData(payload) },
+          dataType: "json",
+          success: function (res) {
+            const data = decryptData(res.data) || [];
+            const tableBody = $("#videoTable tbody");
+            tableBody.empty();
+
+            if (!data.length) {
+              tableBody.html(
+                '<tr><td colspan="5" class="text-center">No Data Found</td></tr>'
+              );
+            } else {
+              data.forEach((item) => {
+                tableBody.append(`
+                <tr>
+                  <td><a href="javascript:void(0);" class="video-edit" data-id="${item.id}"><i class="bi bi-pencil-square"></i></a></td>
+                  <td>${item.file_name || "-"}</td>
+                  <td>${item.language || "-"}</td>
+                  <td>${item.created_by || "-"}</td>
+                  <td>${item.created_on || "-"}</td>
+                </tr>`);
+              });
+            }
+
+            initDataTable("#videoTable");
+          },
+          error: function (xhr) {
+            console.error("Error fetching video data:", xhr);
+          },
+        });
+      }
+
+      $(document).off("click", "#videoSubmitBtn").on("click", "#videoSubmitBtn", function () {
+        const file = $("#videoFile")[0].files[0];
+        if (!file) return alert("Select a file before submitting");
+
+        const payload = {
+          action: "function_call",
+          function_name: "fn_ins_govt_attachments",
+          params: {
+            p_file_attachment_name: `/uploads/${file.name}`,
+            p_file_name: file.name,
+            p_mimetype: file.type,
+            p_p_date: $("#videoDate").val(),
+            p_language: $("#videoLanguage").val(),
+            p_created_by: userId,
+          },
+        };
+
+        const formData = new FormData();
+        formData.append("data", encryptData(payload));
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function () {
+            alert("Video uploaded successfully!");
+            $("#videoAttachmentModal").modal("hide");
+            fetchVideoData();
+          },
+          error: function (xhr) {
+            console.error("Error uploading video:", xhr);
+          },
+        });
+      });
+
+      $(document).on("click", ".video-edit", function () {
+        const row = $(this).closest("tr");
+        $("#videoLanguage").val(row.find("td:eq(2)").text());
+        $("#videoDate").val(row.find("td:eq(4)").text());
+        $("#videoFileName").val(row.find("td:eq(1)").text()).show();
+        $("#videoFile").hide();
+        $("#videoSubmitBtn").addClass("d-none");
+        $("#videoDeleteBtn").removeClass("d-none").data("id", $(this).data("id"));
+        $("#videoAttachmentModal").modal("show");
+      });
+
+      $("#videoDeleteBtn").on("click", function () {
+        const id = $(this).data("id");
+        if (!id || !confirm("Delete this video?")) return;
+
+        const payload = {
+          action: "function_call",
+          function_name: "fn_del_govt_attachments",
+          params: { p_id: id },
+        };
+
+        const formData = new FormData();
+        formData.append("data", encryptData(payload));
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function () {
+            alert("Video deleted successfully.");
+            $("#videoAttachmentModal").modal("hide");
+            fetchVideoData();
+          },
+          error: function (xhr) {
+            console.error("Error deleting video:", xhr);
+          },
+        });
+      });
+
+      // fetchVideoData();
+      let videoLoaded = false;
+
+      $('a[data-bs-toggle="tab"]').on("shown.bs.tab", function (e) {
+        const targetTab = $(e.target).attr("href"); // example: #photoTab or #videoTab
+        console.log("Switched to tab:", targetTab);
+        if (targetTab === "videoPane") {
+          fetchVideoData();
+        } else if (targetTab === "#photoPane") {
+          fetchPhotoData();
+        }
+      });
+
+    });
+  </script>
 
 </body>
 
