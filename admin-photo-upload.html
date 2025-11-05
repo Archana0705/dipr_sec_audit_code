@@ -1757,7 +1757,7 @@
 
       $('a[data-bs-toggle="tab"]').on("shown.bs.tab", function (e) {
         const targetTab = $(e.target).attr("href"); // example: #photoTab or #videoTab
-        console.log("Switched to tab:", targetTab);
+
         if (targetTab === "videoPane") {
           fetchVideoData();
         } else if (targetTab === "#photoPane") {

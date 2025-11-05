@@ -300,9 +300,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Info&#x26;PRDept" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <link rel="manifest"
+    <!-- <link rel="manifest"
         href="&#x2F;ords&#x2F;r&#x2F;dipr&#x2F;info-prdept103&#x2F;manifest.json&#x3F;v&#x3D;24.1.7-44329441868468&#x26;lang&#x3D;en"
-        crossorigin="use-credentials" />
+        crossorigin="use-credentials" /> -->
+
+        <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#007bff">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -374,13 +377,11 @@
                     </div>
                     <div class="t-Header-navBar--center">
                         <ul class="t-NavigationBar " id="32861498506172843">
-                            <li class="t-NavigationBar-item a-pwaInstall">
-                                <a class="t-Button t-Button--icon t-Button--header t-Button--navBar"
-                                    href="#action$a-pwa-install" title="" target="">
-                                    <span class="t-Icon fa&#x20;fa-cloud-download" aria-hidden="true"></span><span
-                                        class="t-Button-label">Install App</span><span class="t-Button-badge"></span>
-                                </a>
-                            </li>
+                            <li class="t-NavigationBar-item a-pwaInstall"> <a class="t-Button t-Button--icon 
+              t-Button--header t-Button--navBar" href="#action$a-pwa-install" title="" target="" 
+              aria-roledescription="action link" style=""> <span class="t-Icon fa fa-cloud-download" 
+              aria-hidden="true"></span><span class="t-Button-label">Install App</span>
+              <span class="t-Button-badge"></span> </a> </li>
                             <li class="t-NavigationBar-item has-username">
                                 <button class="t-Button t-Button--icon t-Button t-Button--header t-Button--navBar"
                                     type="button" id="L33048349307174626" data-menu="menu_L33048349307174626" title="">
@@ -919,6 +920,8 @@
             });
         });
     </script>
+
+    <script src="assets/js/install.js"></script>
 
 </body>
 
