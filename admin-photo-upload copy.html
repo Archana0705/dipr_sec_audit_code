@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html class="no-js  page-18 app-INFO-PRDEPT103" lang="en">
+
+<head>
+  <script>
+    if (!localStorage.getItem("userAdminName")) {
+      window.location.replace("index.html");
+    }
+  </script>
+  <meta http-equiv="x-ua-compatible" content="IE=edge" />
+  <meta charset="utf-8">
+  <title>Photo Upload</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/Core.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/Theme-Standard.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/font-apex.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/Coretheme.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/cs-theme.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/custom.min.css">
+  <link rel="apple-touch-icon" href="assets/img/app-icon-192.png">
+  <link rel="icon" href="assets/img/app-icon-32.png">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/toastr/toastr.min.css" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://static.oracle.com/cdn/apex/24.1.7/libraries/oraclejet/16.0.10/css/libs/oj/16.0.10/redwood/oj-redwood-notag-min.css?v=24.1.7"
+    type="text/css" />
+  <link rel="stylesheet" href="https://static.oracle.com/cdn/apex/24.1.7/app_ui/css/Core.min.css?v=24.1.7"
+    type="text/css" />
+  <link rel="stylesheet" href="https://static.oracle.com/cdn/apex/24.1.7/app_ui/css/Theme-Standard.min.css?v=24.1.7"
+    type="text/css" />
+
+  <link rel="stylesheet"
+    href="https://static.oracle.com/cdn/apex/24.1.7/libraries/font-apex/2.3/css/font-apex.min.css?v=24.1.7"
+    type="text/css" />
+  <link rel="stylesheet" href="https://static.oracle.com/cdn/apex/24.1.7/themes/theme_42/23.1/css/Core.min.css?v=24.1.7"
+    type="text/css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/menu.css">
+  <link href="assets/vendor/datatable/css/dataTables.css" rel="stylesheet">
+
+  <style>
+    div#admin-photo-upload-table_paginate {
+      display: flex;
+      justify-content: end;
+      cursor: pointer;
+      gap: 15px;
+    }
+
+    div#admin-photo-upload-table_paginate span {
+      display: flex;
+      gap: 10px;
+    }
+
+    div#admin-photo-upload-table_paginate a.paginate_button {
+      color: #333;
+      text-decoration: none;
+    }
+
+    div#video-upload-table_paginate {
+      display: flex;
+      justify-content: end;
+      cursor: pointer;
+      gap: 15px;
+    }
+
+    div#video-upload-table_paginate span {
+      display: flex;
+      gap: 10px;
+    }
+
+    div#video-upload-table_paginate a.paginate_button {
+      color: #333;
+      text-decoration: none;
+    }
+
+    .showlink {
+      display: none !important;
+      position: absolute;
+      background: white;
+      border: 1px solid #ccc;
+      z-index: 999;
+      min-width: 150px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .showlink.force-show {
+      display: block !important;
+    }
+
+    /* Force dropdown to show */
+    .t-NavigationBar-menu {
+      display: none !important;
+      position: absolute !important;
+      background: white !important;
+      border: 1px solid #ccc !important;
+      z-index: 9999 !important;
+      min-width: 150px !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    /* Show when force-show is applied */
+    .t-NavigationBar-menu.force-show {
+      display: block !important;
+    }
+
+    .t-NavigationBar-menu {
+      display: none;
+    }
+
+    .t-NavigationBar-menu.show {
+      display: block;
+    }
+
+    .t-NavigationBar-menu {
+      z-index: 9999;
+    }
+
+    .t-NavigationBar-menu {
+      display: none;
+      position: absolute;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      padding: 5px;
+    }
+  </style>
+  <style type="text/css">
+    #engSecContent tr td {
+      text-align: left !important;
+    }
+
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 9999;
+      overflow: hidden;
+      background: #12121261;
+      /*width: 57%;*/
+      border-radius: 13px 35px;
+    }
+
+    #preloader:before {
+      content: "";
+      position: fixed;
+      top: calc(50% - 30px);
+      left: calc(53% - 30px);
+      border: 6px solid #f92020b8;
+      border-top-color: #e2eefd;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      -webkit-animation: animate-preloader 1s linear infinite;
+      animation: animate-preloader 1s linear infinite;
+      z-index: 9999;
+    }
+
+    @-webkit-keyframes animate-preloader {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes animate-preloader {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    #engSecContent tr td {
+      text-align: left !important;
+    }
+
+    #TASecCon tr td {
+      text-align: left !important;
+    }
+
+    .t-Footer {
+      background-color: #3b3b79;
+      color: white;
+    }
+
+    .t-Header-nav1 {
+      text-align: center;
+      background-color: #3b3b79;
+      color: white;
+    }
+
+    .t-Header-navBar {
+      --ut-field-padding-y: 0rem;
+      align-items: center;
+      display: grid;
+      grid-area: navbar;
+      grid-template-areas: "navbar-start navbar-center navbar-end";
+      grid-template-columns: 1fr auto auto;
+      justify-content: end;
+      align-content: center;
+      background: #3b3b79;
+      color: white;
+    }
+
+    .apex-item-select,
+    .datetimepicker_newMonth,
+    .u-TF-item--select,
+    select.group_selectlist {
+      background-position: 100%;
+      background-repeat: no-repeat;
+      padding-inline-end: var(--a-field-select-arrow-padding, 2rem);
+      color: white;
+      background: #3b3b79;
+      width: 105px;
+    }
+
+
+    .fa {
+      padding: 10px;
+      font-size: 15px;
+      width: 40px;
+      text-align: center;
+      text-decoration: none;
+      margin: 5px 2px;
+      border-radius: 30%;
+    }
+
+    .fa:hover {
+      opacity: 0.7;
+    }
+
+    .fa-facebook {
+      background: #3B5998;
+      color: white;
+    }
+
+    .fa-twitter {
+      background: #55ACEE;
+      color: white;
+    }
+
+    .fa-google {
+      background: #dd4b39;
+      color: white;
+    }
+
+    .fa-linkedin {
+      background: #007bb5;
+      color: white;
+    }
+
+    .fa-youtube {
+      background: #bb0000;
+      color: white;
+    }
+
+    .fa-instagram {
+      background: white;
+      color: black;
+    }
+
+    h4,
+    h2 {
+      font-weight: var(--a-base-font-weight-semibold, 500);
+      line-height: 1.5;
+      color: #3b3b79;
+
+    }
+
+    .t-Breadcrumb-label {
+      color: #3c3b79;
+      display: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      margin: inherit;
+    }
+
+    .t-Footer-topButton {
+      --a-icon-size: 1rem;
+      -webkit-margin-start: auto;
+      -webkit-margin-end: auto;
+      align-items: center;
+      background-color: var(--ut-footer-top-background-color, var(--a-button-background-color));
+      border-color: var(--ut-footer-top-border-color, var(--a-button-border-color));
+      border-radius: var(--ut-footer-top-border-radius, 100%);
+      border-style: solid;
+      border-width: var(--ut-footer-top-border-width, var(--a-button-border-width, 1px));
+      box-shadow: var(--ut-footer-top-box-shadow, var(--a-button-box-shadow), none);
+      color: var(--ut-footer-top-text-color, var(--a-button-text-color));
+      display: flex;
+      height: var(--ut-footer-top-size, 2.5rem);
+      justify-content: center;
+      margin-inline-end: auto;
+      margin-inline-start: auto;
+      /* opacity: var(--ut-footer-top-opacity,.); */
+      padding: calc(var(--ut-footer-top-padding, .75rem) - var(--ut-footer-top-border-width, var(--a-button-border-width, 1px)));
+      transition: .1s ease;
+      width: var(--ut-footer-top-size, 2.5rem);
+      z-index: 99;
+      position: fixed;
+      bottom: 3%;
+      right: 3%;
+      box-shadow: 1px 1px 5px black;
+    }
+
+    /* Sticky header styles */
+    .nobgcolor {
+      background-color: #fff;
+      /* Set your desired background color */
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    /* Header image styles */
+    .header-images {
+      max-height: 110px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* Center text styles */
+    .center-text {
+      display: block;
+      margin: auto;
+      font-weight: 900;
+      font-size: 1.5rem;
+    }
+
+    /* Container for centering */
+    .widthFixed {
+      max-width: 100%;
+      /* Adjust as needed */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .center-text center {
+      color: #c52c27;
+
+    }
+
+    .txtBlue {
+      color: #3c3b79;
+      font-weight: 900;
+      font-size: 1.5rem;
+    }
+
+    #first_image {
+      margin-left: 8%;
+    }
+
+    #last_image {
+      margin-right: 8%;
+    }
+
+    .container {
+      width: 80%;
+      text-align: justify;
+    }
+
+    @media only screen and (max-width:600px) {
+      .header-images {
+        max-height: 50px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .container {
+        width: 95%;
+      }
+
+      #first_image {
+        margin-left: 2%;
+      }
+
+      #last_image {
+        margin-right: 2%;
+      }
+
+      .center-text {
+        display: block;
+        text-align: center;
+        margin: auto;
+        font-weight: 400;
+        font-size: .8rem;
+
+      }
+
+      .txtBlue {
+        color: #3c3b79;
+        font-weight: 800;
+        font-size: .9rem;
+      }
+
+    }
+
+    /* .first_image{
+                    position:
+                } */
+  </style>
+
+  <link rel="stylesheet" href="r/dipr/103/files/theme/42/v87/10689188252099023.css" type="text/css" />
+
+
+
+  <link rel="apple-touch-icon" href="r/dipr/103/files/static/v397/icons/app-icon-192.png" />
+  <link rel="icon" href="r/dipr/103/files/static/v397/icons/app-icon-32.png" />
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta http-equiv="Cache-Control" content="no-cache" />
+  <meta name="theme-color" content="&#x23;000000" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Info&#x26;PRDept" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+
+  <div id="preloader"></div>
+</head>
+
+<body
+  class="t-PageBody t-PageBody--hideLeft t-PageBody--hideActions no-anim t-PageTemplate--standard   apex-top-nav apex-icons-fontapex apex-theme-vita-copy-2-copy-1"
+  id="t_PageBody">
+  <a href="#main" id="t_Body_skipToContent">Skip to Main Content</a>
+
+  <form>
+    <header class="t-Header" id="t_Header" role="banner">
+
+      <div class="t-Header-navBar">
+
+        <div class="t-Header-navBar--start">
+
+          <div class="t-Header-navBar--end">
+            <div
+              class="t-Form-fieldContainer rel-col t-Form-fieldContainer--large t-Form-fieldContainer--normalDisplay apex-item-wrapper apex-item-wrapper--has-initial-value apex-item-wrapper--select-list"
+              id="P0_LANGUAGE_CONTAINER">
+              <div class="t-Form-labelContainer col col-null">
+                <label for="P0_LANGUAGE" id="P0_LANGUAGE_LABEL" class="t-Form-label"></label>
+              </div>
+              <div class="t-Form-inputContainer col col-null">
+                <div class="t-Form-itemWrapper"><select id="P0_LANGUAGE" name="P0_LANGUAGE"
+                    class="selectlist apex-item-select" data-native-menu="false" size="1">
+                    <option value="en">English</option>
+                    <option value="ta">Tamil</option>
+                  </select></div><span id="P0_LANGUAGE_error_placeholder" class="a-Form-error"
+                  data-template-id="32751098700172723_ET"></span>
+              </div>
+            </div>
+            <div class="t-Header-navBar--center">
+              <ul class="t-NavigationBar " id="32861498506172843">
+                <li class="t-NavigationBar-item a-pwaInstall">
+                  <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#action$a-pwa-install"
+                    title="" target="">
+                    <span class="t-Icon fa&#x20;fa-cloud-download" aria-hidden="true"></span><span
+                      class="t-Button-label">Install App</span><span class="t-Button-badge"></span>
+                  </a>
+                </li>
+                <li class="t-NavigationBar-item has-username shownav">
+                  <button class="t-Button t-Button--icon t-Button--header t-Button--navBar" type="button">
+                    <span class="t-Icon fa fa-user" aria-hidden="true"></span>
+                    <span class="t-Button-label admin-name-change">Username</span>
+                    <span class="t-Button-badge"></span>
+                    <span class="a-Icon icon-down-arrow" aria-hidden="true"></span>
+                  </button>
+                  <!-- <div class="t-NavigationBar-menu showlink">
+							<ul>
+							  <li>
+								<a href="#">Sign Out</a>
+							  </li>
+							</ul>
+						  </div> -->
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          <a href="https://www.facebook.com/TNDIPR" class="fa fa-facebook" target='_blank'></a>
+          <a href="https://twitter.com/TNDIPRNEWS" class="fa fa-twitter " target='_blank'></a>
+          <!--<a href="https://www.instagram.com/tndipr" class="fa fa-instagram"></a> -->
+          <a href="https://www.instagram.com/tndipr"><img src="r/dipr/103/files/static/v358/instagram.jpeg"
+              style="height:35px;" class="fa fa-twitter" target='_blank'>
+            <a href="https://www.youtube.com/c/tndipr21" class="fa fa-youtube" target='_blank'></a>
+
+
+        </div>
+
+      </div>
+
+      <!-- <div class=" nobgcolor ">
+<img id="first_image" style=" height: 100%;" src = 'r/dipr/103/files/static/v397/left-png.png' > <span class="alignCenter"><center> Information and Public Relations Department </br> செய்தி – மக்கள் தொடர்புத்துறை </center></span>
+    <img id="last_image" style=" height: 100%;" src = "r/dipr/103/files/static/v397/right-png.png" > 
+
+   </div> -->
+      <div class="nobgcolor">
+        <div class="widthFixed">
+          <!-- <img id="first_image" class="header-images" src="r/dipr/103/files/static/v397/left-png.png"> -->
+          <div class="center-text">
+            <center>Information and Public Relations Department
+              <br> <span class="txtBlue">செய்தி – மக்கள் தொடர்புத்துறை</span>
+            </center>
+          </div>
+          <!-- <img id="last_image" class="header-images" src="r/dipr/103/files/static/v397/right-png.png"> -->
+        </div>
+      </div>
+
+      <div class="t-Header-nav">
+        <div class="t-Header-nav-list js-tabLike js-tabLike" id="t_MenuNav">
+          <ul>
+            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                class="a-MenuBar-label" href="index.html" title="" target="">Home</a>
+            </li>
+            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                class="a-MenuBar-label" href="about_page.html" title="" target="">About
+                Us</a></li>
+            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                class="a-MenuBar-label" href="gallery1.html" title="" target="">Photo
+                &#x2F; Video</a></li>
+            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                class="a-MenuBar-label" href="press-release1.html" title="" target="">Press Release &#x2F; Press
+                Note</a></li>
+            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                class="a-MenuBar-label" href="government-orders.html" title="" target="">Government Orders</a></li>
+            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                class="a-MenuBar-label" href="sections.html" title="" target="">Sections</a></li>
+            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                class="a-MenuBar-label" href="download-forms.html" title="" target="">Download Forms</a></li>
+            <li class="a-MenuBar-item admin-menu-show" data-id="" data-disabled="" data-hide="" data-shortcut=""
+              data-icon=""><a class="a-MenuBar-label" href="admin-google-sheets.html" title="" target="">Google
+                Sheets - Report</a>
+            </li>
+            <li class="a-MenuBar-item admin-menu-show a-Menu--current" data-current="true" data-id="" data-disabled=""
+              data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="" title=""
+                target="">Administration</a>
+              <ul style="display: none">
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-photo-upload.html" title="" target="">Photo&#x2F;Video Upload</a>
+                </li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-press-release.html" title="" target="">Upload Press Release</a>
+                </li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-section-content.html" title="" target="">Sections Content</a>
+                </li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-goverment-orders.html" title="" target="">Upload Government
+                    Orders</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-sections-data-report.html" title="" target="">Sections Data
+                    Report</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-forms-report.html" title="" target="">Forms Report</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-memorial-video-report.html" title="" target="">memorial_video_report</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-monuments.html" title="" target="">Monuments</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="admin-arangams.html"
+                    title="" target="">Arangams</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-commemoration-pillars.html" title="" target="">Commemoration
+                    Pillars</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-commemoration-arch.html" title="" target="">Commemoration
+                    Arch</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-department-pictures.html" title="" target="">Department
+                    Pictures</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-department-details.html" title="" target="">Department
+                    Details</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-conclusion-photos.html" title="" target="">Conclusion_Photos</a>
+                </li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-google-sheets.html" title="" target="">Google Sheets</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-press-notes.html" title="" target="">Upload Press Note</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="admin-add-user.html"
+                    title="" target="">Add
+                    User</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-navigation-list-entry.html" title="" target="">Navigation Menu
+                    Report</a></li>
+              </ul>
+            </li>
+          </ul>
+          </ul>
+        </div>
+      </div>
+
+    </header>
+
+    <div class="t-Body">
+
+      <div class="t-Body-main">
+        <div class="t-Body-title" id="t_Body_title">
+          <nav id="R35581281318104459" role="navigation" aria-label="Breadcrumb"
+            class="t-BreadcrumbRegion t-BreadcrumbRegion--showBreadcrumb t-BreadcrumbRegion--useBreadcrumbTitle">
+            <div class="t-BreadcrumbRegion-top">
+              <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--start"></div>
+              <div class="t-BreadcrumbRegion-body">
+                <div class="t-BreadcrumbRegion-breadcrumb">
+                  <ul class="t-Breadcrumb ">
+                    <li class="t-Breadcrumb-item is-active" aria-current="page">
+                      <h1 class="t-Breadcrumb-label">Photo Upload</h1>
+                    </li>
+                  </ul>
+                </div>
+                <div class="t-BreadcrumbRegion-title">
+                  <h1 id="R35581281318104459_heading" class="t-BreadcrumbRegion-titleText" data-apex-heading>Breadcrumb
+                  </h1>
+                </div>
+              </div>
+              <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--end"></div>
+            </div>
+            <div class="t-BreadcrumbRegion-bottom"></div>
+          </nav>
+        </div>
+        <div class="t-Body-content" id="t_Body_content">
+          <main id="main" class="t-Body-mainContent">
+            <span id="APEX_SUCCESS_MESSAGE" data-template-id="33086037481442559_S"
+              class="apex-page-success u-hidden"></span><span id="APEX_ERROR_MESSAGE"
+              data-template-id="33086037481442559_E" class="apex-page-error u-hidden"></span>
+            <div class="t-Body-fullContent"></div>
+            <div class="t-Body-contentInner">
+              <div class="container">
+                <div class="row ">
+                  <div class="col col-12 apex-col-auto col-start col-end">
+                    <div id="R22879691196163085" class=""></div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col col-12 apex-col-auto col-start col-end">
+                    <div class="t-TabsRegion js-useLocalStorage t-TabsRegion-mod--simple apex-tabs-region"
+                      id="R37494869251508934">
+                      <!-- CREATE ATTACHMENT MODAL (for both photo/video) -->
+                      <div class="modal fade" id="createAttachmentModal" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <form id="createAttachmentForm">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalTitle">Add New Attachment</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                              </div>
+
+                              <div class="modal-body">
+                                <div class="mb-3">
+                                  <label>Select File</label>
+                                  <input type="file" id="fileUpload" class="form-control" required />
+                                </div>
+
+                                <div class="mb-3">
+                                  <label>Upload Date</label>
+                                  <input type="date" id="uploadDate" class="form-control" required />
+                                </div>
+
+                                <div class="mb-3">
+                                  <label>Language</label>
+                                  <select id="languageSelect" class="form-select" required>
+                                    <option value="en">English</option>
+                                    <option value="ta">Tamil</option>
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Tabs -->
+                      <ul class="nav nav-tabs" id="uploadTabs">
+                        <li class="nav-item">
+                          <a class="nav-link active" id="photo-tab" data-bs-toggle="tab" href="#photoPane">Photo
+                            Upload</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="video-tab" data-bs-toggle="tab" href="#videoPane">Video Upload</a>
+                        </li>
+                      </ul>
+
+                      <!-- Tab Contents -->
+                      <div class="tab-content mt-3">
+                        <!-- PHOTO UPLOAD TAB -->
+                        <div class="tab-pane fade show active" id="photoPane">
+                          <button id="openCreateModalPhotoBtn" class="btn btn-success mt-3">Create Photo
+                            Attachment</button>
+                          <table id="admin-photo-upload-table" class="table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                <th>Edit</th>
+                                <th>File Name</th>
+                                <th>Language</th>
+                                <th>Created By</th>
+                                <th>Created On</th>
+                              </tr>
+                            </thead>
+                            <tbody id="engSecContent"></tbody>
+                          </table>
+                        </div>
+
+                        <!-- VIDEO UPLOAD TAB -->
+                        <div class="tab-pane fade" id="videoPane">
+                          <button id="openCreateModalVideoBtn" class="btn btn-success mt-3">Create Video
+                            Attachment</button>
+                          <table id="video-upload-table" class="table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                <th>Edit</th>
+                                <th>File Name</th>
+                                <th>Language</th>
+                                <th>Created By</th>
+                                <th>Created On</th>
+                              </tr>
+                            </thead>
+                            <tbody id="TASecCon"></tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+          <footer class="t-Footer" id="t_Footer" role="contentinfo">
+            <div class="t-Footer-body">
+              <div class="t-Footer-content">
+                <div class="container">
+                  <div class="row ">
+                    <div class="col col-12 apex-col-auto col-start col-end">
+                      <div id="R11684238522218402" class="">Information & Public Relations
+                        Department, Secretariat, Chennai 600 009</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="t-Footer-apex">
+
+                <div class="t-Footer-version">
+
+                </div>
+                <div class="t-Footer-customize">
+
+                </div>
+
+              </div>
+            </div>
+            <div class="t-Footer-top">
+              <a href="#top" class="t-Footer-topButton" id="t_Footer_topButton" title="Start of page"
+                aria-label="Start of page"><span class="a-Icon icon-up-chevron" aria-hidden="true"></span></a>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <div class="t-Body-inlineDialogs" id="t_Body_inlineDialogs"></div>
+    <input type="hidden" id="pPageFormRegionChecksums" value="&#x5B;&#x5D;">
+    <input type="hidden" id="pPageItemsRowVersion" value="" />
+    <input type="hidden" id="pPageItemsProtected"
+      value="&#x2F;J4ieeBRwL3lIIKqd0-cL5kzutqFyrLI3idLlAiE2MmdvDJ3gUXpKHuJRINK-moovG6G6oeKYG8JP--3FNT8zHw" />
+  </form>
+
+  <script src="assets/js/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="assets/js/desktop_all.min.js"></script>
+  <script src="assets/vendor/datatable/jquery.dataTables.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/global.js"></script>
+  <script src="assets/js/fileValidator.js"></script>
+  <script src="assets/js/basepath.js"></script>
+  <script src="assets/js/apiConfig.js"></script>
+  <script src="assets/js/encrypt_decrypt.js"></script>
+  <script src="assets/js/crypto-js.min.js"></script>
+  <script src="assets/js/toastUtil.js"></script>
+  <script type="text/javascript">
+    apex.session.initTimeouts(300, { "idle_time_ms": 3595000, "life_time_ms": 28755000, "max_idle_time_ms": 3600000 }, '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fhome', '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fhome');
+    apex.jQuery(function () {
+      apex.page.init(this, function () {
+        try {
+          (function () { apex.widget.selectList("#P0_LANGUAGE", { "ajaxIdentifier": "SVRFTSBUWVBFfjUxMjB-MzgxODM5MDAxMjAxMjk3NDc\u002FqNARaPF5gDXj9vUg6HNb_-Nu7WF-ASygDaMOVVhb1z-Xe7rng6WDpJFQfSGfA0_eq-mm9wm0mx3CjUGl7mhFpA" }); })();
+          (function () {
+            var e = apex.jQuery("#t_MenuNav", apex.gPageContext$);
+            if (e.hasClass("js-addActions")) {
+              apex.actions.addFromMarkup(e);
+            }
+            e.menu({
+              behaveLikeTabs: e.hasClass("js-tabLike"),
+              menubarShowSubMenuIcon: e.hasClass("js-showSubMenuIcons") || null,
+              menubar: true,
+              menubarOverflow: true,
+              callout: e.hasClass("js-menu-callout")
+            });
+          })();
+          (function () { apex.jQuery('#R34839964403869597_ir').interactiveReport({ "regionId": "R34839964403869597", "helpLink": "wwv_flow_utilities.show_ir_help?p_app_id=103\u0026p_worksheet_id=34839996188869597\u0026p_lang=en", "lazyLoading": false, "ajaxIdentifier": "UkVHSU9OIFRZUEV-fjM0ODM5OTY0NDAzODY5NTk3\u002F1h3h-l5ziaqoxBpLrM_KI3v-d4OwVtIuxt1TSsxJyOGdiCAdZBq79n5zvLnQCHpEsHHZ-J2ehCjC2LIAqbL57A" }); })();
+          (function () {
+            var e = apex.jQuery("#t_MenuNav", apex.gPageContext$);
+            if (e.hasClass("js-addActions")) {
+              apex.actions.addFromMarkup(e);
+            }
+            e.menu({
+              behaveLikeTabs: e.hasClass("js-tabLike"),
+              menubarShowSubMenuIcon: e.hasClass("js-showSubMenuIcons") || null,
+              menubar: true,
+              menubarOverflow: true,
+              callout: e.hasClass("js-menu-callout")
+            });
+          })();
+        } catch (e) { apex.debug.error(e) };
+        apex.item.waitForDelayLoadItems().done(function () {
+          try {
+            (function () {
+              apex.da.initDaEventList();
+              apex.da.init();
+            })();
+            apex.theme42.initializePage.noSideCol();
+
+            apex.page.warnOnUnsavedChanges();
+          } finally {
+            apex.event.trigger(apex.gPageContext$, 'apexreadyend');
+          };
+        });
+      });
+    }); apex.pwa.publicKey = ''
+    apex.pwa.pushSubscriptions = [
+    ]
+    apex.pwa.init({ serviceWorkerPath: '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fsw.js?v=24.1.7-44329441868468\u0026lang=en' });
+  </script>
+
+  <script>
+
+
+    $(document).ready(function () {
+      $("#adminLoginBtn").on("click", function () {
+        window.location.href = "admin-login.html";
+      });
+
+      $('.shownav').on('click', function (e) {
+
+        e.stopPropagation(); // Prevent closing when clicking inside
+        $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
+        $(this).find('.showlink').toggleClass('force-show');
+      });
+
+      // Click outside to hide dropdown
+      $(document).on('click', function () {
+        $('.showlink').removeClass('force-show');
+      });
+    });
+
+
+  </script>
+  <script>
+    // ✅ Make these GLOBAL — outside $(document).ready()
+    // function showSuccessToast(message) {
+    //   const toastElement = document.getElementById('successToast');
+    //   const toastBody = document.getElementById('successMessage');
+    //   if (!toastElement || !toastBody) {
+    //     console.warn('Toast elements not found.');
+    //     alert(message); // fallback
+    //     return;
+    //   }
+
+    //   toastBody.textContent = message;
+
+    //   const toast = new bootstrap.Toast(toastElement, {
+    //     autohide: true,
+    //     delay: 3000
+    //   });
+    //   toast.show();
+    // }
+
+    // function showErrorToast(message) {
+    //   const toastElement = document.getElementById('errorToast');
+    //   const toastBody = document.getElementById('errorMessage');
+    //   if (!toastElement || !toastBody) {
+    //     console.warn('Toast elements not found.');
+    //     alert(message); // fallback
+    //     return;
+    //   }
+
+    //   toastBody.textContent = message;
+
+    //   const toast = new bootstrap.Toast(toastElement, {
+    //     autohide: true,
+    //     delay: 3000
+    //   });
+    //   toast.show();
+    // }
+
+    $(document).ready(function () {
+      const secretKey = decryptKey();
+      const encryptedData = localStorage.getItem("role");
+      let role = null;
+
+      if (encryptedData) {
+        try {
+          const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+          );
+          role = decryptedData || null;
+        } catch (err) {
+          console.error("Error decrypting user data:", err);
+        }
+      }
+
+      var userAdminName = localStorage.getItem("userAdminName");
+      if (role) {
+        $('.admin-name-change').text(role);
+        $('.js-tabLike .admin-menu-show').css('display', 'block');
+
+        var interval = setInterval(function () {
+          if ($('#t_MenuNav_7').length) $('#t_MenuNav_7').css('display', 'flex');
+          if ($('#t_MenuNav_8').length) $('#t_MenuNav_8').css('display', 'flex');
+          if ($('#t_MenuNav_7').length && $('#t_MenuNav_8').length) clearInterval(interval);
+        }, 100);
+      }
+
+      var appendSignout = `
+    <div class="t-NavigationBar-menu showlink">
+      <ul><li><a href="../index.html" class="signOutBtn">Sign Out</a></li></ul>
+    </div>`;
+      $('.t-NavigationBar-item.has-username.shownav').append(appendSignout);
+
+      $(".signOutBtn").on("click", function (event) {
+        event.preventDefault();
+
+        const payload = {
+          action: "function_call",
+          function_name: "user_logout",
+          params: { user_id: userId }
+        };
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          type: "POST",
+          headers: {
+            "X-App-Key": "dipr",
+            "X-App-Name": "dipr"
+          },
+          data: { data: encryptData(payload) },
+          dataType: "json",
+          success: function (response) {
+            if (response.success) {
+              localStorage.removeItem("role");
+              localStorage.removeItem("userAdminName");
+              showSuccessToast(response.message || "Logged out successfully!");
+              window.location.href = "index.html";
+            } else {
+              showErrorToast(response.message || "Logout failed");
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error("Logout request failed:", error);
+            showErrorToast("Logout request failed. Please try again.");
+          }
+        });
+      });
+    });
+  </script>
+
+
+
+
+  <script>
+    $(document).ready(function () {
+      $('#preloader').hide();
+      let langSwitch = 'en';
+
+      // 🔹 Preloader handling for AJAX
+      $(document).on({
+        ajaxStart: function () {
+          $('#preloader').show();
+          $("body").addClass("user_loading");
+        },
+        ajaxStop: function () {
+          $('#preloader').hide();
+          $("body").removeClass("user_loading");
+        }
+      });
+
+      // 🔹 User info decryption
+      let userId = null;
+      const secretKey = decryptKey();
+      const encryptedData = localStorage.getItem("userAdminName");
+
+      if (encryptedData) {
+        try {
+          const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+          );
+          userId = decryptedData?.user_id || null;
+        } catch (err) {
+          console.error("Error decrypting user data:", err);
+        }
+      }
+
+
+      // =====================================================
+      // ✅ Open Modal — Detect which button was clicked
+      // =====================================================
+      $("#openCreateModalPhotoBtn").on("click", function () {
+        $("#modalTitle").text("Add New Photo Attachment");
+        $("#createAttachmentModal").data("type", "photo").modal("show");
+        $("#createAttachmentForm")[0].reset();
+      });
+
+      $("#openCreateModalVideoBtn").on("click", function () {
+        $("#modalTitle").text("Add New Video Attachment");
+        $("#createAttachmentModal").data("type", "video").modal("show");
+        $("#createAttachmentForm")[0].reset();
+      });
+
+      // =====================================================
+      // ✅ Form Submit (Handles both photo/video)
+      // =====================================================
+      $("#createAttachmentForm").on("submit", function (e) {
+        e.preventDefault();
+
+        const file = $("#fileUpload")[0].files[0];
+        if (!file) return alert("Please select a file before submitting.");
+
+        const uploadType = $("#createAttachmentModal").data("type"); // 'photo' or 'video'
+        const mimeType = file.type;
+        const fileCategory = mimeType.startsWith("video") ? "video" : "image";
+
+        const payload = {
+          action: "function_call",
+          function_name: "fn_ins_govt_attachments",
+          params: {
+            p_file_attachment_name: `/uploads/${file.name}`,
+            p_file_name: file.name,
+            p_mimetype: mimeType,
+            p_file_category: fileCategory,
+            p_p_date: $("#uploadDate").val(),
+            p_language: $("#languageSelect").val(),
+            p_created_by: userId || "Admin"
+          }
+        };
+
+        const formData = new FormData();
+        formData.append("data", encryptData(payload));
+        formData.append("file", file);
+
+        const submitBtn = $(this).find("button[type='submit']");
+        submitBtn.prop("disabled", true).text("Submitting...");
+        $("#preloader").fadeIn(200);
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: formData,
+          contentType: false,
+          processData: false,
+          dataType: "json",
+
+          success: function (response) {
+            const result = decryptData(response.data);
+            console.log("Insert Response:", result);
+
+            alert("Attachment added successfully!");
+            $("#createAttachmentModal").modal("hide");
+
+            // Refresh correct tab
+            if (fileCategory === "image") fetchPhotoData();
+            else fetchVideoData();
+          },
+          error: function (xhr, status, error) {
+            console.error("Upload error:", error);
+            alert("Failed to save data!");
+          },
+          complete: function () {
+            // ✅ Always reset and hide loader safely
+            submitBtn.prop("disabled", false).text("Submit");
+
+            // Wait until modal + DataTable finish updating
+            setTimeout(() => {
+              $("#preloader").fadeOut(300);
+            }, 500);
+          }
+        });
+      });
+
+
+      // 🔹 Track which API has been loaded
+      let photoApiLoaded = false;
+      let videoApiLoaded = false;
+
+      // =======================================
+      // ✅ Fetch PHOTO Upload Table Data
+      // =======================================
+      function fetchPhotoData() {
+        if (photoApiLoaded) return;
+        photoApiLoaded = true;
+
+        const photoPayload = {
+          action: "function_call",
+          function_name: "fn_govt_attachments",
+          params: {
+            p_language: langSwitch,
+            p_mine: "image"
+            // p_user_id: userId
+          }
+        };
+
+        const tableBody = $("#engSecContent");
+        tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: { data: encryptData(photoPayload) },
+          dataType: "json",
+          success: function (response) {
+            const tableData = decryptData(response.data);
+            tableBody.empty();
+
+            if (!tableData || tableData.length === 0) {
+              tableBody.append('<tr><td colspan="9" class="text-center">No Data Found</td></tr>');
+              return;
+            }
+
+            if ($.fn.DataTable.isDataTable("#admin-photo-upload-table")) {
+              $("#admin-photo-upload-table").DataTable().clear().destroy();
+            }
+
+            let rows = '';
+            tableData.forEach(item => {
+              rows += `
+              <tr>
+                <td class="u-tL">
+                  <a data-id="${item.id}" data-file="${item.file_name}" id="open-modal-btn_img" href="javascript:void(0);">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                </td>
+                <td class="a-GV-cell u-tC is-readonly">${item.file_name || 'N/A'}</td>
+                <td class="a-GV-cell u-tC is-readonly">${item.language || 'N/A'}</td>
+                <td class="a-GV-cell u-tC is-readonly">${item.created_by || 'N/A'}</td>
+                <td class="a-GV-cell u-tC is-readonly">${item.created_on || 'N/A'}</td>
+              </tr>`;
+            });
+
+            tableBody.append(rows);
+            $("#admin-photo-upload-table").DataTable({
+              paging: true,
+              searching: true,
+              ordering: true,
+              order: [[1, 'asc']],
+              columnDefs: [
+                { orderable: false, targets: 0 } // Disable ordering for first column
+              ],
+              responsive: true,
+            });
+          },
+          error: function () {
+            tableBody.html('<tr><td colspan="9" class="text-center">Failed to load data</td></tr>');
+          }
+        });
+      }
+
+      // =======================================
+      // ✅ Fetch VIDEO Upload Table Data
+      // =======================================
+      function fetchVideoData() {
+        if (videoApiLoaded) return;
+        videoApiLoaded = true;
+
+        const videoPayload = {
+          action: "function_call",
+          function_name: "fn_govt_attachments",
+          params: {
+            p_language: langSwitch,
+            p_user_id: "video"
+          }
+        };
+
+        const tableBody = $("#TASecCon");
+        tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: { data: encryptData(videoPayload) },
+          dataType: "json",
+          success: function (response) {
+            const tableData = decryptData(response.data);
+            tableBody.empty();
+
+            if (!tableData || tableData.length === 0) {
+              tableBody.append('<tr><td colspan="9" class="text-center">No Data Found</td></tr>');
+              return;
+            }
+
+            if ($.fn.DataTable.isDataTable("#video-upload-table")) {
+              $("#video-upload-table").DataTable().clear().destroy();
+            }
+
+            let rows = '';
+            tableData.forEach(item => {
+              rows += `
+              <tr>
+                <td class="u-tL">
+                  <a data-id="${item.id}" id="open-modal-btn" href="javascript:void(0);">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                </td>
+                <td class="a-GV-cell u-tC is-readonly">${item.v_url || 'N/A'}</td>
+                <td class="a-GV-cell u-tC is-readonly">${item.v_name || 'N/A'}</td>
+                <td class="a-GV-cell u-tC is-readonly">${item.v_desc || 'N/A'}</td>
+                <td class="a-GV-cell u-tC is-readonly">${item.language || 'N/A'}</td>
+                <td class="a-GV-cell u-tC is-readonly">${item.v_date || 'N/A'}</td>
+                <td class="a-GV-cell u-tC is-readonly">${item.created_by || 'N/A'}</td>
+                <td class="a-GV-cell u-tC is-readonly">${item.created_on || 'N/A'}</td>
+              </tr>`;
+            });
+
+            tableBody.append(rows);
+            $("#video-upload-table").DataTable({
+              paging: true,
+              searching: true,
+              ordering: true,
+              order: [[0, 'asc']],
+              responsive: true,
+            });
+          },
+          error: function () {
+            tableBody.html('<tr><td colspan="9" class="text-center">Failed to load data</td></tr>');
+          }
+        });
+      }
+
+      // =======================================
+      // ✅ Photo Upload Handler
+      // =======================================
+      function uploadGovtImage() {
+        const fileInput = $('#imageUpload_input')[0];
+        const file = fileInput.files[0];
+        if (!file) return showErrorToast("Please select an image file.");
+
+        const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+        if (!allowedTypes.includes(file.type)) return showErrorToast("Invalid file type. Allowed: JPEG, PNG, WEBP");
+        if (file.size > 5 * 1024 * 1024) return showErrorToast("File size exceeds 5MB.");
+
+        const formData = new FormData();
+        const payload = {
+          action: "function_call",
+          function_name: "fn_insert_govt_attachment",
+          params: {
+            p_id: "189",
+            p_uploaded_by: userId,
+            p_file_name: file.name,
+            p_file_path: `/uploads/${file.name}`,
+            p_mime_type: file.type,
+            p_language: localStorage.getItem("siteLang") || "en",
+            p_upload_date: $('#image_date').val() || new Date().toISOString().split("T")[0],
+          }
+        };
+
+        formData.append("data", encryptData(payload));
+        formData.append("file", file);
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function (response) {
+            const resData = decryptData(response.data);
+            if (resData && resData.length > 0) {
+              showSuccessToast("Image uploaded successfully!");
+              setTimeout(fetchPhotoData, 1000);
+            } else {
+              showErrorToast("Upload failed.");
+            }
+          },
+          error: function () {
+            showErrorToast("Failed to upload image.");
+          }
+        });
+      }
+
+      $("#createUploadBtn").on("click", uploadGovtImage);
+
+      // =======================================
+      // ✅ Video Upload Handler
+      // =======================================
+      function InsertVideoData() {
+        const payload = {
+          action: "function_call",
+          function_name: "fn_insert_govt_attachment_video",
+          params: {
+            p_v_name: $('#Video_Name').val(),
+            p_v_desc: $('#Video_desc').val(),
+            p_v_url: $('#Video_url').val(),
+            p_v_date: $('#Video_vdate').val(),
+            p_language: $('#Video_language').val(),
+            p_created_by: userId
+          }
+        };
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: { data: encryptData(payload) },
+          dataType: "json",
+          success: function (response) {
+            const resData = decryptData(response.data);
+            if (resData && resData.length > 0) {
+              showSuccessToast("Video uploaded successfully!");
+              setTimeout(fetchVideoData, 1000);
+            } else {
+              showErrorToast("Upload failed.");
+            }
+          },
+          error: function () {
+            showErrorToast("Failed to upload video.");
+          }
+        });
+      }
+
+      $("#createVideoBtn").on("click", InsertVideoData);
+
+      // =======================================
+      // ✅ Tab Control
+      // =======================================
+      fetchPhotoData(); // load only photo tab data initially
+
+      $('a[data-bs-toggle="tab"]').on("shown.bs.tab", function (e) {
+        const target = $(e.target).attr("href");
+        if (target === "#photoPane") fetchPhotoData();
+        else if (target === "#videoPane") fetchVideoData();
+      });
+
+      // =======================================
+      // ✅ Language switch
+      // =======================================
+      $('#P0_LANGUAGE').on('change', function () {
+        langSwitch = this.value === "en" ? "en" : "ta";
+        location.reload();
+      });
+    });
+  </script>
+
+
+</body>
+
+</html>

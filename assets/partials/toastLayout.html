@@ -1,0 +1,63 @@
+<!-- toastLayout.html -->
+<link href="vendor/toastr/toastr.min.css" rel="stylesheet">
+
+<div class="toast-container custom_toast">
+    <!-- Error Toast -->
+    <div id="errorToast" class="toast toast-swal-style " style="z-index: 99999999999999" role="alert"
+        aria-live="assertive" aria-atomic="true">
+        <div class="toast-body d-flex justify-content-between align-items-center">
+            <p id="errorMessage" class="mb-0"></p>
+            <button type="button" class="btn-close ms-3" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <div id="successToast" class="toast toast-swal-style" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body d-flex justify-content-between align-items-center">
+            <p id="successMessage" class="mb-0"></p>
+            <button type="button" class="btn-close ms-3" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .toast-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        pointer-events: none;
+    }
+
+    .toast {
+        min-width: 280px;
+        max-width: 350px;
+        border-radius: 10px;
+        font-size: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        pointer-events: auto;
+    }
+
+    .toast.show {
+        opacity: 1;
+    }
+
+    #successToast {
+        background-color: #198754 !important;
+        color: #ffffff;
+    }
+
+    #errorToast {
+        background-color: #dc3545 !important;
+        color: #ffffff;
+    }
+
+    .btn-close {
+        filter: invert(1);
+        /* white close button */
+    }
+</style>

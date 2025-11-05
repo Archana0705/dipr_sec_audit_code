@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html class="no-js  page-6 app-INFO-PRDEPT103" lang="en">
+
+<head>
+  <meta http-equiv="x-ua-compatible" content="IE=edge" />
+  <meta charset="utf-8">
+  <title>Photo-gallery</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/menu.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/Core.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/Theme-Standard.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/font-apex.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/Coretheme.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/cs-theme.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/custom.min.css">
+  <link rel="apple-touch-icon" href="assets/img/app-icon-192.png">
+  <link rel="icon" href="assets/img/app-icon-32.png">
+  <style>
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* .simple-spinner {
+    } */
+
+    a.card-download {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 12px;
+      text-decoration: none;
+      color: #007bff
+    }
+  </style>
+
+  <style type="text/css">
+    @font-face {
+      font-family: 'FontApex';
+      src: url('../font/apex-5-icon-font.woff2') format('woff2'),
+        url('../font/apex-5-icon-font.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Font-APEX';
+      src: url('../fonts/Font-APEX-Small.woff2') format('woff2'),
+        url('../fonts/Font-APEX-Small.woff') format('woff'),
+        url('../fonts/Font-APEX-Large.woff2') format('woff2'),
+        url('../fonts/Font-APEX-Large.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+  </style>
+
+  <style type="text/css">
+    .a-CardView-items--grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 15px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .a-CardView-item {
+      list-style: none;
+      flex: 1 1 calc(25% - 15px);
+      box-sizing: border-box;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Image styling */
+    .card-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+
+    .a-CardView-actions img {
+      width: 100%;
+      height: 151px;
+    }
+
+    .t-Footer {
+      background-color: #3b3b79;
+      color: white;
+    }
+
+    .t-Header-nav1 {
+      text-align: center;
+      background-color: #3b3b79;
+      color: white;
+    }
+
+    .t-Header-navBar {
+      --ut-field-padding-y: 0rem;
+      align-items: center;
+      display: grid;
+      grid-area: navbar;
+      grid-template-areas: "navbar-start navbar-center navbar-end";
+      grid-template-columns: 1fr auto auto;
+      justify-content: end;
+      align-content: center;
+      background: #3b3b79;
+      color: white;
+    }
+
+    .apex-item-select,
+    .datetimepicker_newMonth,
+    .u-TF-item--select,
+    select.group_selectlist {
+      background-position: 100%;
+      background-repeat: no-repeat;
+      padding-inline-end: var(--a-field-select-arrow-padding, 2rem);
+      color: white;
+      background: #3b3b79;
+      width: 105px;
+    }
+
+    .fa {
+      padding: 10px;
+      font-size: 15px;
+      width: 40px;
+      text-align: center;
+      text-decoration: none;
+      margin: 5px 2px;
+      border-radius: 30%;
+    }
+
+    .fa:hover {
+      opacity: 0.7;
+    }
+
+    .fa-facebook {
+      background: #3B5998;
+      color: white;
+    }
+
+    .fa-twitter {
+      background: #55ACEE;
+      color: white;
+    }
+
+    .fa-google {
+      background: #dd4b39;
+      color: white;
+    }
+
+    .fa-linkedin {
+      background: #007bb5;
+      color: white;
+    }
+
+    .fa-youtube {
+      background: #bb0000;
+      color: white;
+    }
+
+    .fa-instagram {
+      background: white;
+      color: black;
+    }
+
+    h4,
+    h2 {
+      font-weight: var(--a-base-font-weight-semibold, 500);
+      line-height: 1.5;
+      color: #3b3b79;
+    }
+
+    .t-Breadcrumb-label {
+      color: #3c3b79;
+      display: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      margin: inherit;
+    }
+
+    .t-Footer-topButton {
+      --a-icon-size: 1rem;
+      -webkit-margin-start: auto;
+      -webkit-margin-end: auto;
+      align-items: center;
+      background-color: var(--ut-footer-top-background-color, var(--a-button-background-color));
+      border-color: var(--ut-footer-top-border-color, var(--a-button-border-color));
+      border-radius: var(--ut-footer-top-border-radius, 100%);
+      border-style: solid;
+      border-width: var(--ut-footer-top-border-width, var(--a-button-border-width, 1px));
+      box-shadow: var(--ut-footer-top-box-shadow, var(--a-button-box-shadow), none);
+      color: var(--ut-footer-top-text-color, var(--a-button-text-color));
+      display: flex;
+      height: var(--ut-footer-top-size, 2.5rem);
+      justify-content: center;
+      margin-inline-end: auto;
+      margin-inline-start: auto;
+      /* opacity: var(--ut-footer-top-opacity,.); */
+      padding: calc(var(--ut-footer-top-padding, .75rem) - var(--ut-footer-top-border-width, var(--a-button-border-width, 1px)));
+      transition: .1s ease;
+      width: var(--ut-footer-top-size, 2.5rem);
+      z-index: 99;
+      position: fixed;
+      bottom: 3%;
+      right: 3%;
+      box-shadow: 1px 1px 5px black;
+    }
+
+    /* Sticky header styles */
+    .nobgcolor {
+      background-color: #fff;
+      /* Set your desired background color */
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    /* Header image styles */
+    .header-images {
+      max-height: 110px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* Center text styles */
+    .center-text {
+      display: block;
+      margin: auto;
+      font-weight: 900;
+      font-size: 1.5rem;
+    }
+
+    /* Container for centering */
+    .widthFixed {
+      max-width: 100%;
+      /* Adjust as needed */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .center-text center {
+      color: #c52c27;
+    }
+
+    .txtBlue {
+      color: #3c3b79;
+      font-weight: 900;
+      font-size: 1.5rem;
+    }
+
+    #first_image {
+      margin-left: 8%;
+    }
+
+    #last_image {
+      margin-right: 8%;
+    }
+
+    .container {
+      width: 80%;
+      text-align: justify;
+    }
+
+    @media only screen and (max-width:600px) {
+      .header-images {
+        max-height: 50px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .container {
+        width: 95%;
+      }
+
+      #first_image {
+        margin-left: 2%;
+      }
+
+      #last_image {
+        margin-right: 2%;
+      }
+
+      .center-text {
+        display: block;
+        text-align: center;
+        margin: auto;
+        font-weight: 400;
+        font-size: .8rem;
+      }
+
+      .txtBlue {
+        color: #3c3b79;
+        font-weight: 800;
+        font-size: .9rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="r/dipr/103/files/theme/42/v87/10689188252099023.css" type="text/css" />
+  <link rel="apple-touch-icon" href="r/dipr/103/files/static/v358/icons/app-icon-192.png" />
+  <link rel="icon" href="r/dipr/103/files/static/v358/icons/app-icon-32.png" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta http-equiv="Cache-Control" content="no-cache" />
+  <meta name="theme-color" content="&#x23;000000" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Info&#x26;PRDept" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="manifest"
+    href="&#x2F;ords&#x2F;r&#x2F;dipr&#x2F;info-prdept103&#x2F;manifest.json&#x3F;v&#x3D;24.1.1-41853896899929&#x26;lang&#x3D;en"
+    crossorigin="use-credentials" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body
+  class="t-PageBody t-PageBody--hideLeft t-PageBody--hideActions no-anim t-PageTemplate--standard   apex-top-nav apex-icons-fontapex apex-theme-vita-copy-2-copy-1"
+  id="t_PageBody">
+  <a href="#main" id="t_Body_skipToContent">Skip to Main Content</a>
+  <form role="none" action="wwv_flow.accept?p_context=info-prdept103/photo-gallery/304836552836106" method="post"
+    name="wwv_flow" id="wwvFlowForm" data-oj-binding-provider="none" novalidate autocomplete="off">
+    <input type="hidden" name="p_flow_id" value="103" id="pFlowId" /><input type="hidden" name="p_flow_step_id"
+      value="6" id="pFlowStepId" /><input type="hidden" name="p_instance" value="304836552836106"
+      id="pInstance" /><input type="hidden" name="p_page_submission_id"
+      value="MzI3MTQzNzY5NTM2OTQ3MTQyMDU2NzYzODEyODExNDAxNjY0NzIy&#x2F;B-AnPWE7vuLw8xZFtSqWbbVHbRC4y9z60l3thck1GUenoyEOIUuAmLuZPShHXvyGR9f4lSo_G_HHrZcNN7jGwA"
+      id="pPageSubmissionId" /><input type="hidden" name="p_request" value="" id="pRequest" /><input type="hidden"
+      name="p_reload_on_submit" value="S" id="pReloadOnSubmit" /><input type="hidden"
+      value="info-prdept103&#x2F;photo-gallery&#x2F;304836552836106" id="pContext" /><input type="hidden"
+      value="327143769536947142056763812811401664722" id="pSalt" />
+    <header class="t-Header" id="t_Header" role="banner">
+      <div class="t-Header-navBar">
+        <div class="t-Header-navBar--start">
+          <div class="t-Header-navBar--end">
+            <div
+              class="t-Form-fieldContainer rel-col t-Form-fieldContainer--large t-Form-fieldContainer--normalDisplay apex-item-wrapper apex-item-wrapper--has-initial-value apex-item-wrapper--select-list"
+              id="P0_LANGUAGE_CONTAINER">
+              <div class="t-Form-labelContainer col col-null">
+                <label for="P0_LANGUAGE" id="P0_LANGUAGE_LABEL" class="t-Form-label"></label>
+              </div>
+              <div class="t-Form-inputContainer col col-null">
+                <div class="t-Form-itemWrapper">
+                  <select id="P0_LANGUAGE" name="P0_LANGUAGE" class="selectlist&#x20;apex-item-select"
+                    data-native-menu="false" size="1">
+                    <option value="en" selected="selected">English</option>
+                    <option value="ta">Tamil</option>
+                  </select>
+                </div>
+                <span id="P0_LANGUAGE_error_placeholder" class="a-Form-error"
+                  data-template-id="32751098700172723_ET"></span>
+              </div>
+            </div>
+          </div>
+          <div class="t-Header-navBar--center">
+            <ul class="t-NavigationBar " id="32861498506172843">
+              <li class="t-NavigationBar-item a-pwaInstall">
+                <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#action$a-pwa-install"
+                  title="" target="">
+                  <span class="t-Icon fa&#x20;fa-cloud-download" aria-hidden="true"></span><span
+                    class="t-Button-label">Install App</span><span class="t-Button-badge"></span>
+                </a>
+              </li>
+              <li class="t-NavigationBar-item has-username">
+                <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#" title="" target="">
+                  <span class="t-Icon fa&#x20;fa-user" aria-hidden="true"></span><span
+                    class="t-Button-label">nobody</span><span class="t-Button-badge"></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="t-Header-navBar--end"></div>
+          <a href="https://www.facebook.com/TNDIPR" class="fa fa-facebook" target='_blank'></a>
+          <a href="https://twitter.com/TNDIPRNEWS" class="fa fa-twitter " target='_blank'></a>
+          <!--<a href="https://www.instagram.com/tndipr" class="fa fa-instagram"></a> -->
+          <a href="https://www.instagram.com/tndipr"><img src="r/dipr/103/files/static/v358/instagram.jpeg"
+              style="height:35px;" class="fa fa-twitter" target='_blank'>
+            <a href="https://www.youtube.com/c/tndipr21" class="fa fa-youtube" target='_blank'></a>
+        </div>
+      </div>
+      <!-- <div class=" nobgcolor ">
+          <img id="first_image" style=" height: 100%;" src = 'r/dipr/103/files/static/v358/left-png.png' > <span class="alignCenter"><center> Information and Public Relations Department </br> செய்தி – மக்கள் தொடர்புத்துறை </center></span>
+              <img id="last_image" style=" height: 100%;" src = "r/dipr/103/files/static/v358/right-png.png" > 
+          
+             </div> -->
+      <div class="nobgcolor">
+        <div class="widthFixed">
+          <!-- <img id="first_image" class="header-images" src="r/dipr/103/files/static/v358/left-png.png"> -->
+          <div class="center-text">
+            <center>Information and Public Relations Department <br> <span class="txtBlue">செய்தி – மக்கள்
+                தொடர்புத்துறை</span></center>
+          </div>
+          <!-- <img id="last_image" class="header-images" src="r/dipr/103/files/static/v358/right-png.png"> -->
+        </div>
+      </div>
+      <div class="t-Header-nav">
+        <div class="t-Header-nav-list js-tabLike js-tabLike" id="t_MenuNav">
+          <ul>
+            <li class="a-MenuBar-item"><a class="a-MenuBar-label" href="index.html" data-key="home">Home</a></li>
+            <li class="a-MenuBar-item"><a class="a-MenuBar-label" href="about_page.html" data-key="aboutUs">About Us</a>
+            </li>
+            <li class="a-MenuBar-item a-Menu--current" data-current="true">
+              <a class="a-MenuBar-label" href="gallery1.html" data-key="photoVideo">Photo / Video</a>
+            </li>
+            <li class="a-MenuBar-item"><a class="a-MenuBar-label" href="press-release1.html"
+                data-key="pressRelease">Press Release / Press Note</a></li>
+            <li class="a-MenuBar-item"><a class="a-MenuBar-label" href="government-orders.html"
+                data-key="govOrders">Government Orders</a></li>
+            <li class="a-MenuBar-item"><a class="a-MenuBar-label" href="sections.html" data-key="sections">Sections</a>
+            </li>
+            <li class="a-MenuBar-item"><a class="a-MenuBar-label" href="download-forms.html"
+                data-key="downloadForms">Download Forms</a></li>
+            <li class="a-MenuBar-item admin-menu-show" data-id="" data-disabled="" data-hide="" data-shortcut=""
+              data-icon=""><a class="a-MenuBar-label" href="admin-google-sheets.html" title="" target="">Google
+                Sheets - Report</a>
+            </li>
+            <li class="a-MenuBar-item admin-menu-show" data-id="" data-disabled="" data-hide="" data-shortcut=""
+              data-icon=""><a class="a-MenuBar-label" href="" title="" target="">Administration</a>
+              <ul style="display: none">
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-photo-upload.html" title="" target="">Photo&#x2F;Video Upload</a>
+                </li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-press-release.html" title="" target="">Upload Press Release</a>
+                </li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-section-content.html" title="" target="">Sections Content</a>
+                </li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-goverment-orders.html" title="" target="">Upload Government
+                    Orders</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-sections-data-report.html" title="" target="">Sections Data
+                    Report</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-forms-report.html" title="" target="">Forms Report</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-memorial-video-report.html" title="" target="">memorial_video_report</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-monuments.html" title="" target="">Monuments</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="admin-arangams.html"
+                    title="" target="">Arangams</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-commemoration-pillars.html" title="" target="">Commemoration
+                    Pillars</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-commemoration-arch.html" title="" target="">Commemoration
+                    Arch</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-department-pictures.html" title="" target="">Department
+                    Pictures</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-department-details.html" title="" target="">Department
+                    Details</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-conclusion-photos.html" title="" target="">Conclusion_Photos</a>
+                </li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-google-sheets.html" title="" target="">Google Sheets</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-press-notes.html" title="" target="">Upload Press Note</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="admin-add-user.html"
+                    title="" target="">Add
+                    User</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-navigation-list-entry.html" title="" target="">Navigation Menu Report</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="t-Body">
+      <div class="t-Body-main">
+        <div class="t-Body-title" id="t_Body_title">
+          <nav id="R33210823764518151" role="navigation" aria-label="Breadcrumb"
+            class="t-BreadcrumbRegion t-BreadcrumbRegion--showBreadcrumb t-BreadcrumbRegion--useBreadcrumbTitle">
+            <div class="t-BreadcrumbRegion-top">
+              <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--start"></div>
+              <div class="t-BreadcrumbRegion-body">
+                <div class="t-BreadcrumbRegion-breadcrumb">
+                  <ul class="t-Breadcrumb ">
+                    <li class="t-Breadcrumb-item is-active" aria-current="page">
+                      <h1 class="t-Breadcrumb-label" data-key="photoGallery"></h1>
+                    </li>
+                  </ul>
+                </div>
+                <div class="t-BreadcrumbRegion-title">
+                  <h1 id="R33210823764518151_heading" class="t-BreadcrumbRegion-titleText" data-apex-heading>Breadcrumb
+                  </h1>
+                </div>
+              </div>
+              <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--end"></div>
+            </div>
+            <div class="t-BreadcrumbRegion-bottom"></div>
+          </nav>
+        </div>
+        <div class="t-Body-content" id="t_Body_content">
+          <main id="main" class="t-Body-mainContent">
+            <span id="APEX_SUCCESS_MESSAGE" data-template-id="33086037481442559_S"
+              class="apex-page-success u-hidden"></span><span id="APEX_ERROR_MESSAGE"
+              data-template-id="33086037481442559_E" class="apex-page-error u-hidden"></span>
+            <div class="t-Body-fullContent"></div>
+            <div class="t-Body-contentInner">
+              <div class="container">
+                <div class="row ">
+                  <div class="col col-12 apex-col-auto col-start col-end">
+                    <div id="R22879691196163085" class=""></div>
+                  </div>
+                </div>
+                <div class="row" style="margin-bottom: 15px;">
+                  <div class="col col-4 col-start">
+                    <label for="P12_DATE" style="display: block; font-weight: bold; margin-bottom: 5px;">
+                      Date
+                    </label>
+                    <input type="date" id="P12_DATE" name="P12_DATE"
+                      style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px;" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-12">
+                    <div class="t-CardsRegion u-colors t-CardsRegion--styleC" role="region" aria-label="Photo Gallery">
+                      <div id="photoCardsContainer">
+                        <ul class="a-CardView-items a-CardView-items--grid" id="photoCardList">
+                          <!-- JS will insert <li> photo cards here -->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </main>
+          <footer class="t-Footer" id="t_Footer" role="contentinfo">
+            <div class="t-Footer-body">
+              <div class="t-Footer-content">
+                <div class="container">
+                  <div class="row ">
+                    <div class="col col-12 apex-col-auto col-start col-end">
+                      <div id="R11684238522218402" class="">Information & Public Relations Department, Secretariat,
+                        Chennai 600 009</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="t-Footer-apex">
+                <div class="t-Footer-version">
+                </div>
+                <div class="t-Footer-customize">
+                </div>
+              </div>
+            </div>
+            <div class="t-Footer-top">
+              <a href="#top" class="t-Footer-topButton" id="t_Footer_topButton" title="Start of page"
+                aria-label="Start of page"><span class="a-Icon icon-up-chevron" aria-hidden="true"></span></a>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <div class="t-Body-inlineDialogs" id="t_Body_inlineDialogs"></div>
+    <input type="hidden" id="pPageFormRegionChecksums" value="&#x5B;&#x5D;">
+    <input type="hidden" id="pPageItemsRowVersion" value="" /><input type="hidden" id="pPageItemsProtected"
+      value="&#x2F;gTHeEAEifvaQ34Do6pzJ0Bu9joZduCQ7bUWyc00epJTw1PyfEgmcD-Mj_1pXQFdYVNX_qr1JcN6aKRWtcIwGpQ" />
+
+
+    <div id="loader" style="display:none;text-align:center;margin:20px;">
+      <div style="display:inline-block;padding:10px;">
+        <div class="simple-spinner"
+          style="width:36px;height:36px;border:4px solid rgba(0,0,0,0.1);border-top-color:#333;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto">
+        </div>
+        <div style="font-size:13px;margin-top:8px">Loading photos...</div>
+      </div>
+    </div>
+
+    <!-- Clear Button -->
+    <div style="margin:10px 0;">
+      <button id="clearDateBtn"
+        style="padding:6px 12px;border:none;background:#007bff;color:#fff;border-radius:4px;cursor:pointer;">
+        Clear Date
+      </button>
+    </div>
+
+    <!-- Load More Button Container -->
+    <div id="loadMoreContainer" style="text-align:center; margin-top:15px; display:none;">
+      <button id="loadMoreBtn"
+        style="padding:8px 14px;border:none;background:#28a745;color:#fff;border-radius:4px;cursor:pointer;">
+        Load More
+      </button>
+    </div>
+
+  </form>
+  <!-- Loader -->
+
+
+
+  <!-- <script src="assets/js/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/desktop_all.min.js"></script>
+  <script src="assets/js/widget.stickyWidget.min.js"></script>
+  <script src="assets/js/theme42.min.js"></script>
+  <script src="assets/js/widget.apexTabs.min.js"></script>
+  <script src="assets/js/com.oracle.apex.carousel.min.js"></script>
+  <script src="assets/js/modelViewBase.min.js"></script>
+  <script src="assets/js/widget.templateReport.min.js"></script>
+  <script src="assets/js/widget.report.min.js"></script>
+  <script src="assets/js/aos.js"></script>
+  <script src="assets/js/basepath.js"></script> -->
+
+
+  <script src="assets/js/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/desktop_all.min.js"></script>
+  <script src="assets/vendor/datatable/jquery.dataTables.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/global.js"></script>
+  <script src="assets/js/fileValidator.js"></script>
+  <script src="assets/js/basepath.js"></script>
+  <script src="assets/js/apiConfig.js"></script>
+  <script src="assets/js/encrypt_decrypt.js"></script>
+  <script src="assets/js/translations.js"></script>
+  <script src="assets/js/crypto-js.min.js"></script>
+
+
+  <script>
+    $(function () {
+      const apiUrl = `${BASE_API_URL}/general/gallery/photo_gallery`;
+      let langSwitch = localStorage.getItem('siteLang') || 'en';
+      let dateValue = "";
+      const PAGE_SIZE = 50; // items per page / batch
+      let clientAllPhotos = []; // used for client-side pagination
+      let clientIndex = 0;
+      let serverPage = 1;       // used for server-side pagination
+      let serverHasMore = false;
+      let usingServerPaging = null; // null = unknown, true/false after first response
+
+      const $loader = $("#loader");
+      const $photoList = $("#photoCardList");
+      const $loadMoreContainer = $("#loadMoreContainer");
+      const $loadMoreBtn = $("#loadMoreBtn");
+
+      // Bind events
+      $("#P12_DATE").off("change").on("change", function () {
+        dateValue = this.value || "";
+        fetchPhotos({ reset: true });
+      });
+
+      $("#clearDateBtn").off("click").on("click", function () {
+        $("#P12_DATE").val("");
+        dateValue = "";
+        fetchPhotos({ reset: true });
+      });
+
+      $loadMoreBtn.off("click").on("click", function () {
+        if (usingServerPaging) {
+          serverPage++;
+          fetchPhotos({ append: true });
+        } else {
+          renderNextClientBatch();
+        }
+      });
+
+      function showLoader(show) { $loader.toggle(!!show); }
+
+      // Unified fetch function tries server-side pagination first (page/per_page).
+      function fetchPhotos(opts = { reset: false, append: false }) {
+        if (opts.reset) {
+          // reset everything
+          clientAllPhotos = [];
+          clientIndex = 0;
+          serverPage = 1;
+          serverHasMore = false;
+          usingServerPaging = null;
+          $photoList.empty();
+          $loadMoreContainer.hide();
+        }
+
+        showLoader(true);
+
+        // Request page/per_page. If API ignores them and returns all, we'll detect and switch to client paging.
+        $.ajax({
+          url: apiUrl,
+          method: "GET",
+          headers: {
+            "X-App-Key": "dipr",
+            "X-App-Name": "dipr"
+          },
+          data: {
+            lang: langSwitch,
+            date: dateValue,
+            page: serverPage,
+            per_page: PAGE_SIZE
+          },
+          success: function (response) {
+            // Normalize possible structures
+            // Cases:
+            // 1) response.data = { items: [...], total_pages: N, total: X }  -> server paging
+            // 2) response.data = [...]  -> array (could be server returning list or full list)
+            // 3) response = [...] -> array
+            // 4) response.data = { photos: [...], meta: {...} } -> handle common shapes
+
+            let items = [];
+            let meta = {};
+
+            // Try several known shapes
+            if (response && Array.isArray(response)) {
+              items = response;
+            } else if (response && response.data) {
+              if (Array.isArray(response.data)) {
+                items = response.data;
+              } else if (response.data.items && Array.isArray(response.data.items)) {
+                items = response.data.items;
+                meta = response.data.meta || {};
+                // maybe meta contains total_pages
+                if (response.data.total_pages) meta.total_pages = response.data.total_pages;
+                if (response.data.total) meta.total = response.data.total;
+              } else if (response.data.photos && Array.isArray(response.data.photos)) {
+                items = response.data.photos;
+                meta = response.data.meta || {};
+              } else {
+                // unknown nested object -> try to find first array inside data
+                for (const k in response.data) {
+                  if (Array.isArray(response.data[k])) {
+                    items = response.data[k];
+                    break;
+                  }
+                }
+              }
+            } else if (response && typeof response === 'object') {
+              // maybe response has 'items' or 'photos' as top-level
+              if (Array.isArray(response.items)) {
+                items = response.items;
+                meta = response.meta || {};
+              } else if (Array.isArray(response.photos)) {
+                items = response.photos;
+                meta = response.meta || {};
+              } else {
+                // fallback: try to find first array value
+                for (const k in response) {
+                  if (Array.isArray(response[k])) {
+                    items = response[k];
+                    break;
+                  }
+                }
+              }
+            }
+
+            // If usingServerPaging is not decided yet, decide now:
+            if (usingServerPaging === null) {
+              // If meta includes total_pages or total or response contains a pagination field -> server paging
+              if (meta && (meta.total_pages || meta.total || response.total_pages || response.total || response.last_page || response.page)) {
+                usingServerPaging = true;
+              } else {
+                // Heuristic: if we requested page & per_page and returned <= PAGE_SIZE items, server might be paginating
+                if (items.length <= PAGE_SIZE && (response && (response.page || response.current_page || response.total_pages || response.last_page))) {
+                  usingServerPaging = true;
+                } else {
+                  // Otherwise assume client-side (full array returned)
+                  usingServerPaging = false;
+                }
+              }
+            }
+
+            // Handle server-side paging flow
+            if (usingServerPaging) {
+              // Append items directly
+              appendPhotoItems(items);
+
+              // Determine if more pages exist
+              // try common metadata names
+              let totalPages = meta.total_pages || response.total_pages || response.last_page || response.totalPages || null;
+              let currentPage = response.page || response.current_page || serverPage;
+
+              if (totalPages) {
+                serverHasMore = (currentPage < totalPages);
+              } else {
+                // fallback: if returned items == PAGE_SIZE -> likely more
+                serverHasMore = items.length === PAGE_SIZE;
+              }
+
+              $loadMoreContainer.toggle(serverHasMore);
+            } else {
+              // Client-side: API returned whole list (or no pagination), store and render first batch
+              if (opts.append) {
+                // append shouldn't happen for client mode normally, but handle gracefully
+              } else {
+                clientAllPhotos = items.slice(); // clone
+                clientIndex = 0;
+                $photoList.empty();
+                if (!clientAllPhotos.length) {
+                  $photoList.html('<li><p class="text-center">No Data Found</p></li>');
+                  $loadMoreContainer.hide();
+                  showLoader(false);
+                  return;
+                }
+                renderNextClientBatch();
+              }
+            }
+
+            showLoader(false);
+          },
+          error: function (xhr, status, error) {
+            console.error("Error fetching photos:", error, xhr.responseText);
+            $photoList.html('<li><p class="text-center">Error loading photos</p></li>');
+            $loadMoreContainer.hide();
+            showLoader(false);
+          }
+        });
+      }
+
+      // Append items to the DOM (server-side flow uses this)
+      function appendPhotoItems(items) {
+        if (!items || !items.length) return;
+        // Build fragment with jQuery for easy insertion
+        const frag = $(document.createDocumentFragment());
+        items.forEach(function (item) {
+          const url = (item.url || item.image_url || item.src || item.path || '');
+          const descr = (item.descr || item.description || item.title || '').
+            toString().replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          const $li = $(`<li class="a-CardView-item"></li>`);
+          const $card = $(`
+        <div class="a-CardView has-title has-body">
+          <div class="a-CardView-body">
+            <div class="a-CardView-mainContent" style="text-align:center;">
+              <img src="${url}" alt="${descr || 'photo'}" class="card-image a-CardView-button--hot" data-image-url="${url}" style="max-width:100%;height:auto;border-radius:8px;cursor:pointer;" />
+              <p>${descr}</p>
+              <div><a class="card-download" href="${url}" download>Download</a></div>
+            </div>
+          </div>
+        </div>`);
+          $li.append($card);
+          frag.append($li);
+        });
+        $photoList.append(frag);
+      }
+
+      // Client-side batching
+      function renderNextClientBatch() {
+        const start = clientIndex;
+        const end = Math.min(clientIndex + PAGE_SIZE, clientAllPhotos.length);
+        if (start >= end) return;
+        const slice = clientAllPhotos.slice(start, end);
+        appendPhotoItems(slice);
+        clientIndex = end;
+        $loadMoreContainer.toggle(clientIndex < clientAllPhotos.length);
+      }
+
+      // Delegate click for images (uses your existing dialog element ids)
+      $(document).off('click', '.a-CardView-button--hot').on('click', '.a-CardView-button--hot', function () {
+        const imageUrl = $(this).data('image-url');
+        if (!imageUrl) return;
+        $('#dialog-image').attr('src', imageUrl);
+        $('#download-link').attr('href', imageUrl);
+        // open dialog content (your previous code used #dialog-content)
+        $('#dialog-content').dialog({
+          title: 'Preview & Download',
+          width: 720,
+          modal: true,
+          buttons: {
+            Close: function () { $(this).dialog('close'); }
+          }
+        });
+      });
+
+      // Initial load (no date filter)
+      fetchPhotos({ reset: true });
+    });
+  </script>
+
+  <!-- <script>
+    const apiUrl = `${BASE_API_URL}/general/gallery/photo_gallery`;
+    let langSwitch = localStorage.getItem('siteLang') || 'en';
+    let dateValue = "";
+
+    document.getElementById("P12_DATE").addEventListener("change", function () {
+      const selectedDate = this.value;
+      if (selectedDate) {
+        fetchPhotos(langSwitch, selectedDate);
+      }
+    });
+
+    function fetchPhotos(langSwitch, dateValue) {
+      $.ajax({
+        url: apiUrl,
+        method: "GET", headers: {
+          "X-App-Key": "dipr",
+          "X-App-Name": "dipr"
+        },
+        data: {
+          lang: langSwitch,
+          date: dateValue
+        },
+        success: function (response) {
+          // Some APIs return { data: [...] }, some return [...]
+          var data = response.data || response || [];
+          var container = $("#photoCardList");
+          container.empty();
+
+          if (!data.length) {
+            container.html('<li><p class="text-center">No Data Found</p></li>');
+            return;
+          }
+
+          // Render photo cards
+          data.forEach(function (item) {
+            var cardHTML = `
+                    <li class="a-CardView-item">
+                        <div class="a-CardView has-title has-body">
+                            <div class="a-CardView-body">
+                                <div class="a-CardView-mainContent" style="text-align:center;">
+                                    <img src="${item.url}" 
+                                         alt="${item.descr || 'photo'}" 
+                                         class="card-image" 
+                                         style="max-width:100%;height:auto;border-radius:8px;">
+                                    <p>${item.descr || ''}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                `;
+            container.append(cardHTML);
+          });
+        },
+        error: function (xhr, status, error) {
+          console.error("Error fetching photos:", error);
+        }
+      });
+    }
+
+    // Initial load
+    fetchPhotos(langSwitch, dateValue);
+
+  </script> -->
+
+  <script type="text/javascript">
+    // Assuming the dialog is already initialized somewhere with id #dialog
+    $("#dialog").dialog({
+      autoOpen: false, // Initially closed
+      modal: true
+    });
+
+    // Function to close dialog when the close icon is clicked
+    $(document).on('click', '.ui-icon-closethick', function () {
+      // Close the dialog
+      $("#dialog").dialog("close");
+    });
+
+  </script>
+
+  <script>
+    $(document).ready(function () {
+      // Click event for dynamically showing the dialog with the image
+      $('.a-CardView-button--hot').click(function () {
+        // Get the image URL from the data attribute
+        var imageUrl = $(this).data('image-url');
+
+        // Set the image in the dialog
+        $('#dialog-image').attr('src', imageUrl);
+
+        // Set the download link with the same image URL
+        $('#download-link').attr('href', imageUrl);
+
+        // Open the dialog
+        $('#dialog-content').dialog({
+          title: 'Preview & Download',
+          width: 720,
+          modal: true,
+          buttons: {
+            Close: function () {
+              $(this).dialog('close');
+            }
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html class="no-js  page-74 app-INFO-PRDEPT103" lang="en">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+<head>
+  <meta http-equiv="x-ua-compatible" content="IE=edge" />
+  <meta charset="utf-8">
+  <title>About Us</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/menu.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/Core.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/Theme-Standard.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/font-apex.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/Coretheme.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/cs-theme.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/custom.min.css">
+  <link rel="apple-touch-icon" href="assets/img/app-icon-192.png">
+  <link rel="icon" href="assets/img/app-icon-32.png">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .showlink {
+      display: none !important;
+      position: absolute;
+      background: white;
+      border: 1px solid #ccc;
+      z-index: 999;
+      min-width: 150px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .showlink.force-show {
+      display: block !important;
+    }
+
+    /* Force dropdown to show */
+    .t-NavigationBar-menu {
+      display: none !important;
+      position: absolute !important;
+      background: white !important;
+      border: 1px solid #ccc !important;
+      z-index: 9999 !important;
+      min-width: 150px !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    /* Show when force-show is applied */
+    .t-NavigationBar-menu.force-show {
+      display: block !important;
+    }
+
+    .t-NavigationBar-menu {
+      display: none;
+    }
+
+    .t-NavigationBar-menu.show {
+      display: block;
+    }
+
+    .t-NavigationBar-menu {
+      z-index: 9999;
+    }
+
+    .t-NavigationBar-menu {
+      display: none;
+      position: absolute;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      padding: 5px;
+    }
+  </style>
+  <style type="text/css">
+    .toast-container {
+      right: 0.5%;
+    }
+
+    #successToast {
+      background: #198754 !important;
+    }
+
+    #errorToast {
+      background: #ff0000 !important;
+    }
+
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 9999;
+      overflow: hidden;
+      background: #12121261;
+      /*width: 57%;*/
+      border-radius: 13px 35px;
+    }
+
+    #preloader:before {
+      content: "";
+      position: fixed;
+      top: calc(50% - 30px);
+      left: calc(53% - 30px);
+      border: 6px solid #f92020b8;
+      border-top-color: #e2eefd;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      -webkit-animation: animate-preloader 1s linear infinite;
+      animation: animate-preloader 1s linear infinite;
+      z-index: 9999;
+    }
+
+    @-webkit-keyframes animate-preloader {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes animate-preloader {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .a-CardView-iconWrap.a-CardView-iconWrap--top {
+      text-align: center;
+    }
+
+    @font-face {
+      font-family: 'FontApex';
+      src: url('../font/apex-5-icon-font.woff2') format('woff2'),
+        url('../font/apex-5-icon-font.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Font-APEX';
+      src: url('../fonts/Font-APEX-Small.woff2') format('woff2'),
+        url('../fonts/Font-APEX-Small.woff') format('woff'),
+        url('../fonts/Font-APEX-Large.woff2') format('woff2'),
+        url('../fonts/Font-APEX-Large.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+  </style>
+  <style type="text/css">
+    .t-Footer {
+      background-color: #3b3b79;
+      color: white;
+    }
+
+    .t-Header-nav1 {
+      text-align: center;
+      background-color: #3b3b79;
+      color: white;
+    }
+
+    .t-Header-navBar {
+      --ut-field-padding-y: 0rem;
+      align-items: center;
+      display: grid;
+      grid-area: navbar;
+      grid-template-areas: "navbar-start navbar-center navbar-end";
+      grid-template-columns: 1fr auto auto;
+      justify-content: end;
+      align-content: center;
+      background: #3b3b79;
+      color: white;
+    }
+
+    .apex-item-select,
+    .datetimepicker_newMonth,
+    .u-TF-item--select,
+    select.group_selectlist {
+      background-position: 100%;
+      background-repeat: no-repeat;
+      padding-inline-end: var(--a-field-select-arrow-padding, 2rem);
+      color: white;
+      background: #3b3b79;
+      width: 105px;
+    }
+
+    .fa {
+      padding: 10px;
+      font-size: 15px;
+      width: 40px;
+      text-align: center;
+      text-decoration: none;
+      margin: 5px 2px;
+      border-radius: 30%;
+    }
+
+    .fa:hover {
+      opacity: 0.7;
+    }
+
+    .fa-facebook {
+      background: #3B5998;
+      color: white;
+    }
+
+    .fa-twitter {
+      background: #55ACEE;
+      color: white;
+    }
+
+    .fa-google {
+      background: #dd4b39;
+      color: white;
+    }
+
+    .fa-linkedin {
+      background: #007bb5;
+      color: white;
+    }
+
+    .fa-youtube {
+      background: #bb0000;
+      color: white;
+    }
+
+    .fa-instagram {
+      background: white;
+      color: black;
+    }
+
+    h4,
+    h2 {
+      font-weight: var(--a-base-font-weight-semibold, 500);
+      line-height: 1.5;
+      color: #3b3b79;
+    }
+
+    .t-Breadcrumb-label {
+      color: #3c3b79;
+      display: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      margin: inherit;
+    }
+
+    .t-Footer-topButton {
+      --a-icon-size: 1rem;
+      -webkit-margin-start: auto;
+      -webkit-margin-end: auto;
+      align-items: center;
+      background-color: var(--ut-footer-top-background-color, var(--a-button-background-color));
+      border-color: var(--ut-footer-top-border-color, var(--a-button-border-color));
+      border-radius: var(--ut-footer-top-border-radius, 100%);
+      border-style: solid;
+      border-width: var(--ut-footer-top-border-width, var(--a-button-border-width, 1px));
+      box-shadow: var(--ut-footer-top-box-shadow, var(--a-button-box-shadow), none);
+      color: var(--ut-footer-top-text-color, var(--a-button-text-color));
+      display: flex;
+      height: var(--ut-footer-top-size, 2.5rem);
+      justify-content: center;
+      margin-inline-end: auto;
+      margin-inline-start: auto;
+      /* opacity: var(--ut-footer-top-opacity,.); */
+      padding: calc(var(--ut-footer-top-padding, .75rem) - var(--ut-footer-top-border-width, var(--a-button-border-width, 1px)));
+      transition: .1s ease;
+      width: var(--ut-footer-top-size, 2.5rem);
+      z-index: 99;
+      position: fixed;
+      bottom: 3%;
+      right: 3%;
+      box-shadow: 1px 1px 5px black;
+    }
+
+    /* Sticky header styles */
+    .nobgcolor {
+      background-color: #fff;
+      /* Set your desired background color */
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    /* Header image styles */
+    .header-images {
+      max-height: 110px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* Center text styles */
+    .center-text {
+      display: block;
+      margin: auto;
+      font-weight: 900;
+      font-size: 1.5rem;
+    }
+
+    /* Container for centering */
+    .widthFixed {
+      max-width: 100%;
+      /* Adjust as needed */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .center-text center {
+      color: #c52c27;
+    }
+
+    .txtBlue {
+      color: #3c3b79;
+      font-weight: 900;
+      font-size: 1.5rem;
+    }
+
+    #first_image {
+      margin-left: 8%;
+    }
+
+    #last_image {
+      margin-right: 8%;
+    }
+
+    .container {
+      width: 80%;
+      text-align: justify;
+    }
+
+    @media only screen and (max-width:600px) {
+      .header-images {
+        max-height: 50px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .container {
+        width: 95%;
+      }
+
+      #first_image {
+        margin-left: 2%;
+      }
+
+      #last_image {
+        margin-right: 2%;
+      }
+
+      .center-text {
+        display: block;
+        text-align: center;
+        margin: auto;
+        font-weight: 400;
+        font-size: .8rem;
+      }
+
+      .txtBlue {
+        color: #3c3b79;
+        font-weight: 800;
+        font-size: .9rem;
+      }
+    }
+
+    /* .first_image{
+      position:
+      } */
+    .pagination {
+      margin-top: 10px;
+    }
+
+    .pagination button {
+      padding: 5px 10px;
+      margin: 2px;
+      cursor: pointer;
+    }
+
+    .disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+  <link rel="stylesheet" href="r/dipr/103/files/theme/42/v87/10689188252099023.css" type="text/css" />
+  <style type="text/css">
+    .a-CardView-mediaImg {
+      border: 0;
+      display: block;
+      height: 50px;
+      width: 50px;
+    }
+  </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta http-equiv="Cache-Control" content="no-cache" />
+  <meta name="theme-color" content="&#x23;000000" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Info&#x26;PRDept" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="manifest"
+    href="manifest.json_%3b%20filename_%3dUTF-8%27%27manifestf27b.json?v=24.1.1-41853896899929&amp;lang=en"
+    crossorigin="use-credentials" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../../../../cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <!-- Toast -->
+  <div class="toast-container position-fixed p-3 custom_toast" x-data="transButtonComponent()">
+    <div id="errorToast" class="toast align-items-center text-bg-primary border-0 " role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <p id="errorMessage" class="mb-0"></p>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+    <div id="successToast" class="toast align-items-center text-bg-primary border-0 " role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <p id="successMessage" class="mb-0"></p>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+  <!-- Toast -->
+
+  <div id="preloader"></div>
+</head>
+
+<body
+  class="t-PageBody t-PageBody--hideLeft t-PageBody--hideActions no-anim t-PageTemplate--standard   apex-top-nav apex-icons-fontapex apex-theme-vita-copy-2-copy-1"
+  id="t_PageBody">
+  <a href="#main" id="t_Body_skipToContent">Skip to Main Content</a>
+  <header class="t-Header" id="t_Header" role="banner">
+    <div class="t-Header-navBar">
+      <div class="t-Header-navBar--start">
+        <div class="t-Header-navBar--end">
+          <div
+            class="t-Form-fieldContainer rel-col t-Form-fieldContainer--large t-Form-fieldContainer--normalDisplay apex-item-wrapper apex-item-wrapper--has-initial-value apex-item-wrapper--select-list"
+            id="P0_LANGUAGE_CONTAINER">
+            <div class="t-Form-labelContainer col col-null">
+              <label for="P0_LANGUAGE" id="P0_LANGUAGE_LABEL" class="t-Form-label"></label>
+            </div>
+            <div class="t-Form-inputContainer col col-null">
+              <div class="t-Form-itemWrapper"><select id="P0_LANGUAGE" name="P0_LANGUAGE"
+                  class="selectlist apex-item-select" data-native-menu="false" size="1">
+                  <option value="en">English</option>
+                  <option value="ta">Tamil</option>
+                </select></div><span id="P0_LANGUAGE_error_placeholder" class="a-Form-error"
+                data-template-id="32751098700172723_ET"></span>
+            </div>
+          </div>
+        </div>
+        <div class="t-Header-navBar--center">
+          <ul class="t-NavigationBar " id="32861498506172843">
+            <li class="t-NavigationBar-item a-pwaInstall">
+              <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#action$a-pwa-install" title=""
+                target="">
+                <span class="t-Icon fa&#x20;fa-cloud-download" aria-hidden="true"></span><span
+                  class="t-Button-label">Install App</span><span class="t-Button-badge"></span>
+              </a>
+            </li>
+            <li class="t-NavigationBar-item has-username shownav">
+              <button class="t-Button t-Button--icon t-Button--header t-Button--navBar" type="button">
+                <span class="t-Icon fa fa-user" aria-hidden="true"></span>
+                <span class="t-Button-label admin-name-change">Username</span>
+                <span class="t-Button-badge"></span>
+                <span class="a-Icon icon-down-arrow" aria-hidden="true"></span>
+              </button>
+              <!-- <div class="t-NavigationBar-menu showlink">
+                <ul>
+                  <li>
+                    <a href="#">Sign Out</a>
+                  </li>
+                </ul>
+              </div> -->
+            </li>
+          </ul>
+        </div>
+        <div class="t-Header-navBar--end"></div>
+        <a href="https://www.facebook.com/TNDIPR" class="fa fa-facebook" target='_blank'></a>
+        <a href="https://twitter.com/TNDIPRNEWS" class="fa fa-twitter " target='_blank'></a>
+        <!--<a href="https://www.instagram.com/tndipr" class="fa fa-instagram"></a> -->
+        <a href="https://www.instagram.com/tndipr"><img src="r/dipr/103/files/static/v358/instagram.jpeg"
+            style="height:35px;" class="fa fa-twitter" target='_blank'>
+          <a href="https://www.youtube.com/c/tndipr21" class="fa fa-youtube" target='_blank'></a>
+      </div>
+    </div>
+    <!-- <div class=" nobgcolor ">
+          <img id="first_image" style=" height: 100%;" src = 'r/dipr/103/files/static/v358/left-png.png' > <span class="alignCenter"><center> Information and Public Relations Department </br> செய்தி – மக்கள் தொடர்புத்துறை </center></span>
+              <img id="last_image" style=" height: 100%;" src = "r/dipr/103/files/static/v358/right-png.png" > 
+          
+             </div> -->
+    <div class="nobgcolor">
+      <div class="widthFixed">
+        <!-- <img id="first_image" class="header-images" src="r/dipr/103/files/static/v358/left-png.png"> -->
+        <div class="center-text">
+          <center>Information and Public Relations Department <br> <span class="txtBlue">செய்தி – மக்கள்
+              தொடர்புத்துறை</span></center>
+        </div>
+        <!-- <img id="last_image" class="header-images" src="r/dipr/103/files/static/v358/right-png.png"> -->
+      </div>
+    </div>
+    <div class="t-Header-nav">
+      <div class="t-Header-nav-list js-tabLike js-tabLike" id="t_MenuNav">
+        <ul>
+          <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+              class="a-MenuBar-label" href="index.html" title="" target="">Home</a></li>
+          <li class="a-MenuBar-item a-Menu--current" data-current="true" data-id="" data-disabled="" data-hide=""
+            data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="about_page.html" title="" target="">About
+              Us</a></li>
+          <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+              class="a-MenuBar-label" href="gallery1.html" title="" target="">Photo &#x2F; Video</a></li>
+          <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+              class="a-MenuBar-label" href="press-release1.html" title="" target="">Press Release &#x2F; Press
+              Note</a></li>
+          <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+              class="a-MenuBar-label" href="government-orders.html" title="" target="">Government Orders</a></li>
+          <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+              class="a-MenuBar-label" href="sections.html" title="" target="">Sections</a></li>
+          <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+              class="a-MenuBar-label" href="download-forms.html" title="" target="">Download Forms</a></li>
+          <li class="a-MenuBar-item admin-menu-show" data-id="" data-disabled="" data-hide="" data-shortcut=""
+            data-icon=""><a class="a-MenuBar-label" href="admin-google-sheets.html" title="" target="">Google Sheets
+              - Report</a>
+          </li>
+          <li class="a-MenuBar-item admin-menu-show" data-id="" data-disabled="" data-hide="" data-shortcut=""
+            data-icon=""><a class="a-MenuBar-label" href="" title="" target="">Administration</a>
+            <ul style="display: none">
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-photo-upload.html" title="" target="">Photo&#x2F;Video Upload</a>
+              </li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-press-release.html" title="" target="">Upload Press Release</a>
+              </li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-section-content.html" title="" target="">Sections Content</a>
+              </li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-goverment-orders.html" title="" target="">Upload Government
+                  Orders</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-sections-data-report.html" title="" target="">Sections Data
+                  Report</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-forms-report.html" title="" target="">Forms Report</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-memorial-video-report.html" title="" target="">memorial_video_report</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="admin-monuments.html"
+                  title="" target="">Monuments</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="admin-arangams.html"
+                  title="" target="">Arangams</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-commemoration-pillars.html" title="" target="">Commemoration
+                  Pillars</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-commemoration-arch.html" title="" target="">Commemoration
+                  Arch</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-department-pictures.html" title="" target="">Department
+                  Pictures</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-department-details.html" title="" target="">Department
+                  Details</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-conclusion-photos.html" title="" target="">Conclusion_Photos</a>
+              </li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-google-sheets.html" title="" target="">Google Sheets</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-press-notes.html" title="" target="">Upload Press Note</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="admin-add-user.html"
+                  title="" target="">Add
+                  User</a></li>
+              <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                  href="admin-navigation-list-entry.html" title="" target="">Navigation Menu Report</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  <div class="t-Body">
+    <div class="t-Body-main">
+      <div class="t-Body-title" id="t_Body_title">
+        <nav id="R39420162414585741" role="navigation" aria-label="Dep-English"
+          class="t-BreadcrumbRegion t-BreadcrumbRegion--showBreadcrumb t-BreadcrumbRegion--useBreadcrumbTitle">
+          <div class="t-BreadcrumbRegion-top">
+            <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--start"></div>
+            <div class="t-BreadcrumbRegion-body">
+              <div class="t-BreadcrumbRegion-breadcrumb">
+                <ul class="t-Breadcrumb ">
+                  <li class="t-Breadcrumb-item is-active" aria-current="page">
+                    <h1 class="t-Breadcrumb-label">About Us</h1>
+                  </li>
+                </ul>
+              </div>
+              <div class="t-BreadcrumbRegion-title">
+                <h1 id="R39420162414585741_heading" class="t-BreadcrumbRegion-titleText" data-apex-heading>Dep-English
+                </h1>
+              </div>
+            </div>
+            <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--end"></div>
+          </div>
+          <div class="t-BreadcrumbRegion-bottom"></div>
+        </nav>
+      </div>
+      <div class="t-Body-content" id="t_Body_content">
+        <main id="main" class="t-Body-mainContent">
+          <span id="APEX_SUCCESS_MESSAGE" data-template-id="33086037481442559_S"
+            class="apex-page-success u-hidden"></span><span id="APEX_ERROR_MESSAGE"
+            data-template-id="33086037481442559_E" class="apex-page-error u-hidden"></span>
+          <div class="t-Body-fullContent"></div>
+          <div class="t-Body-contentInner">
+            <div class="container">
+              <div class="row ">
+                <div class="col col-12 apex-col-auto col-start col-end">
+                  <div id="R11556868978391228" class=""><img
+                      src='https://dipr.tn.gov.in/ords/r/dipr/103/files/static/v358/about.png' height="480px" ,
+                      width=100%> </img></div>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col col-12 apex-col-auto col-start col-end">
+                  <div id="R22879691196163085" class=""></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-12 apex-col-auto col-start col-end">
+                  <div id="R11556983055391229" class="content-container">
+                    <p>Loading content...</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row ">
+                <div class="col col-12 apex-col-auto col-start col-end">
+                  <div class="t-CardsRegion u-colors" id="R23044199534646279" role="region" aria-label="Images">
+                    <div class="t-Region-orderBy"></div>
+                    <div id="R23044199534646279_Cards" class="a-TMV--cards">
+                      <ul class="a-CardView-items a-CardView-items--grid4col is-placeholder" aria-hidden="true">
+
+
+
+                        <li class="a-CardView-item">
+                          <div class="a-CardView has-title has-icon has-icon--top">
+                            <div class="a-CardView-header">
+                              <div class="a-CardView-iconWrap a-CardView-iconWrap--top">
+                                <img src="assets/img/17.png" class="a-CardView-icon1">
+                              </div>
+                              <div class="a-CardView-headerBody">
+                                <center>
+                                  <h4><b>Thiru M.P.Saminathan</b></h4>
+                                </center>
+                                <center>
+                                  <h5> Hon'ble Minister for Tamil Development, Information &amp; Publicity </h5>
+                                </center>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="a-CardView-item">
+                          <div class="a-CardView has-title has-icon has-icon--top">
+                            <div class="a-CardView-header">
+                              <div class="a-CardView-iconWrap a-CardView-iconWrap--top">
+                                <img src="assets/img/18.png" class="a-CardView-icon1">
+                              </div>
+                              <div class="a-CardView-headerBody">
+                                <center>
+                                  <h4><b>Thiru.V.Rajaraman,I.A.S.,</b></h4>
+                                </center>
+                                <center>
+                                  <h5> Secretary To Government Tamil Development and Information Department </h5>
+                                </center>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="a-CardView-item">
+                          <div class="a-CardView has-title has-icon has-icon--top">
+                            <div class="a-CardView-header">
+                              <div class="a-CardView-iconWrap a-CardView-iconWrap--top">
+                                <img src="assets/img/19.png" class="a-CardView-icon1">
+                              </div>
+                              <div class="a-CardView-headerBody">
+                                <center>
+                                  <h4><b>Dr.R.Vaithinathan,I.A.S.,</b></h4>
+                                </center>
+                                <center>
+                                  <h5> Director of Information and Public Relations and Ex Officio Deputy Secretary to
+                                    Government </h5>
+                                </center>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+
+
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col col-12 apex-col-auto col-start col-end">
+                  <div class="t-TabsRegion js-useLocalStorage t-TabsRegion-mod--simple apex-tabs-region"
+                    id="R39419953118585739">
+                    <h4>&nbsp; I & PR Officers in</h4>
+                    <div class="t-TabsRegion-items">
+                      <div data-label="Head&#x20;Quarter" id="SR_R39420365043585743">
+                        <div class="t-Region t-Region--hideHeader t-Region--noBorder t-Region--scrollBody"
+                          id="R39420365043585743" role="region" aria-label="Head&#x20;Quarter">
+                          <div class="t-Region-header">
+                            <div class="t-Region-headerItems t-Region-headerItems--title">
+                              <span class="t-Region-headerIcon"><span class="t-Icon " aria-hidden="true"></span></span>
+                              <h2 class="t-Region-title" id="R39420365043585743_heading" data-apex-heading>Head
+                                Quarter</h2>
+                            </div>
+                            <div class="t-Region-headerItems t-Region-headerItems--buttons"><span
+                                class="js-maximizeButtonContainer"></span></div>
+                          </div>
+                          <div class="t-Region-bodyWrap">
+                            <div class="t-Region-buttons t-Region-buttons--top">
+                              <div class="t-Region-buttons-left"></div>
+                              <div class="t-Region-buttons-right"></div>
+                            </div>
+                            <div class="t-Region-body">
+                              <div class="t-Region-orderBy"></div>
+                              <div id="report_39420365043585743_catch">
+                                <div class="t-Report t-Report--stretch t-Report--staticRowColors t-Report--rowHighlight"
+                                  id="report_R39420365043585743" data-region-id="R39420365043585743">
+                                  <div class="t-Report-wrap">
+                                    <div class="t-Report-tableWrap">
+                                      <table class="t-Report-report" id="report_table_COPPR" aria-label="headQuarters">
+                                        <thead>
+                                          <tr>
+                                            <th class="t-Report-colHead" align="left" id="NAME">Name</th>
+                                            <th class="t-Report-colHead" align="left" id="DESIGNATION">Designation /
+                                              Office</th>
+                                            <th class="t-Report-colHead" align="left" id="PHONE">Phone</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="headQuartersTableBody">
+                                          <!-- Dynamic rows will be inserted here -->
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <div>
+                                      <button id="headQuartersPrevPage"><i class="bi bi-arrow-left-short"></i></button>
+                                      <span id="headQuartersPageInfo"></span>
+                                      <button id="headQuartersNextPage"><i class="bi bi-arrow-right-short"></i></button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="t-Region-buttons t-Region-buttons--bottom">
+                              <div class="t-Region-buttons-left"></div>
+                              <div class="t-Region-buttons-right"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-label="Unit&#x20;Offices" id="SR_R39420909762585749">
+                        <div id="R39420909762585749" class="">
+                          <div id="report_39420909762585749_catch">
+                            <div class="t-Report t-Report--stretch t-Report--staticRowColors t-Report--rowHighlight"
+                              id="report_R39420909762585749" data-region-id="R39420909762585749">
+                              <div class="t-Report-wrap">
+                                <div class="t-Report-tableWrap">
+                                  <table class="t-Report-report" id="report_table" aria-label="unit">
+                                    <thead>
+                                      <tr>
+                                        <th class="t-Report-colHead" align="left" id="NAME">District</th>
+                                        <th class="t-Report-colHead" align="left" id="NAME">Name</th>
+                                        <th class="t-Report-colHead" align="left" id="DESIGNATION">Designation /
+                                          Office</th>
+                                        <th class="t-Report-colHead" align="left" id="PHONE">Phone</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="unitOfficeTable">
+                                      <!-- Dynamic rows will be inserted here -->
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div>
+                                  <button id="districtPrevPage">Previous</button>
+                                  <span id="districtPageInfo"></span>
+                                  <button id="districtNextPage">Next</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-label="Districts" id="SR_R39422891780585769">
+                        <div id="R39422891780585769" class="">
+                          <div id="report_39422891780585769_catch">
+                            <div class="t-Report t-Report--stretch t-Report--staticRowColors t-Report--rowHighlight"
+                              id="report_R39422891780585769" data-region-id="R39422891780585769">
+                              <div class="t-Report-wrap">
+                                <div class="t-Report-tableWrap">
+                                  <table class="t-Report-report" id="report_table_COPPR" aria-label="">
+                                    <thead>
+                                      <tr>
+                                        <th class="t-Report-colHead" align="left" id="NAME">District</th>
+                                        <th class="t-Report-colHead" align="left" id="NAME">Name</th>
+                                        <th class="t-Report-colHead" align="left" id="DESIGNATION">Designation /
+                                          Office</th>
+                                        <th class="t-Report-colHead" align="left" id="PHONE">Phone</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="districtTableBody">
+                                      <!-- Dynamic rows will be inserted here -->
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div>
+                                  <button id="districtPrevPage">Previous</button>
+                                  <span id="districtPageInfo"></span>
+                                  <button id="districtNextPage">Next</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-label="Other&#x20;Departments" id="SR_R39422235655585762">
+                        <div id="R39422235655585762" class="">
+                          <div id="report_39422235655585762_catch">
+                            <div class="t-Report t-Report--stretch t-Report--staticRowColors t-Report--rowHighlight"
+                              id="report_R39422235655585762" data-region-id="R39422235655585762">
+                              <div class="t-Report-wrap">
+                                <div class="t-Report-tableWrap">
+                                  <table class="t-Report-report" id="report_table" aria-label="otherDepartment">
+                                    <thead>
+                                      <tr>
+                                        <th class="t-Report-colHead" align="left" id="NAME">District</th>
+                                        <th class="t-Report-colHead" align="left" id="NAME">Name</th>
+                                        <th class="t-Report-colHead" align="left" id="DESIGNATION">Designation /
+                                          Office</th>
+                                        <th class="t-Report-colHead" align="left" id="PHONE">Phone</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="otherDepartmentTable">
+                                      <!-- Dynamic rows will be inserted here -->
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div>
+                                  <button id="districtPrevPage">Previous</button>
+                                  <span id="districtPageInfo"></span>
+                                  <button id="districtNextPage">Next</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-label="Transport&#x20;Corporations" id="SR_R39421649193585756">
+                        <div id="R39421649193585756" class="">
+                          <div id="report_39421649193585756_catch">
+                            <div class="t-Report t-Report--stretch t-Report--staticRowColors t-Report--rowHighlight"
+                              id="report_R39421649193585756" data-region-id="R39421649193585756">
+                              <div class="t-Report-wrap">
+                                <div class="t-Report-tableWrap">
+                                  <table class="t-Report-report" id="report_table" aria-label="transportCorporation">
+                                    <thead>
+                                      <tr>
+                                        <th class="t-Report-colHead" align="left" id="NAME">District</th>
+                                        <th class="t-Report-colHead" align="left" id="NAME">Name</th>
+                                        <th class="t-Report-colHead" align="left" id="DESIGNATION">Designation /
+                                          Office</th>
+                                        <th class="t-Report-colHead" align="left" id="PHONE">Phone</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="transportCorporationTable">
+                                      <!-- Dynamic rows will be inserted here -->
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div>
+                                  <button id="districtPrevPage">Previous</button>
+                                  <span id="districtPageInfo"></span>
+                                  <button id="districtNextPage">Next</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-label="Corporations" id="SR_COPPR">
+                        <div id="COPPR">
+                          <div id="report_12478959953332504_catch">
+                            <div class="t-Report t-Report--stretch t-Report--staticRowColors t-Report--rowHighlight"
+                              id="report_COPPR" data-region-id="COPPR">
+                              <div class="t-Report-wrap">
+                                <div class="t-Report-tableWrap">
+                                  <table class="t-Report-report" id="report_table_COPPR" aria-label="Corporations">
+                                    <thead>
+                                      <tr>
+                                        <th class="t-Report-colHead" align="left" id="NAME">Name</th>
+                                        <th class="t-Report-colHead" align="left" id="DESIGNATION">Designation /
+                                          Office</th>
+                                        <th class="t-Report-colHead" align="left" id="PHONE">Phone</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="corporationTableBody">
+                                      <!-- Dynamic rows will be inserted here -->
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div>
+                                  <button id="corporationPrevPage">Previous</button>
+                                  <span id="corporationPageInfo"></span>
+                                  <button id="corporationNextPage">Next</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-label="Sections&#x20;in&#x20;Head&#x20;Quarter" id="SR_R12482337643332538">
+                        <div id="R12482337643332538" class="">
+                          <div id="report_12482337643332538_catch">
+                            <div class="t-Report t-Report--stretch t-Report--staticRowColors t-Report--rowHighlight"
+                              id="report_R12482337643332538" data-region-id="R12482337643332538">
+                              <div class="t-Report-wrap">
+                                <div class="t-Report-tableWrap">
+                                  <table class="t-Report-report" id="report_table" aria-label="sectionsHeadQuarters">
+                                    <thead>
+                                      <tr>
+                                        <th class="t-Report-colHead" align="left" id="NAME">District</th>
+                                        <th class="t-Report-colHead" align="left" id="NAME">Name</th>
+                                        <th class="t-Report-colHead" align="left" id="DESIGNATION">Designation /
+                                          Office</th>
+                                        <th class="t-Report-colHead" align="left" id="PHONE">Phone</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="sectionsHeadQuartersTable">
+                                      <!-- Dynamic rows will be inserted here -->
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div>
+                                  <button id="sectionsHeadQuartersPage">Previous</button>
+                                  <span id="sectionsHeadQuartersInfo"></span>
+                                  <button id="sectionsHeadQuartersNextPage">Next</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <footer class="t-Footer" id="t_Footer" role="contentinfo">
+          <div class="t-Footer-body">
+            <div class="t-Footer-content">
+              <div class="container">
+                <div class="row ">
+                  <div class="col col-12 apex-col-auto col-start col-end">
+                    <div id="R11684238522218402" class="">Information & Public Relations Department, Secretariat,
+                      Chennai 600 009</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="t-Footer-apex">
+              <div class="t-Footer-version">
+                <!--   <div class="t-Header-nav-list js-tabLike js-tabLike" id="t_MenuNav"><ul><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/home" title="" target="">Home</a></li><li class="a-MenuBar-item a-Menu--current" data-current="true" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/about_page" title="" target="">About Us</a></li><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/gallery1" title="" target="">Photo &#x2F; Video</a></li><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/press-release1" title="" target="">Press Release &#x2F; Press Note</a></li><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/government-orders" title="" target="">Government Orders</a></li><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/sections" title="" target="">Sections</a></li><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/download-forms" title="" target="">Download Forms</a></li></ul></div> -->
+              </div>
+              <div class="t-Footer-customize">
+              </div>
+            </div>
+          </div>
+          <div class="t-Footer-top">
+            <a href="#top" class="t-Footer-topButton" id="t_Footer_topButton" title="Start of page"
+              aria-label="Start of page"><span class="a-Icon icon-up-chevron" aria-hidden="true"></span></a>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+  <div class="t-Body-inlineDialogs" id="t_Body_inlineDialogs"></div>
+  <input type="hidden" id="pPageFormRegionChecksums" value="&#x5B;&#x5D;">
+  <input type="hidden" id="pPageItemsRowVersion" value="" /><input type="hidden" id="pPageItemsProtected"
+    value="&#x2F;Uy_6LCoAsUCFvQ5r8OmRbsFBCk2ux-3VXUShkRM9HXkNmQXDQC4FfCBDoMABA2Q3DukHmnJLQdVMwTskzs_sZg" />
+  <script type="text/javascript">
+    apex.da.initDaEventList = function () {
+      apex.da.gEventList = [
+        { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE_SELECTION", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-Mzc0OTQ3NjY4MDA1MDg5MzI\u002FYL0mL5cX9ZeVJHWerlTq1g632WjP-MfE46JHbznp1Y0tz6vQ--xhgao_4NaKhn87uiXl7_P_XI1Xy_8Qw9KoYg", "attribute01": "#P0_LANGUAGE_SELECTION", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }] },
+        { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-NDM0MzQzOTA5NTkyMjI3NTI\u002FhEEg-dqZnSDc-EGwd6bMGSm1eSYj5smo6uimBZs4FNKOtnZmw6EjXyiAP2KRGFac9LPqx0ffn1-gmAPb045IBA", "attribute01": "#P0_LANGUAGE", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }, { "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, javascriptFunction: apex.da.submitPage, "attribute02": "Y", "action": "NATIVE_SUBMIT_PAGE" }] }];
+    }
+  </script>
+  <script src="assets/js/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/desktop_all.min.js"></script>
+  <script src="assets/js/widget.stickyWidget.min.js"></script>
+  <script src="assets/js/theme42.min.js"></script>
+  <script src="assets/js/widget.apexTabs.min.js"></script>
+  <script src="assets/js/com.oracle.apex.carousel.min.js"></script>
+  <script src="assets/js/modelViewBase.min.js"></script>
+  <script src="assets/js/widget.templateReport.min.js"></script>
+  <script src="assets/js/widget.report.min.js"></script>
+  <script src="assets/js/aos.js"></script>
+  <script src="assets/js/global.js"></script>
+  <script src="assets/js/basepath.js"></script>
+  <script src="assets/js/apiConfig.js"></script>
+  <script src="assets/js/encrypt_decrypt.js"></script>
+  <script src="assets/js/crypto-js.min.js"></script>
+  <!-- <script src="assets/js/crypto-js.min.js"></script>
+  <script src="assets/js/userRole.js"></script>
+  <script src="assets/js/jquery-3.6.0.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/jquery-ui.min.js"></script>
+  <script src="assets/vendor/datatable/jquery.dataTables.min.js"></script>
+  <script src="assets/js/global.js"></script> -->
+
+  <script>
+    $(document).ready(function () {
+
+
+      $("#adminLoginBtn").on("click", function () {
+        window.location.href = "admin-login.html";
+      });
+
+      $('.shownav').on('click', function (e) {
+        //debugger;
+        e.stopPropagation(); // Prevent closing when clicking inside
+        $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
+        $(this).find('.showlink').toggleClass('force-show');
+      });
+
+      // Click outside to hide dropdown
+      $(document).on('click', function () {
+        $('.showlink').removeClass('force-show');
+      });
+    });
+
+
+  </script>
+  <script type="text/javascript">
+    apex.jQuery(function () {
+      apex.page.init(this, function () {
+        try {
+          (function () { apex.widget.selectList("#P0_LANGUAGE", { "ajaxIdentifier": "SVRFTSBUWVBFfjUxMjB-MzgxODM5MDAxMjAxMjk3NDc\u002FfRk75vWgDmHLk9etT6bxc5Gy1UNNwht3tI3fJwwexIuaDrndw4QbqOy_UydDBDZ1f7y8RqppS4CPldV8PyZ1NQ" }); })();
+          (function () {
+            var e = apex.jQuery("#t_MenuNav", apex.gPageContext$);
+            if (e.hasClass("js-addActions")) {
+              apex.actions.addFromMarkup(e);
+            }
+            e.menu({
+              behaveLikeTabs: e.hasClass("js-tabLike"),
+              menubarShowSubMenuIcon: e.hasClass("js-showSubMenuIcons") || null,
+              menubar: true,
+              menubarOverflow: true,
+              callout: e.hasClass("js-menu-callout")
+            });
+          })();
+          (function () { apex.util.defineTemplates([{ "name": "APEX_CARDS_BEFORE", "template": "\u003Cul class=\u0022a-CardView-items #CARD_LAYOUT# #COMPONENT_CLASSES#\u0022\u003E\u000A", "args": [{ "name": "CARD_LAYOUT", "escape": "ATTR" }, { "name": "COMPONENT_CLASSES", "escape": "ATTR" }] }, { "name": "APEX_CARDS_CARD_23044199534646279", "template": "\u003Cli class=\u0022a-CardView-item \u0026APEX$ROW_STATE_CLASSES.\u0022 data-id=\u0022\u0026APEX$ROW_ID.\u0022 data-rownum=\u0022\u0026APEX$ROW_INDEX.\u0022\u003E\u000A\u003Cdiv class=\u0022a-CardView{if ?TITLE_HTML_EXPR\u002F} has-title{endif\u002F}{if ?SUB_TITLE_HTML_EXPR\u002F} has-subtitle{endif\u002F}{if ?MEDIA\u002F} has-media has-media--first has-media--widescreen has-media--fit{endif\u002F}{if APEX$ACTION_EXISTS\u002F} has-actions{endif\u002F}{if APEX$FULL_ACTION_EXISTS\u002F} has-actions--full{endif\u002F} #CARD_CLASSES#\u0022\u003E\u000A{if ?MEDIA\u002F}\u000A\u003Cdiv class=\u0022a-CardView-media #MEDIA_POSITION# #MEDIA_APPEARANCE# #MEDIA_SIZING# #MEDIA_CLASSES#\u0022\u003E\u000A\u003Cimg class=\u0022a-CardView-mediaImg\u0022 src=\u0022#MEDIA#\u0022 alt=\u0022\u0022 loading=\u0022lazy\u0022 \u002F\u003E\u003C\u002Fdiv\u003E\u000A{endif\u002F}\u000A\u003Cdiv class=\u0022a-CardView-header\u0022\u003E\u000A\u003Cdiv class=\u0022a-CardView-headerBody\u0022\u003E\u000A{if ?TITLE_HTML_EXPR\u002F}#TITLE_HTML_EXPR#{endif\u002F}\u000A{if ?SUB_TITLE_HTML_EXPR\u002F}\u000A#SUB_TITLE_HTML_EXPR#{endif\u002F}\u000A\u003C\u002Fdiv\u003E\u000A\u003C\u002Fdiv\u003E\u000A\u003C\u002Fdiv\u003E\u000A\u003C\u002Fli\u003E\u000A", "args": [{ "name": "CARD_CLASSES", "escape": "ATTR" }, { "name": "MEDIA_POSITION", "escape": "ATTR" }, { "name": "MEDIA_APPEARANCE", "escape": "ATTR" }, { "name": "MEDIA_SIZING", "escape": "ATTR" }, { "name": "MEDIA_CLASSES", "escape": "ATTR" }, { "name": "MEDIA", "escape": "ATTR" }, { "name": "TITLE_HTML_EXPR", "escape": "RAW" }, { "name": "SUB_TITLE_HTML_EXPR", "escape": "RAW" }] }, { "name": "APEX_CARDS_AFTER", "template": "\u003C\u002Ful\u003E" }]); apex.widget.templateReportRegionInit({ "regionId": "23044199534646279", "regionStaticId": "R23044199534646279", "regionType": "Cards", "ajaxIdentifier": "UkVHSU9OIFRZUEV-fjIzMDQ0MTk5NTM0NjQ2Mjc5\u002F-6jw55lALidxlEVNFkpVPmxQRPfzl4dkiQvkN-KfPAnW-dyrPHuVJ6viAEHeKSP0tH1TdyAMCPk1cAreedfXvg", "itemsToSubmit": "#P0_LANGUAGE", "modelName": "R23044199534646279", "modelOptions": { "regionId": 23044199534646279, "paginationType": "progressive", "pageSize": 100, "identityField": "ID" }, "pagination": { "scroll": true, "showRange": false, "firstAndLastButtons": false, "hideSinglePage": true }, "footer": false, "hideEmptyFooter": true, "hasSize": false, "beforeTemplate": "{with\u002F}\u000ACARD_LAYOUT:=a-CardView-items--grid4col\u000ACOMPONENT_CLASSES:=\u000A{apply APEX_CARDS_BEFORE\u002F}", "recordTemplate": "{with\u002F}\u000ACARD_CLASSES:=\u000AMEDIA_POSITION:=a-CardView-media--first\u000AMEDIA_APPEARANCE:=a-CardView-media--widescreen\u000AMEDIA_SIZING:=a-CardView-media--fit\u000AMEDIA_CLASSES:=img\u000AMEDIA:=\u0026\u0022APEX$FILE_BLOB_BLOB\u0022!RAW.\u000ATITLE_HTML_EXPR:=\u003Ccenter\u003E\u003Ch4\u003E\u003Cb\u003E\u0026NAME.\u003C\u002Fb\u003E\u003C\u002Fh4\u003E \u003C\u002Fcenter\u003E\u000ASUB_TITLE_HTML_EXPR:=\u003Ccenter\u003E\u003Ch5\u003E \u0026DESIGNATION. \u003C\u002Fh5\u003E\u003C\u002Fcenter\u003E\u000A{apply APEX_CARDS_CARD_23044199534646279\u002F}", "afterTemplate": "{with\u002F}\u000A{apply APEX_CARDS_AFTER\u002F}", "columns": [{ "ID": { "index": 0 }, "FILE_BLOB": { "index": 1 }, "DESIGNATION": { "index": 2 }, "NAME": { "index": 3 }, "APEX$FILE_BLOB_BLOB": { "index": 4 }, "APEX$BUTTON_ACTION_EXISTS": { "index": 5 }, "APEX$FULL_ACTION_EXISTS": { "index": 6 }, "APEX$ACTION_EXISTS": { "index": 7 } }] }, gCard23044199534646279data); })();
+          (function () { apex.widget.report.init("R39420365043585743", "UkVHSU9OIFRZUEV-fjM5NDIwMzY1MDQzNTg1NzQz\u002FSdiuOnqDIMj5_hUnc7npQd_klqaZ9bpO8lDYx8iUK4Fryn4ONTZ3rNLJxv3GrktCqMkKH8yN01xWd6i07CvIMg", { "pageItems": "#P0_LANGUAGE", "lazyLoading": false, "internalRegionId": "39420365043585743" }); })();
+          (function () { apex.widget.report.init("R39420909762585749", "UkVHSU9OIFRZUEV-fjM5NDIwOTA5NzYyNTg1NzQ5\u002FHXB1hiNAXCZSiPKlkELdJUGmORP-s8aarVY_aS3Jsz0u_jTOXsUX84oNkSksDFiXllFXaZoUWch6Jv7lKlPEnA", { "pageItems": "#P0_LANGUAGE", "lazyLoading": false, "internalRegionId": "39420909762585749" }); })();
+          (function () { apex.widget.report.init("R39422891780585769", "UkVHSU9OIFRZUEV-fjM5NDIyODkxNzgwNTg1NzY5\u002FWEE--9FKl4a9WWHFsDc3XXSOMWCa3TOfV-s-lzgR5hIlp4pQx3LPj10_vXm3W_sumI0LpvvK2ntx7kT4duChDA", { "pageItems": "#P0_LANGUAGE", "lazyLoading": false, "internalRegionId": "39422891780585769" }); })();
+          (function () { apex.widget.report.init("R39422235655585762", "UkVHSU9OIFRZUEV-fjM5NDIyMjM1NjU1NTg1NzYy\u002FH37qPVECSTJDacMRcnGza4hs44MfNlXUpwiYi9ZZt_VAwqzxOPa5H3alHOCmGTnaY2jFeWc6D5w0Hk4nmXaYrw", { "pageItems": "#P0_LANGUAGE", "lazyLoading": false, "internalRegionId": "39422235655585762" }); })();
+          (function () { apex.widget.report.init("R39421649193585756", "UkVHSU9OIFRZUEV-fjM5NDIxNjQ5MTkzNTg1NzU2\u002Fi73Fud3ESoEeFHd4zl5sVnkcb9OrEti8BrpRrqj5pRWPy20AviMDfydkAdRZ-miGmGSwHO0_JFDOzEvs9nJKRg", { "pageItems": "#P0_LANGUAGE", "lazyLoading": false, "internalRegionId": "39421649193585756" }); })();
+          (function () { apex.widget.report.init("COPPR", "UkVHSU9OIFRZUEV-fjEyNDc4OTU5OTUzMzMyNTA0\u002FsCgHJS1SII3NRqyJCyb5RMW1ldeIW8ZW-pPNQ8yZGthgiuQJF2iQJfu-RiWA5Dvi1gjdCLXcix_u9hjohrUNlw", { "pageItems": "#P0_LANGUAGE", "lazyLoading": false, "internalRegionId": "12478959953332504" }); })();
+          (function () { apex.widget.report.init("R12482337643332538", "UkVHSU9OIFRZUEV-fjEyNDgyMzM3NjQzMzMyNTM4\u002FsCnloh373VcZOoyN9EfSCjm2NsU6rjTVnp4qQpXDbSjGkK1-GHmozFOgN35z9T3RXTWm4nxUBq6u_Pr9Bla5Dw", { "pageItems": "#P0_LANGUAGE", "lazyLoading": false, "internalRegionId": "12482337643332538" }); })();
+          (function () {
+            var e = apex.jQuery("#t_MenuNav", apex.gPageContext$);
+            if (e.hasClass("js-addActions")) {
+              apex.actions.addFromMarkup(e);
+            }
+            e.menu({
+              behaveLikeTabs: e.hasClass("js-tabLike"),
+              menubarShowSubMenuIcon: e.hasClass("js-showSubMenuIcons") || null,
+              menubar: true,
+              menubarOverflow: true,
+              callout: e.hasClass("js-menu-callout")
+            });
+          })();
+        } catch (e) { apex.debug.error(e) };
+        apex.item.waitForDelayLoadItems().done(function () {
+          try {
+            (function () {
+              apex.da.initDaEventList();
+              apex.da.init();
+            })();
+            apex.theme42.initializePage.noSideCol();
+
+            apex.page.warnOnUnsavedChanges();
+          } finally {
+            apex.event.trigger(apex.gPageContext$, 'apexreadyend');
+          };
+        });
+      });
+    }); apex.pwa.publicKey = ''
+    apex.pwa.init({ serviceWorkerPath: '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fsw.js?v=24.1.1-41853896899929\u0026lang=en' });
+  </script>
+
+  <script>
+    function showSuccessToast(message) {
+      const toastElement = document.getElementById('successToast');
+      const toastBody = document.getElementById('successMessage');
+
+      toastBody.textContent = message;
+
+      const toast = new bootstrap.Toast(toastElement, {
+        autohide: true,
+        delay: 3000
+      });
+      toast.show();
+    }
+    function showErrorToast(message) {
+      const toastElement = document.getElementById('errorToast');
+      const toastBody = document.getElementById('errorMessage');
+
+      toastBody.textContent = message;
+
+      const toast = new bootstrap.Toast(toastElement, {
+        autohide: true,
+        delay: 3000
+      });
+      toast.show();
+    }
+
+    $(document).ready(function () {
+      $('#preloader').hide();
+      var langSwitch = 'en';
+      $(document).on({
+        ajaxStart: function () {
+          $('#preloader').show();
+          $("body").addClass("user_loading");
+        },
+        ajaxStop: function () {
+          $('#preloader').hide();
+          $("body").removeClass("user_loading");
+        }
+      });
+
+      function fetchData() {
+        $('#preloader').show();
+        $.ajax({
+          url: `${BASE_API_URL}/general/aboutUs/about_us?lang=${langSwitch}`,
+          type: 'GET',
+          success: function (response) {
+            if (response.success === 1) {
+              let content = '';
+              response.data.forEach(item => {
+                content += `<p style="margin-bottom: 6.6pt; line-height: 106%; text-align: justify;" class="MsoNormal">
+                            ${item.description}
+                        </p>`;
+              });
+              $('#R11556983055391229').html(content);
+            } else {
+              $('#R11556983055391229').html('<p>Error retrieving data.</p>');
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error('Error:', error);
+            $('#R11556983055391229').html('<p>Failed to load content.</p>');
+          }
+        });
+      };
+      fetchData();
+
+      $(document).ready(function () {
+        const apis = [
+          {
+            url: `${BASE_API_URL}/general/aboutUs/corporation?lang=${langSwitch}`,
+            tableBodyId: "#corporationTableBody",
+            paginationInfoId: "#corporationPageInfo",
+            prevPageBtn: "#corporationPrevPage",
+            nextPageBtn: "#corporationNextPage",
+          },
+          {
+            url: `${BASE_API_URL}/general/aboutUs/headquarters_data?lang=${langSwitch}`,
+            tableBodyId: "#headQuartersTableBody",
+            paginationInfoId: "#headQuartersPageInfo",
+            prevPageBtn: "#headQuartersPrevPage",
+            nextPageBtn: "#headQuartersNextPage",
+          },
+          {
+            url: `${BASE_API_URL}/general/aboutUs/district_data?lang=${langSwitch}`,
+            tableBodyId: "#districtTableBody",
+            paginationInfoId: "#districtPageInfo",
+            prevPageBtn: "#districtPrevPage",
+            nextPageBtn: "#districtNextPage",
+          },
+        ];
+
+        const rowsPerPage = 5; // Items per page
+
+        apis.forEach((api) => fetchData(api));
+
+        function fetchData(api) {
+          let currentPage = 1;
+          let data = [];
+
+          $('#preloader').show(); // Show loader during fetch
+
+          $.ajax({
+            url: api.url,
+            type: "GET",
+            dataType: "json",
+            success: function (response) {
+              if (response.success === 1 && response.data.length > 0) {
+                data = response.data;
+                renderTable(data, currentPage, api);
+              } else {
+                $(api.tableBodyId).html("<tr><td colspan='3'>No data available</td></tr>");
+              }
+            },
+            error: function () {
+              $(api.tableBodyId).html("<tr><td colspan='3'>Error fetching data</td></tr>");
+            },
+            complete: function () {
+              $('#preloader').hide(); // Hide loader after fetch completes
+            },
+          });
+
+          // Render table with pagination
+          function renderTable(data, currentPage, api) {
+            $('#preloader').show();
+
+
+            let startIndex = (currentPage - 1) * rowsPerPage;
+            let paginatedData = data.slice(startIndex, startIndex + rowsPerPage);
+
+            let rows = paginatedData.map((item) => {
+              let extraColumn = "";
+
+              // Check if the current API is the third one
+              if (api.tableBodyId === "#districtTableBody" && item.district) {
+                extraColumn = `<td class="t-Report-cell">${item.district || "N/A"}</td>`;
+              }
+
+              return `
+              <tr>
+                ${extraColumn} 
+                <td class="t-Report-cell">${item.name || "N/A"}</td>
+                <td class="t-Report-cell">${item.designation || "N/A"}</td>
+                <td class="t-Report-cell">${item.phone || "N/A"}</td>
+                
+              </tr>`;
+            }).join("");
+
+            $(api.tableBodyId).html(rows);
+            updatePagination(data.length, currentPage, api);
+            $('#preloader').hide();
+          }
+
+          // Update pagination controls
+          function updatePagination(totalItems, currentPage, api) {
+            let totalPages = Math.ceil(totalItems / rowsPerPage);
+            $(api.paginationInfoId).text(`Page ${currentPage} of ${totalPages}`);
+
+            $(api.prevPageBtn).toggleClass("disabled", currentPage === 1);
+            $(api.nextPageBtn).toggleClass("disabled", currentPage === totalPages);
+
+            $(api.prevPageBtn).off("click").on("click", function () {
+              if (currentPage > 1) {
+                currentPage--;
+                renderTable(data, currentPage, api);
+              }
+            });
+
+            $(api.nextPageBtn).off("click").on("click", function () {
+              if (currentPage < totalPages) {
+                currentPage++;
+                renderTable(data, currentPage, api);
+              }
+            });
+          }
+        }
+      });
+
+      document.getElementById('P0_LANGUAGE').addEventListener('change', function () {
+        const selectedValue = this.value;
+        if (selectedValue === "en") {
+          langSwitch = "en";
+          fetchData();
+        } else {
+          langSwitch = "ta";
+          fetchData();
+        }
+      });
+    });
+    $(document).ready(function () {
+      const secretKey = decryptKey();
+      const encryptedData = localStorage.getItem("role");
+      let role = null;
+
+      if (encryptedData) {
+        try {
+          const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+          );
+          console.log(decryptedData);
+
+          role = decryptedData || null; // assuming loginResult has user_id
+        } catch (err) {
+          console.error("Error decrypting user data:", err);
+        }
+      }
+      var userAdminName = localStorage.getItem("userAdminName");
+      if (role) {
+        $('.admin-name-change').text(role);
+        $('.js-tabLike .admin-menu-show').css('display', 'block');
+        var interval = setInterval(function () {
+          if ($('#t_MenuNav_7').length) {
+            $('#t_MenuNav_7').css('display', 'flex');
+          }
+          if ($('#t_MenuNav_8').length) {
+            $('#t_MenuNav_8').css('display', 'flex');
+          }
+
+          if ($('#t_MenuNav_7').length && $('#t_MenuNav_8').length) {
+            clearInterval(interval);
+          }
+        }, 100);
+      }
+      var appendSignout = '<div class="t-NavigationBar-menu showlink">' +
+        '<ul>' +
+        '<li>' +
+        '<a href="/index.html" class="signOutBtn">Sign Out</a>' +
+        '</li>' +
+        '</ul>' +
+        '</div>';
+
+      $('.t-NavigationBar-item.has-username.shownav').append(appendSignout);
+
+      $(".signOutBtn").on("click", function (event) {
+        event.preventDefault();
+
+        const secretKey = decryptKey();
+        const encryptedData = localStorage.getItem("userAdminName");
+        let userId = null;
+
+        if (encryptedData) {
+          try {
+            const decryptedData = JSON.parse(
+              CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            console.log(decryptedData);
+
+            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+          } catch (err) {
+            console.error("Error decrypting user data:", err);
+          }
+        }
+
+
+        // Prepare encrypted logout payload
+        const payload = {
+          action: "function_call",
+          function_name: "user_logout",
+          params: { user_id: userId }
+        };
+
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          type: "POST",
+          headers: {
+            "X-App-Key": "dipr",
+            "X-App-Name": "dipr"
+          },
+          data: {
+            data: encryptData(payload) // <-- important!
+          },
+          dataType: "json",
+          success: function (response) {
+            if (response.success) {
+              localStorage.removeItem("role");
+              localStorage.removeItem("userAdminName");
+              showSuccessToast(response.message || "Logged out successfully!");
+              window.location.href = "index.html";
+            } else {
+              showErrorToast(response.message || "Logout failed");
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error("Logout request failed:", error);
+            showErrorToast("Logout request failed. Please try again.");
+          }
+        });
+      });
+    });
+
+  </script>
+</body>
+
+
+</html>

@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html class="no-js  page-79 app-INFO-PRDEPT103" lang="en">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+<head>
+  <meta http-equiv="x-ua-compatible" content="IE=edge" />
+  <meta charset="utf-8">
+  <title>Download Forms</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/menu.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/Core.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/Theme-Standard.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/font-apex.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/Coretheme.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/cs-theme.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/custom.min.css">
+  <link rel="apple-touch-icon" href="assets/img/app-icon-192.png">
+  <link rel="icon" href="assets/img/app-icon-32.png">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .pagination {
+      margin-top: 10px;
+    }
+
+    .pagination a {
+      margin: 5px;
+      padding: 5px 10px;
+      text-decoration: none;
+      border: 1px solid #000;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .pagination a.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .pagination a.active {
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
+  <style type="text/css">
+    .toast-container {
+      right: 0.5%;
+    }
+
+    #successToast {
+      background: #198754 !important;
+    }
+
+    #errorToast {
+      background: #ff0000 !important;
+    }
+
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 9999;
+      overflow: hidden;
+      background: #12121261;
+      /*width: 57%;*/
+      border-radius: 13px 35px;
+    }
+
+    #preloader:before {
+      content: "";
+      position: fixed;
+      top: calc(50% - 30px);
+      left: calc(53% - 30px);
+      border: 6px solid #f92020b8;
+      border-top-color: #e2eefd;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      -webkit-animation: animate-preloader 1s linear infinite;
+      animation: animate-preloader 1s linear infinite;
+      z-index: 9999;
+    }
+
+    @-webkit-keyframes animate-preloader {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes animate-preloader {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .a-CardView-iconWrap.a-CardView-iconWrap--top {
+      text-align: center;
+    }
+
+    @font-face {
+      font-family: 'FontApex';
+      src: url('../font/apex-5-icon-font.woff2') format('woff2'),
+        url('../font/apex-5-icon-font.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Font-APEX';
+      src: url('../fonts/Font-APEX-Small.woff2') format('woff2'),
+        url('../fonts/Font-APEX-Small.woff') format('woff'),
+        url('../fonts/Font-APEX-Large.woff2') format('woff2'),
+        url('../fonts/Font-APEX-Large.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+  </style>
+  <style type="text/css">
+    @font-face {
+      font-family: 'FontApex';
+      src: url('../font/apex-5-icon-font.woff2') format('woff2'),
+        url('../font/apex-5-icon-font.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Font-APEX';
+      src: url('../fonts/Font-APEX-Small.woff2') format('woff2'),
+        url('../fonts/Font-APEX-Small.woff') format('woff'),
+        url('../fonts/Font-APEX-Large.woff2') format('woff2'),
+        url('../fonts/Font-APEX-Large.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+  </style>
+  <style type="text/css">
+    .t-Footer {
+      background-color: #3b3b79;
+      color: white;
+    }
+
+    .t-Header-nav1 {
+      text-align: center;
+      background-color: #3b3b79;
+      color: white;
+    }
+
+    .t-Header-navBar {
+      --ut-field-padding-y: 0rem;
+      align-items: center;
+      display: grid;
+      grid-area: navbar;
+      grid-template-areas: "navbar-start navbar-center navbar-end";
+      grid-template-columns: 1fr auto auto;
+      justify-content: end;
+      align-content: center;
+      background: #3b3b79;
+      color: white;
+    }
+
+    .apex-item-select,
+    .datetimepicker_newMonth,
+    .u-TF-item--select,
+    select.group_selectlist {
+      background-position: 100%;
+      background-repeat: no-repeat;
+      padding-inline-end: var(--a-field-select-arrow-padding, 2rem);
+      color: white;
+      background: #3b3b79;
+      width: 105px;
+    }
+
+    .fa {
+      padding: 10px;
+      font-size: 15px;
+      width: 40px;
+      text-align: center;
+      text-decoration: none;
+      margin: 5px 2px;
+      border-radius: 30%;
+    }
+
+    .fa:hover {
+      opacity: 0.7;
+    }
+
+    .fa-facebook {
+      background: #3B5998;
+      color: white;
+    }
+
+    .fa-twitter {
+      background: #55ACEE;
+      color: white;
+    }
+
+    .fa-google {
+      background: #dd4b39;
+      color: white;
+    }
+
+    .fa-linkedin {
+      background: #007bb5;
+      color: white;
+    }
+
+    .fa-youtube {
+      background: #bb0000;
+      color: white;
+    }
+
+    .fa-instagram {
+      background: white;
+      color: black;
+    }
+
+    h4,
+    h2 {
+      font-weight: var(--a-base-font-weight-semibold, 500);
+      line-height: 1.5;
+      color: #3b3b79;
+    }
+
+    .t-Breadcrumb-label {
+      color: #3c3b79;
+      display: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      margin: inherit;
+    }
+
+    .t-Footer-topButton {
+      --a-icon-size: 1rem;
+      -webkit-margin-start: auto;
+      -webkit-margin-end: auto;
+      align-items: center;
+      background-color: var(--ut-footer-top-background-color, var(--a-button-background-color));
+      border-color: var(--ut-footer-top-border-color, var(--a-button-border-color));
+      border-radius: var(--ut-footer-top-border-radius, 100%);
+      border-style: solid;
+      border-width: var(--ut-footer-top-border-width, var(--a-button-border-width, 1px));
+      box-shadow: var(--ut-footer-top-box-shadow, var(--a-button-box-shadow), none);
+      color: var(--ut-footer-top-text-color, var(--a-button-text-color));
+      display: flex;
+      height: var(--ut-footer-top-size, 2.5rem);
+      justify-content: center;
+      margin-inline-end: auto;
+      margin-inline-start: auto;
+      /* opacity: var(--ut-footer-top-opacity,.); */
+      padding: calc(var(--ut-footer-top-padding, .75rem) - var(--ut-footer-top-border-width, var(--a-button-border-width, 1px)));
+      transition: .1s ease;
+      width: var(--ut-footer-top-size, 2.5rem);
+      z-index: 99;
+      position: fixed;
+      bottom: 3%;
+      right: 3%;
+      box-shadow: 1px 1px 5px black;
+    }
+
+    /* Sticky header styles */
+    .nobgcolor {
+      background-color: #fff;
+      /* Set your desired background color */
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    /* Header image styles */
+    .header-images {
+      max-height: 110px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* Center text styles */
+    .center-text {
+      display: block;
+      margin: auto;
+      font-weight: 900;
+      font-size: 1.5rem;
+    }
+
+    /* Container for centering */
+    .widthFixed {
+      max-width: 100%;
+      /* Adjust as needed */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .center-text center {
+      color: #c52c27;
+    }
+
+    .txtBlue {
+      color: #3c3b79;
+      font-weight: 900;
+      font-size: 1.5rem;
+    }
+
+    #first_image {
+      margin-left: 8%;
+    }
+
+    #last_image {
+      margin-right: 8%;
+    }
+
+    .container {
+      width: 80%;
+      text-align: justify;
+    }
+
+    @media only screen and (max-width:600px) {
+      .header-images {
+        max-height: 50px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .container {
+        width: 95%;
+      }
+
+      #first_image {
+        margin-left: 2%;
+      }
+
+      #last_image {
+        margin-right: 2%;
+      }
+
+      .center-text {
+        display: block;
+        text-align: center;
+        margin: auto;
+        font-weight: 400;
+        font-size: .8rem;
+      }
+
+      .txtBlue {
+        color: #3c3b79;
+        font-weight: 800;
+        font-size: .9rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="r/dipr/103/files/theme/42/v87/10689188252099023.css" type="text/css" />
+  <link rel="apple-touch-icon" href="r/dipr/103/files/static/v358/icons/app-icon-192.png" />
+  <link rel="icon" href="r/dipr/103/files/static/v358/icons/app-icon-32.png" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta http-equiv="Cache-Control" content="no-cache" />
+  <meta name="theme-color" content="&#x23;000000" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Info&#x26;PRDept" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="manifest"
+    href="manifest.json_%3b%20filename_%3dUTF-8%27%27manifestf27b.json?v=24.1.1-41853896899929&amp;lang=en"
+    crossorigin="use-credentials" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../../../../cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <!-- Toast -->
+  <div class="toast-container position-fixed p-3 custom_toast" x-data="transButtonComponent()">
+    <div id="errorToast" class="toast align-items-center text-bg-primary border-0 " role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <p id="errorMessage" class="mb-0"></p>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+    <div id="successToast" class="toast align-items-center text-bg-primary border-0 " role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <p id="successMessage" class="mb-0"></p>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+  <!-- Toast -->
+
+  <div id="preloader"></div>
+</head>
+
+<body
+  class="t-PageBody t-PageBody--hideLeft t-PageBody--hideActions no-anim t-PageTemplate--standard   apex-top-nav apex-icons-fontapex apex-theme-vita-copy-2-copy-1"
+  id="t_PageBody">
+  <a href="#main" id="t_Body_skipToContent">Skip to Main Content</a>
+  <form role="none" action="wwv_flow.accept?p_context=info-prdept103/download-forms/314438547945874" method="post"
+    name="wwv_flow" id="wwvFlowForm" data-oj-binding-provider="none" novalidate autocomplete="off">
+    <input type="hidden" name="p_flow_id" value="103" id="pFlowId" /><input type="hidden" name="p_flow_step_id"
+      value="79" id="pFlowStepId" /><input type="hidden" name="p_instance" value="314438547945874"
+      id="pInstance" /><input type="hidden" name="p_page_submission_id"
+      value="MjkyODMyNTA3MTQ2NzA0MDg0NjM0NzY4NDgyMjM1MDc0OTQzOTc4&#x2F;0ZNfuYVF7he1IH_ci3tP3c5N16yur_7hJuNMkupzwAkRsPXU49yf3gkJA1zXFbr9fk3LfXftQH68mKC8qq4fxg"
+      id="pPageSubmissionId" /><input type="hidden" name="p_request" value="" id="pRequest" /><input type="hidden"
+      name="p_reload_on_submit" value="S" id="pReloadOnSubmit" /><input type="hidden"
+      value="info-prdept103&#x2F;download-forms&#x2F;314438547945874" id="pContext" /><input type="hidden"
+      value="292832507146704084634768482235074943978" id="pSalt" />
+    <header class="t-Header" id="t_Header" role="banner">
+      <div class="t-Header-navBar">
+        <div class="t-Header-navBar--start">
+          <div class="t-Header-navBar--end">
+            <div
+              class="t-Form-fieldContainer rel-col t-Form-fieldContainer--large t-Form-fieldContainer--normalDisplay apex-item-wrapper apex-item-wrapper--has-initial-value apex-item-wrapper--select-list"
+              id="P0_LANGUAGE_CONTAINER">
+              <div class="t-Form-labelContainer col col-null">
+                <label for="P0_LANGUAGE" id="P0_LANGUAGE_LABEL" class="t-Form-label"></label>
+              </div>
+              <div class="t-Form-inputContainer col col-null">
+                <div class="t-Form-itemWrapper">
+                  <select id="P0_LANGUAGE" name="P0_LANGUAGE" class="selectlist&#x20;apex-item-select"
+                    data-native-menu="false" size="1">
+                    <option value="en" selected="selected">English</option>
+                    <option value="ta">Tamil</option>
+                  </select>
+                </div>
+                <span id="P0_LANGUAGE_error_placeholder" class="a-Form-error"
+                  data-template-id="32751098700172723_ET"></span>
+              </div>
+            </div>
+          </div>
+          <div class="t-Header-navBar--center">
+            <ul class="t-NavigationBar " id="32861498506172843">
+              <li class="t-NavigationBar-item a-pwaInstall">
+                <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#action$a-pwa-install"
+                  title="" target="">
+                  <span class="t-Icon fa&#x20;fa-cloud-download" aria-hidden="true"></span><span
+                    class="t-Button-label">Install App</span><span class="t-Button-badge"></span>
+                </a>
+              </li>
+              <li class="t-NavigationBar-item has-username">
+                <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#" title="" target="">
+                  <span class="t-Icon fa&#x20;fa-user" aria-hidden="true"></span><span
+                    class="t-Button-label admin-name-change">nobody</span><span class="t-Button-badge"></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="t-Header-navBar--end"></div>
+          <a href="https://www.facebook.com/TNDIPR" class="fa fa-facebook" target='_blank'></a>
+          <a href="https://twitter.com/TNDIPRNEWS" class="fa fa-twitter " target='_blank'></a>
+          <!--<a href="https://www.instagram.com/tndipr" class="fa fa-instagram"></a> -->
+          <a href="https://www.instagram.com/tndipr"><img src="r/dipr/103/files/static/v358/instagram.jpeg"
+              style="height:35px;" class="fa fa-twitter" target='_blank'>
+            <a href="https://www.youtube.com/c/tndipr21" class="fa fa-youtube" target='_blank'></a>
+        </div>
+      </div>
+      <!-- <div class=" nobgcolor ">
+          <img id="first_image" style=" height: 100%;" src = 'r/dipr/103/files/static/v358/left-png.png' > <span class="alignCenter"><center> Information and Public Relations Department </br> செய்தி – மக்கள் தொடர்புத்துறை </center></span>
+              <img id="last_image" style=" height: 100%;" src = "r/dipr/103/files/static/v358/right-png.png" > 
+          
+             </div> -->
+      <div class="nobgcolor">
+        <div class="widthFixed">
+          <!-- <img id="first_image" class="header-images" src="r/dipr/103/files/static/v358/left-png.png"> -->
+          <div class="center-text">
+            <center>Information and Public Relations Department <br> <span class="txtBlue">செய்தி – மக்கள்
+                தொடர்புத்துறை</span></center>
+          </div>
+          <!-- <img id="last_image" class="header-images" src="r/dipr/103/files/static/v358/right-png.png"> -->
+        </div>
+      </div>
+      <div class="t-Header-nav">
+        <div class="t-Header-nav-list js-tabLike js-tabLike" id="t_MenuNav">
+          <ul>
+            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                class="a-MenuBar-label" href="index.html" title="" target="">Home</a></li>
+            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                class="a-MenuBar-label" href="about_page.html" title="" target="">About Us</a></li>
+            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                class="a-MenuBar-label" href="gallery1.html" title="" target="">Photo &#x2F; Video</a></li>
+            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                class="a-MenuBar-label" href="press-release1.html" title="" target="">Press Release &#x2F; Press
+                Note</a></li>
+            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                class="a-MenuBar-label" href="government-orders.html" title="" target="">Government Orders</a></li>
+            <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                class="a-MenuBar-label" href="sections.html" title="" target="">Sections</a></li>
+            <li class="a-MenuBar-item a-Menu--current" data-current="true" data-id="" data-disabled="" data-hide=""
+              data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="download-forms.html" title=""
+                target="">Download Forms</a></li>
+            <li class="a-MenuBar-item admin-menu-show" data-id="" data-disabled="" data-hide="" data-shortcut=""
+              data-icon=""><a class="a-MenuBar-label" href="admin-google-sheets.html" title="" target="">Google
+                Sheets - Report</a>
+            </li>
+            <li class="a-MenuBar-item admin-menu-show" data-id="" data-disabled="" data-hide="" data-shortcut=""
+              data-icon=""><a class="a-MenuBar-label" href="" title="" target="">Administration</a>
+              <ul style="display: none">
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-photo-upload.html" title="" target="">Photo&#x2F;Video Upload</a>
+                </li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-press-release.html" title="" target="">Upload Press Release</a>
+                </li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-section-content.html" title="" target="">Sections Content</a>
+                </li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-goverment-orders.html" title="" target="">Upload Government
+                    Orders</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-sections-data-report.html" title="" target="">Sections Data
+                    Report</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-forms-report.html" title="" target="">Forms Report</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-memorial-video-report.html" title="" target="">memorial_video_report</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-monuments.html" title="" target="">Monuments</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="admin-arangams.html"
+                    title="" target="">Arangams</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-commemoration-pillars.html" title="" target="">Commemoration
+                    Pillars</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-commemoration-arch.html" title="" target="">Commemoration
+                    Arch</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-department-pictures.html" title="" target="">Department
+                    Pictures</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-department-details.html" title="" target="">Department
+                    Details</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-conclusion-photos.html" title="" target="">Conclusion_Photos</a>
+                </li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-google-sheets.html" title="" target="">Google Sheets</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-press-notes.html" title="" target="">Upload Press Note</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="admin-add-user.html"
+                    title="" target="">Add
+                    User</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+                    href="admin-navigation-list-entry.html" title="" target="">Navigation Menu Report</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="t-Body">
+      <div class="t-Body-main">
+        <div class="t-Body-title" id="t_Body_title">
+          <nav id="R39419496608585735" role="navigation" aria-label="Forms&#x20;of&#x20;all&#x20;Divisions"
+            class="t-BreadcrumbRegion t-BreadcrumbRegion--showBreadcrumb t-BreadcrumbRegion--useBreadcrumbTitle">
+            <div class="t-BreadcrumbRegion-top">
+              <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--start"></div>
+              <div class="t-BreadcrumbRegion-body">
+                <div class="t-BreadcrumbRegion-breadcrumb">
+                  <ul class="t-Breadcrumb ">
+                    <li class="t-Breadcrumb-item is-active" aria-current="page">
+                      <h1 class="t-Breadcrumb-label">Download Forms</h1>
+                    </li>
+                  </ul>
+                </div>
+                <div class="t-BreadcrumbRegion-title">
+                  <h1 id="R39419496608585735_heading" class="t-BreadcrumbRegion-titleText" data-apex-heading>Forms of
+                    all Divisions</h1>
+                </div>
+              </div>
+              <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--end"></div>
+            </div>
+            <div class="t-BreadcrumbRegion-bottom"></div>
+          </nav>
+        </div>
+        <div class="t-Body-content" id="t_Body_content">
+          <main id="main" class="t-Body-mainContent">
+            <span id="APEX_SUCCESS_MESSAGE" data-template-id="33086037481442559_S"
+              class="apex-page-success u-hidden"></span><span id="APEX_ERROR_MESSAGE"
+              data-template-id="33086037481442559_E" class="apex-page-error u-hidden"></span>
+            <div class="t-Body-fullContent"></div>
+            <div class="t-Body-contentInner">
+              <div class="container">
+                <div class="row ">
+                  <div class="col col-12 apex-col-auto col-start col-end">
+                    <div id="R22879691196163085" class=""></div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col col-12 apex-col-auto col-start col-end">
+                    <div id="R39429981671614157" class="">
+                      <div id="report_39429981671614157_catch">
+                        <div class="t-Report t-Report--staticRowColors t-Report--rowHighlight t-Report--noBorders"
+                          id="report_R39429981671614157" data-region-id="R39429981671614157">
+                          <div class="t-Report-wrap">
+                            <table class="t-Report-pagination" role="presentation">
+                              <tr>
+                                <td></td>
+                              </tr>
+                            </table>
+                            <div class="t-Report-tableWrap">
+                              <table>
+                                <thead>
+                                  <tr>
+                                    <th>Press Name</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="table-body"></tbody>
+                              </table>
+
+                              <div id="pagination" class="pagination"></div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <input type="hidden" name="P79_GET_ID" id="P79_GET_ID" value=""><input type="hidden"
+                        data-for="P79_GET_ID"
+                        value="K77yFdhfTx068nFwnLBakH7pHfe7gZHkIE1OZ-Yz9tty3v-hdgflt8vxukQXtCe2KJB-dJbd_3_6YGpWPxsIGA">
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </main>
+          <footer class="t-Footer" id="t_Footer" role="contentinfo">
+            <div class="t-Footer-body">
+              <div class="t-Footer-content">
+                <div class="container">
+                  <div class="row ">
+                    <div class="col col-12 apex-col-auto col-start col-end">
+                      <div id="R11684238522218402" class="">Information & Public Relations Department, Secretariat,
+                        Chennai 600 009</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="t-Footer-apex">
+                <div class="t-Footer-version">
+                </div>
+                <div class="t-Footer-customize">
+                </div>
+              </div>
+            </div>
+            <div class="t-Footer-top">
+              <a href="#top" class="t-Footer-topButton" id="t_Footer_topButton" title="Start of page"
+                aria-label="Start of page"><span class="a-Icon icon-up-chevron" aria-hidden="true"></span></a>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <div class="t-Body-inlineDialogs" id="t_Body_inlineDialogs"></div>
+    <input type="hidden" id="pPageFormRegionChecksums" value="&#x5B;&#x5D;">
+    <input type="hidden" id="pPageItemsRowVersion" value="" /><input type="hidden" id="pPageItemsProtected"
+      value="UDc5X0dFVF9JRA&#x2F;DOr0qldG8AeWLSeo95D0Wijc-92JcG8PS-lVcPEYIPON1WCITWd6YB7OawlLlH6q_zabM2IjJefeT1EvdzWNEA" />
+  </form>
+  <script type="text/javascript">
+    apex.da.initDaEventList = function () {
+      apex.da.gEventList = [
+        { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE_SELECTION", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-Mzc0OTQ3NjY4MDA1MDg5MzI\u002FYL0mL5cX9ZeVJHWerlTq1g632WjP-MfE46JHbznp1Y0tz6vQ--xhgao_4NaKhn87uiXl7_P_XI1Xy_8Qw9KoYg", "attribute01": "#P0_LANGUAGE_SELECTION", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }] },
+        { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-NDM0MzQzOTA5NTkyMjI3NTI\u002FhEEg-dqZnSDc-EGwd6bMGSm1eSYj5smo6uimBZs4FNKOtnZmw6EjXyiAP2KRGFac9LPqx0ffn1-gmAPb045IBA", "attribute01": "#P0_LANGUAGE", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }, { "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, javascriptFunction: apex.da.submitPage, "attribute02": "Y", "action": "NATIVE_SUBMIT_PAGE" }] }];
+    }
+  </script>
+  <script src="assets/js/crypto-js.min.js"></script>
+  <script src="assets/js/jquery-3.6.0.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/jquery-ui.min.js"></script>
+
+  <script src="assets/js/desktop_all.min.js"></script>
+  <script src="assets/js/theme42.min.js"></script>
+  <script src="assets/js/aos.js"></script>
+  <script src="assets/js/add.min.js"></script>
+  <script src="assets/js/widget.apexTabs.min.js"></script>
+  <script src="assets/js/widget.interactiveReport.min.js"></script>
+  <script src="assets/js/widget.iconList.min.js"></script>
+  <script src="assets/js/widget.stickyTableHeader.min.js"></script>
+  <script src="assets/js/widget.stickyWidget.min.js"></script>
+  <script src="assets/js/item.Colorpicker.min.js"></script>
+  <script src="assets/js/require.js"></script>
+  <script src="assets/js/requirejs.jetConfig.min.js"></script>
+  <script src="assets/js/jetCommonBundle.min.js"></script>
+  <script src="assets/js/global.js"></script>
+  <script src="assets/js/apiConfig.js"></script>
+
+  <script type="text/javascript">
+    apex.jQuery(function () {
+      apex.page.init(this, function () {
+        try {
+          (function () { apex.widget.selectList("#P0_LANGUAGE", { "ajaxIdentifier": "SVRFTSBUWVBFfjUxMjB-MzgxODM5MDAxMjAxMjk3NDc\u002FfRk75vWgDmHLk9etT6bxc5Gy1UNNwht3tI3fJwwexIuaDrndw4QbqOy_UydDBDZ1f7y8RqppS4CPldV8PyZ1NQ" }); })();
+          (function () {
+            var e = apex.jQuery("#t_MenuNav", apex.gPageContext$);
+            if (e.hasClass("js-addActions")) {
+              apex.actions.addFromMarkup(e);
+            }
+            e.menu({
+              behaveLikeTabs: e.hasClass("js-tabLike"),
+              menubarShowSubMenuIcon: e.hasClass("js-showSubMenuIcons") || null,
+              menubar: true,
+              menubarOverflow: true,
+              callout: e.hasClass("js-menu-callout")
+            });
+          })();
+          (function () { apex.widget.report.init("R39429981671614157", "UkVHSU9OIFRZUEV-fjM5NDI5OTgxNjcxNjE0MTU3\u002FO0pWVOZEX75ghaafA_c-mS6wkbtN4t0NXkNeImbMj9NM1Wtfyvvw69qQ5u1BRl9A-I50jWWO8mi1AdTr40YV2g", { "lazyLoading": false, "internalRegionId": "39429981671614157" }); })();
+          (function () {
+            var e = apex.jQuery("#t_MenuNav", apex.gPageContext$);
+            if (e.hasClass("js-addActions")) {
+              apex.actions.addFromMarkup(e);
+            }
+            e.menu({
+              behaveLikeTabs: e.hasClass("js-tabLike"),
+              menubarShowSubMenuIcon: e.hasClass("js-showSubMenuIcons") || null,
+              menubar: true,
+              menubarOverflow: true,
+              callout: e.hasClass("js-menu-callout")
+            });
+          })();
+        } catch (e) { apex.debug.error(e) };
+        apex.item.waitForDelayLoadItems().done(function () {
+          try {
+            (function () {
+              apex.da.initDaEventList();
+              apex.da.init();
+            })();
+            apex.theme42.initializePage.noSideCol();
+
+            apex.page.warnOnUnsavedChanges();
+          } finally {
+            apex.event.trigger(apex.gPageContext$, 'apexreadyend');
+          };
+        });
+      });
+    }); apex.pwa.publicKey = ''
+    apex.pwa.init({ serviceWorkerPath: '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fsw.js?v=24.1.1-41853896899929\u0026lang=en' });
+  </script>
+
+  <script>
+    function showSuccessToast(message) {
+      const toastElement = document.getElementById('successToast');
+      const toastBody = document.getElementById('successMessage');
+
+      // Set the dynamic message
+      toastBody.textContent = message;
+
+      // Initialize and show the toast
+      const toast = new bootstrap.Toast(toastElement, {
+        autohide: true,
+        delay: 3000
+      });
+      toast.show();
+    }
+    // Function to show a error toast with a dynamic message
+    function showErrorToast(message) {
+      const toastElement = document.getElementById('errorToast');
+      const toastBody = document.getElementById('errorMessage');
+
+      // Set the dynamic message
+      toastBody.textContent = message;
+
+      // Initialize and show the toast
+      const toast = new bootstrap.Toast(toastElement, {
+        autohide: true,
+        delay: 3000
+      });
+      toast.show();
+    }
+
+    $(document).ready(function () {
+      //debugger
+      $(document).on({
+        ajaxStart: function () {
+          $('#preloader').show();
+          $("body").addClass("user_loading");
+        },
+        ajaxStop: function () {
+          $('#preloader').hide();
+          $("body").removeClass("user_loading");
+        }
+      });
+
+    });
+
+    let allData = [];
+    let currentPage = 1;
+    const itemsPerPage = 10;
+
+    function renderTable(page) {
+      $('#table-body').empty();
+      let start = (page - 1) * itemsPerPage;
+      let end = start + itemsPerPage;
+      let paginatedItems = allData.slice(start, end);
+
+      paginatedItems.forEach(item => {
+        const row = `<tr>
+                           <td>
+ <a href="${BASE_API_URL}general/download/${item.id}" target="_blank" style="text-decoration: none;">
+          ${item.form_name}
+        </a>    </td>
+                        </tr>`;
+        $('#table-body').append(row);
+      });
+
+      renderPagination();
+    }
+
+    function renderPagination() {
+      $('#pagination').empty();
+      let totalPages = Math.ceil(allData.length / itemsPerPage);
+      $('#pagination').append(
+        `<a href="#" class="${currentPage === 1 ? 'disabled' : ''}" onclick="changePage(${currentPage - 1})">Previous</a>`
+      );
+
+      $('#pagination').append(
+        `<a href="#" class="${currentPage === totalPages ? 'disabled' : ''}" onclick="changePage(${currentPage + 1})">Next</a>`
+      );
+    }
+
+    function changePage(page) {
+      let totalPages = Math.ceil(allData.length / itemsPerPage);
+      if (page < 1 || page > totalPages) return;
+      currentPage = page;
+      renderTable(currentPage);
+    }
+
+    function fetchData() {
+      $.ajax({
+        url: `${BASE_API_URL}general/download_forms`,
+        method: 'GET',
+        success: function (response) {
+          if (response.success === 1) {
+            allData = response.data;
+            renderTable(currentPage);
+          } else {
+            console.error('Error:', response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error('AJAX Error:', error);
+        }
+      });
+    }
+
+    $(document).ready(function () {
+      fetchData();
+    });
+
+    $(document).ready(function () {
+      const secretKey = decryptKey();
+const encryptedData = localStorage.getItem("role");
+let role = null;
+
+if (encryptedData) {
+    try {
+        const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+        );
+        console.log(decryptedData);
+          
+        role = decryptedData || null; // assuming loginResult has user_id
+    } catch (err) {
+        console.error("Error decrypting user data:", err);
+    }
+}
+      var userAdminName = localStorage.getItem("userAdminName");
+      if (role) {
+        $('.admin-name-change').text(role);
+        $('.js-tabLike .admin-menu-show').css('display', 'block');
+        var interval = setInterval(function () {
+          if ($('#t_MenuNav_7').length) {
+            $('#t_MenuNav_7').css('display', 'flex');
+          }
+          if ($('#t_MenuNav_8').length) {
+            $('#t_MenuNav_8').css('display', 'flex');
+          }
+          if ($('#t_MenuNav_7').length && $('#t_MenuNav_8').length) {
+            clearInterval(interval);
+          }
+        }, 100);
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<div class="t-Form-inputContainer col col-null">
+  <div class="t-Form-itemWrapper"><select id="P0_LANGUAGE" name="P0_LANGUAGE" class="selectlist apex-item-select"
+      data-native-menu="false" size="1">
+      <option value="en">English</option>
+      <option value="ta">Tamil</option>
+    </select></div><span id="P0_LANGUAGE_error_placeholder" class="a-Form-error"
+    data-template-id="32751098700172723_ET"></span>
+</div>
+
+<div class="t-Header-nav">
+  <div class="t-Header-nav-list js-tabLike js-tabLike" id="t_MenuNav">
+    <ul>
+      <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+          class="a-MenuBar-label" href="index.html" title="" target="">Home</a></li>
+      <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+          class="a-MenuBar-label" href="about_page.html" title="" target="">About Us</a>
+      </li>
+      <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+          class="a-MenuBar-label" href="gallery1.html" title="" target="">Photo &#x2F;
+          Video</a></li>
+      <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+          class="a-MenuBar-label" href="press-release1.html" title="" target="">Press
+          Release &#x2F; Press Note</a></li>
+      <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+          class="a-MenuBar-label" href="government-orders.html" title="" target="">Government Orders</a></li>
+      <li class="a-MenuBar-item a-Menu--current" data-current="true" data-id="" data-disabled="" data-hide=""
+        data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="sections.html" title=""
+          target="">Sections</a></li>
+      <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
+          class="a-MenuBar-label" href="download-forms.html" title="" target="">Download
+          Forms</a></li>
+    </ul>
+  </div>
+</div>
+var langSwitch = 'en';
+
+?lang=${langSwitch}
+
+responseContainer.innerHTML = "";
+
+document.getElementById('P0_LANGUAGE').addEventListener('change', function () {
+const selectedValue = this.value;
+if (selectedValue === "en") {
+langSwitch = "en";
+fetchData();
+} else {
+langSwitch = "ta";
+fetchData();
+}
+});
