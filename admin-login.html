@@ -1119,8 +1119,160 @@
       });
     }
     // Init captcha
-    $(document).ready(function () {
+    // $(document).ready(function () {
 
+    //   $('#signClick').on('click', function () {
+    //     debugger;
+    //     var loguserName = $('#P9999_USERNAME').val();
+    //     var logPass = $('#P9999_PASSWORD').val();
+    //     var captchaInput = $('#captchaInput').val().trim();
+
+    //     if (!captchaInput) {
+    //       showErrorToast("Please enter CAPTCHA.");
+    //       return;
+    //     }
+
+
+    //     const captchaTimestamp = Date.now();
+    //     const captchaRawRequestId = `${loguserName}:${captchaInput}:${captchaTimestamp}`;
+    //     const captchaRequestId = btoa(captchaRawRequestId);
+    //     const input = {
+    //       captcha: $("#captchaInput").val().trim(),
+    //       session_id: SESSION_ID,
+    //       request_id: captchaRequestId
+    //     };
+    //     $.ajax({
+    //       url: `${BASE_API_URL}/validate_captcha`,
+    //       type: "POST",
+    //       headers: {
+    //         "X-App-Key": "dipr",
+    //         "X-App-Name": "dipr"
+    //       },
+    //       dataType: "json",
+    //       data: {
+    //         data: encryptData(input)
+    //       },
+    //       success: function (res) {
+    //         if (!res.success) {
+    //           showErrorToast(res.message);
+    //           loadCaptcha(); // reload captcha if validation fails
+    //           return; // exit here, do not proceed with login
+    //         }
+    //         const decryptedData = decryptData(res?.data || "");
+    //         // Verify the request ID
+    //         if (!decryptedData) {
+    //           showErrorToast("Un-authorised access");
+    //           loadCaptcha();
+    //           return;
+    //         }
+    //         const decodedRequestId = atob(decryptedData);
+    //         const [username, type, timestampStr] = decodedRequestId.split(":");
+    //         const captchaTimestamp = parseInt(timestampStr, 10);
+    //         const now = Date.now();
+    //         const diff = now - captchaTimestamp;
+
+    //         if (
+    //           username != loguserName ||
+    //           type != captchaInput ||
+    //           isNaN(captchaTimestamp) ||
+    //           diff >= 5 * 60 * 1000 // 5 minutes
+    //         ) {
+    //           showErrorToast("Un-authorised access");
+    //           loadCaptcha();
+    //           return;
+    //         }
+    //         const timestamp = Date.now();
+    //         const rawRequestId = `${loguserName}:${logPass}:${timestamp}`;
+    //         // CAPTCHA is valid → proceed with login
+    //         const payload = {
+    //           action: "function_call",
+    //           function_name: "user_login_fn",
+    //           request_id: btoa(rawRequestId),
+    //           params: {
+    //             p_user: loguserName,
+    //             p_password: logPass
+    //           }
+    //         };
+
+    //         $.ajax({
+    //           url: `${BASE_API_URL}/commonfunction`,
+    //           type: "POST",
+    //           headers: {
+    //             "X-App-Key": "dipr",
+    //             "X-App-Name": "dipr"
+    //           },
+    //           data: { data: encryptData(payload) },
+    //           dataType: "json",
+    //           success: function (resp) {
+
+    //             const decrypted = decryptData(resp?.data || "");
+    //             let loginResult = decrypted[0];
+    //             const secretKey = decryptKey();
+
+    //             let encryptedData = CryptoJS.AES.encrypt(
+    //               JSON.stringify(loginResult),
+    //               secretKey
+    //             ).toString();
+    //             let encryptedRole = CryptoJS.AES.encrypt(
+    //               JSON.stringify(loginResult.role || ""),
+    //               secretKey
+    //             ).toString();
+
+    //             if (loginResult && (loginResult.status === true || loginResult === "SUCCESS")) {
+    //               const returnedRequestId = loginResult.request_id;
+    //               if (returnedRequestId) {
+    //                 try {
+    //                   const decodedRequestId = atob(returnedRequestId);
+    //                   const [returnedUsername, returnedPass, returnedTimestampStr] = decodedRequestId.split(":");
+    //                   const returnedTimestamp = parseInt(returnedTimestampStr, 10);
+    //                   const now = Date.now();
+    //                   const diff = now - returnedTimestamp;
+    //                   // Step 4: Check time difference (<= 5 minutes)
+    //                   if (
+    //                     returnedUsername === loguserName &&
+    //                     !isNaN(returnedTimestamp) &&
+    //                     diff <= 5 * 60 * 1000 // allow 5 minutes in the before
+    //                   ) {
+    //                     showSuccessToast("Login successfully!");
+    //                     window.location.href = window.basePath + "/index.html";
+    //                     localStorage.setItem("role", encryptedRole || "");
+    //                     localStorage.setItem("userAdminName", encryptedData);
+    //                     return;
+    //                   } else {
+    //                     showErrorToast("Un-authorised access");
+    //                   }
+    //                 } catch (e) {
+    //                   showErrorToast("Un-authorised access");
+    //                 }
+    //               } else {
+    //                 showErrorToast("Un-authorised access");
+    //               }
+
+    //               loadCaptcha(); // reload captcha on failure
+    //             } else {
+    //               showErrorToast(resp.message || "Login failed.");
+    //               loadCaptcha(); // reload captcha on login failure
+    //             }
+    //           },
+    //           error: function () {
+    //             showErrorToast("Login request failed. Please try again.");
+    //             loadCaptcha(); // reload captcha if login request fails
+    //           },
+    //           complete: function () {
+    //             $('#preloader').hide();
+    //           }
+    //         });
+    //       },
+    //       error: function () {
+    //         showErrorToast("CAPTCHA validation failed. Try again.");
+    //         loadCaptcha();
+    //       }
+    //     });
+
+    //   });
+    // });
+
+    $(document).ready(function () {
       $('#signClick').on('click', function () {
         debugger;
         var loguserName = $('#P9999_USERNAME').val();
@@ -1132,15 +1284,17 @@
           return;
         }
 
-
         const captchaTimestamp = Date.now();
         const captchaRawRequestId = `${loguserName}:${captchaInput}:${captchaTimestamp}`;
         const captchaRequestId = btoa(captchaRawRequestId);
+
         const input = {
-          captcha: $("#captchaInput").val().trim(),
+          captcha: captchaInput,
           session_id: SESSION_ID,
           request_id: captchaRequestId
         };
+
+        // ✅ Step 1: CAPTCHA VALIDATION
         $.ajax({
           url: `${BASE_API_URL}/validate_captcha`,
           type: "POST",
@@ -1149,22 +1303,21 @@
             "X-App-Name": "dipr"
           },
           dataType: "json",
-          data: {
-            data: encryptData(input)
-          },
+          data: { data: encryptData(input) },
           success: function (res) {
             if (!res.success) {
               showErrorToast(res.message);
-              loadCaptcha(); // reload captcha if validation fails
-              return; // exit here, do not proceed with login
+              loadCaptcha();
+              return;
             }
+
             const decryptedData = decryptData(res?.data || "");
-            // Verify the request ID
             if (!decryptedData) {
               showErrorToast("Un-authorised access");
               loadCaptcha();
               return;
             }
+
             const decodedRequestId = atob(decryptedData);
             const [username, type, timestampStr] = decodedRequestId.split(":");
             const captchaTimestamp = parseInt(timestampStr, 10);
@@ -1175,15 +1328,16 @@
               username != loguserName ||
               type != captchaInput ||
               isNaN(captchaTimestamp) ||
-              diff >= 5 * 60 * 1000 // 5 minutes
+              diff >= 5 * 60 * 1000
             ) {
               showErrorToast("Un-authorised access");
               loadCaptcha();
               return;
             }
+
+            // ✅ Step 2: CAPTCHA OK → Proceed with Login
             const timestamp = Date.now();
             const rawRequestId = `${loguserName}:${logPass}:${timestamp}`;
-            // CAPTCHA is valid → proceed with login
             const payload = {
               action: "function_call",
               function_name: "user_login_fn",
@@ -1204,59 +1358,46 @@
               data: { data: encryptData(payload) },
               dataType: "json",
               success: function (resp) {
-
                 const decrypted = decryptData(resp?.data || "");
-                let loginResult = decrypted[0];
-                const secretKey = decryptKey();
+                let parsedData = decrypted && Array.isArray(decrypted) ? decrypted[0] : null;
+                let loginResult = null;
 
-                let encryptedData = CryptoJS.AES.encrypt(
-                  JSON.stringify(loginResult),
-                  secretKey
-                ).toString();
-                let encryptedRole = CryptoJS.AES.encrypt(
-                  JSON.stringify(loginResult.role || ""),
-                  secretKey
-                ).toString();
-
-                if (loginResult && (loginResult.status === true || loginResult === "SUCCESS")) {
-                  const returnedRequestId = loginResult.request_id;
-                  if (returnedRequestId) {
-                    try {
-                      const decodedRequestId = atob(returnedRequestId);
-                      const [returnedUsername, returnedPass, returnedTimestampStr] = decodedRequestId.split(":");
-                      const returnedTimestamp = parseInt(returnedTimestampStr, 10);
-                      const now = Date.now();
-                      const diff = now - returnedTimestamp;
-                      // Step 4: Check time difference (<= 5 minutes)
-                      if (
-                        returnedUsername === loguserName &&
-                        !isNaN(returnedTimestamp) &&
-                        diff <= 5 * 60 * 1000 // allow 5 minutes in the before
-                      ) {
-                        showSuccessToast("Login successfully!");
-                        window.location.href = window.basePath + "/index.html";
-                        localStorage.setItem("role", encryptedRole || "");
-                        localStorage.setItem("userAdminName", encryptedData);
-                        return;
-                      } else {
-                        showErrorToast("Un-authorised access");
-                      }
-                    } catch (e) {
-                      showErrorToast("Un-authorised access");
-                    }
-                  } else {
-                    showErrorToast("Un-authorised access");
+                if (parsedData && parsedData.user_login_fn) {
+                  try {
+                    loginResult = JSON.parse(parsedData.user_login_fn);
+                  } catch (err) {
+                    showErrorToast("Invalid login response format.");
+                    loadCaptcha();
+                    return;
                   }
+                }
 
-                  loadCaptcha(); // reload captcha on failure
+                if (loginResult && loginResult.status === true) {
+                  // ✅ SUCCESS
+                  const secretKey = decryptKey();
+                  let encryptedData = CryptoJS.AES.encrypt(
+                    JSON.stringify(loginResult),
+                    secretKey
+                  ).toString();
+                  let encryptedRole = CryptoJS.AES.encrypt(
+                    JSON.stringify(loginResult.role || ""),
+                    secretKey
+                  ).toString();
+
+                  localStorage.setItem("userAdminName", encryptedData);
+                  localStorage.setItem("role", encryptedRole);
+                  localStorage.setItem("userId", loginResult.user_id); // ✅ store user id too
+
+                  showSuccessToast("Login successfully!");
+                  window.location.href = window.basePath + "/index.html";
                 } else {
-                  showErrorToast(resp.message || "Login failed.");
-                  loadCaptcha(); // reload captcha on login failure
+                  showErrorToast("Invalid username or password.");
+                  loadCaptcha();
                 }
               },
               error: function () {
                 showErrorToast("Login request failed. Please try again.");
-                loadCaptcha(); // reload captcha if login request fails
+                loadCaptcha();
               },
               complete: function () {
                 $('#preloader').hide();
@@ -1268,9 +1409,9 @@
             loadCaptcha();
           }
         });
-
       });
     });
+
 
 
     $(document).ready(function () {

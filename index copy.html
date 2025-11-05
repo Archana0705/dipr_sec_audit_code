@@ -85,8 +85,7 @@
       background: #fff;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       z-index: 100;
-      padding: 10px;
-      border-radius: 5px;
+      padding: 5px;
     }
   </style>
   <style>
@@ -2480,13 +2479,6 @@
     value="UDFfREVTQ1JJUFRJT04&#x2F;HuXLgQKpQDvhcWqLDwsRXkVEiWAp0Tz89doZO4Lnq4nO5j23tIheOm8f6NQ83l_PAXeqWSIdNxJ2g8-h8LdNxQ" /> -->
   <!-- </form> -->
 
-  <script>
-    var apex_img_dir = "https:\u002F\u002Fstatic.oracle.com\u002Fcdn\u002Fapex\u002F24.1.1\u002F";
-    var apex = {
-      env: { APP_USER: "nobody", APP_ID: "103", APP_PAGE_ID: "1", APP_SESSION: "314438547945874", APP_FILES: "r\u002Fdipr\u002F103\u002Ffiles\u002Fstatic\u002Fv358\u002F", WORKSPACE_FILES: "r\u002Fdipr\u002Ffiles\u002Fstatic\u002Fv1\u002F", APEX_VERSION: "24.1.1", APEX_BASE_VERSION: "24.1" },
-      libVersions: { cropperJs: "1.6.1", domPurify: "3.1.2", fontapex: "2.3", fullcalendar: "6.1.11", hammer: "2.0.8", jquery: "3.6.4", jqueryUi: "1.13.2", maplibre: "4.0.1", markedJs: "12.0.1", prismJs: "1.29.0", oraclejet: "16.0.1", tinymce: "6.8.3", turndown: "7.1.3", monacoEditor: "0.47.0", lessJs: "4.2.0" }
-    };
-  </script>
   <script type="text/javascript">
     apex.da.initDaEventList = function () {
       apex.da.gEventList = [
@@ -2507,10 +2499,13 @@
   <script src="assets/js/aos.js"></script>
   <script src="assets/js/global.js"></script>
   <script src="assets/js/basepath.js"></script>
-
-  <script src="assets/js/crypto-js.min.js"></script>
+  <script src="assets/js/apiConfig.js"></script>
   <script src="assets/js/encrypt_decrypt.js"></script>
-  <script src="assets/js/globalUser.js"></script>
+  <script src="assets/js/crypto-js.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/datatable/dataTables.bootstrap5.min.js"></script>
+  <script src="assets/vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="assets/vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const links = document.querySelectorAll(".t-Header-nav a, .t-Header-nav ul li a");
@@ -2595,12 +2590,12 @@
 
 
       $("#adminLoginBtn").on("click", function () {
-        window.location.href = window.basePath + "admin-login.html";
+        window.location.href = window.basePath + "/admin-login.html";
 
       });
 
       $('.shownav').on('click', function (e) {
-        debugger;
+        //debugger;
         e.stopPropagation(); // Prevent closing when clicking inside
         $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
         $(this).find('.showlink').toggleClass('force-show');
@@ -2647,7 +2642,7 @@
     }
 
     $(document).ready(function () {
-      debugger
+
 
       $(document).on({
         ajaxStart: function () {
@@ -2661,9 +2656,13 @@
       });
 
       $.ajax({
-        url: "https://tngis.tnega.org/lcap_api/dipr-lcap-api/v1/general/home",
+        url: `${BASE_API_URL}/general/home`,
         method: "GET",
         dataType: "json",
+        headers: {
+          "X-App-Key": "dipr",
+          "X-App-Name": "dipr"
+        },
         success: function (response) {
           if (response.success && response.data.length > 0) {
             response.data.forEach(function (item) {
@@ -2694,8 +2693,12 @@
       });
 
       $.ajax({
-        url: 'https://tngis.tnega.org/lcap_api/dipr-lcap-api/v1/general/daily_updates',
+        url: `${BASE_API_URL}/general/daily_updates`,
         method: 'GET',
+        headers: {
+          "X-App-Key": "dipr",
+          "X-App-Name": "dipr"
+        },
         success: function (response) {
           if (response.success === 1) {
             $('#table-body').empty();
@@ -2722,45 +2725,75 @@
 
       const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-      if (name === "" || email === "") {
-        showErrorToast("Please fill all required fields");
-      } else if (!emailPattern.test(email)) {
-        showErrorToast("Please enter a valid email address");
-      } else {
-        const formData = new FormData();
-        formData.append('user_name', name);
-        formData.append('email_id', email);
+      // Error placeholders
+      const nameError = $("#P1_YOUR_NAME_error_placeholder");
+      const emailError = $("#P1_YOUR_EMAIL_error_placeholder");
 
-        $.ajax({
-          url: 'https://tngis.tnega.org/lcap_api/dipr-lcap-api/v1/general/add_subscription',
-          type: 'POST',
-          processData: false,
-          contentType: false,
-          data: formData,
-          success: function (response) {
-            console.log('Response:', response);
-            showSuccessToast("Subscription Added Successfully");
-            $('#P1_YOUR_NAME').val('');
-            $('#P1_YOUR_EMAIL').val('');
-          },
-          error: function (xhr, status, error) {
-            console.error('Error:', error);
-            showErrorToast("An error occurred while subscribing");
-          }
-        });
+      let isValid = true;
+
+      // Reset previous errors
+      nameError.text("");
+      emailError.text("");
+
+      if (name === "") {
+        nameError.text("Name is required.");
+        isValid = false;
       }
+      if (email === "") {
+        emailError.text("Email is required.");
+        isValid = false;
+      } else if (!emailPattern.test(email)) {
+        emailError.text("Invalid email format.");
+        isValid = false;
+      }
+
+      if (!isValid) return; // stop here if errors exist
+
+      // If valid → submit
+      const formData = new FormData();
+      formData.append('user_name', name);
+      formData.append('email_id', email);
+
+      $.ajax({
+        url: `${BASE_API_URL}/general/add_subscription`,
+        type: 'POST',
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (response) {
+          console.log('Response:', response);
+          showSuccessToast("Subscription Added Successfully");
+          $('#P1_YOUR_NAME').val('');
+          $('#P1_YOUR_EMAIL').val('');
+        },
+        error: function (xhr, status, error) {
+          console.error('Error:', error);
+          showErrorToast("An error occurred while subscribing");
+        }
+      });
     });
 
+
     $(document).ready(function () {
-      var role = localStorage.getItem("role");
+      const secretKey = decryptKey();
+      const encryptedData = localStorage.getItem("role");
+      let role = null;
 
+      if (encryptedData) {
+        try {
+          const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+          );
+          console.log(decryptedData);
 
-      const user = getDecryptedUserData();
-      console.log("Decrypted User Data:", user);
-      // var userAdminName = localStorage.getItem("userAdminName");
-      let userAdminName = user.role || "N/A";
+          role = decryptedData || null; // assuming loginResult has user_id
+        } catch (err) {
+          console.error("Error decrypting user data:", err);
+        }
+      }
+      var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
-        $('.admin-name-change').text(userAdminName);
+        $('.admin-name-change').text(role);
         $('.js-tabLike .admin-menu-show').css('display', 'block');
         var interval = setInterval(function () {
           if ($('#t_MenuNav_7').length) {
@@ -2784,12 +2817,61 @@
         '</div>';
       $('.t-NavigationBar-item.has-username.shownav').append(appendSignout);
 
-      $(".signOutBtn").on("click", function () {
+      $(".signOutBtn").on("click", function (event) {
         event.preventDefault();
-        localStorage.removeItem("role");
-        localStorage.removeItem("userAdminName");
-        window.location.href = "index.html";
+
+        const secretKey = decryptKey();
+        const encryptedData = localStorage.getItem("userAdminName");
+        let userId = null;
+
+        if (encryptedData) {
+          try {
+            const decryptedData = JSON.parse(
+              CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+          } catch (err) {
+            console.error("Error decrypting user data:", err);
+          }
+        }
+
+
+        // Prepare encrypted logout payload
+        const payload = {
+          action: "function_call",
+          function_name: "user_logout",
+          params: { user_id: userId }
+        };
+
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          type: "POST",
+          headers: {
+            "X-App-Key": "dipr",
+            "X-App-Name": "dipr"
+          },
+          data: {
+            data: encryptData(payload) // <-- important!
+          },
+          dataType: "json",
+          success: function (response) {
+            if (response.success) {
+              localStorage.removeItem("role");
+              localStorage.removeItem("userAdminName");
+              showSuccessToast(response.message || "Logged out successfully!");
+              window.location.href = "index.html";
+            } else {
+              showErrorToast(response.message || "Logout failed");
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error("Logout request failed:", error);
+            showErrorToast("Logout request failed. Please try again.");
+          }
+        });
       });
+
     });
 
     document.getElementById('P0_LANGUAGE').addEventListener('change', function () {

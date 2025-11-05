@@ -1123,12 +1123,12 @@
                           </div>
                           <div class="t-Form-inputContainer col col-null">
                             <div class="t-Form-itemWrapper">
-                              <input type="text" id="P9999_USERNAME" name="P9999_USERNAME"
-                                placeholder="Username" class="text_field&#x20;apex-item-text&#x20;apex-item-has-icon"
-                                autocomplete="username" value="" size="40" maxlength="100"
-                                data-trim-spaces="NONE" /><span class="apex-item-icon fa&#x20;fa-user"
-                                aria-hidden="true"></span></div><span id="P9999_USERNAME_error_placeholder"
-                              class="a-Form-error" data-template-id="32751039808172722_ET"></span>
+                              <input type="text" id="P9999_USERNAME" name="P9999_USERNAME" placeholder="Username"
+                                class="text_field&#x20;apex-item-text&#x20;apex-item-has-icon" autocomplete="username"
+                                value="" size="40" maxlength="100" data-trim-spaces="NONE" /><span
+                                class="apex-item-icon fa&#x20;fa-user" aria-hidden="true"></span>
+                            </div><span id="P9999_USERNAME_error_placeholder" class="a-Form-error"
+                              data-template-id="32751039808172722_ET"></span>
                           </div>
                         </div>
                         <div
@@ -1165,11 +1165,11 @@
                               data-template-id="32751039808172722_ET"></span>
                           </div>
                         </div>
-                      <!-- Captcha -->
-                    <canvas id="captcha" width="150" height="50"></canvas>
-<br>
-<input type="text" id="captchaInput" placeholder="Enter Captcha">
-<button id="reloadCaptcha" type="button">🔄 Reload</button> 
+                        <!-- Captcha -->
+                        <canvas id="captcha" width="150" height="50"></canvas>
+                        <br>
+                        <input type="text" id="captchaInput" placeholder="Enter Captcha">
+                        <button id="reloadCaptcha" type="button">🔄 Reload</button>
                       </div>
                       <div class="t-Login-buttons"><button class="t-Button t-Button--hot signClick" type="button"
                           id="signClick"><span class="t-Button-label">Sign In</span></button><button
@@ -1242,8 +1242,8 @@
   <!-- Keep only if you use APEX widgets/themes -->
   <script src="assets/js/desktop_all.min.js"></script>
   <script src="assets/js/theme42.min.js"></script>
- <script src="assets/js/encrypt_decrypt.js"></script>
-    <script src="assets/js/crypto-js.min.js"></script>
+  <script src="assets/js/encrypt_decrypt.js"></script>
+  <script src="assets/js/crypto-js.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const links = document.querySelectorAll(".t-Header-nav a, .t-Header-nav ul li a");
@@ -1285,7 +1285,7 @@
   </script>
 
   <script>
-   let currentCaptcha = "";
+    let currentCaptcha = "";
 
     function generateCaptcha(length = 5) {
       const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -1324,7 +1324,7 @@
         ctx.rotate(angle);
 
         ctx.font = "28px Arial";
-        ctx.fillStyle = `rgb(${50+Math.random()*150}, ${50+Math.random()*150}, ${50+Math.random()*150})`;
+        ctx.fillStyle = `rgb(${50 + Math.random() * 150}, ${50 + Math.random() * 150}, ${50 + Math.random() * 150})`;
         ctx.fillText(currentCaptcha[i], 0, 0);
 
         ctx.restore(); // restore after rotation
@@ -1335,7 +1335,7 @@
         ctx.beginPath();
         ctx.moveTo(Math.random() * w, Math.random() * h);
         ctx.lineTo(Math.random() * w, Math.random() * h);
-        ctx.strokeStyle = `rgba(0,0,0,${Math.random()*0.4})`;
+        ctx.strokeStyle = `rgba(0,0,0,${Math.random() * 0.4})`;
         ctx.lineWidth = Math.random() * 2;
         ctx.stroke();
       }
@@ -1343,85 +1343,85 @@
 
 
 
-  // Reload button
-  $("#reloadCaptcha").on("click", function () {
-    drawCaptcha();
-  });
+    // Reload button
+    $("#reloadCaptcha").on("click", function () {
+      drawCaptcha();
+    });
 
-  // Init captcha
-  $(document).ready(function () {
-    drawCaptcha();
+    // Init captcha
+    $(document).ready(function () {
+      drawCaptcha();
 
-    $('#signClick').on('click', function () {
-      var loguserName = $('#P9999_USERNAME').val();
-      var logPass = $('#P9999_PASSWORD').val();
-      var captchaInput = $('#captchaInput').val().trim();
+      $('#signClick').on('click', function () {
+        var loguserName = $('#P9999_USERNAME').val();
+        var logPass = $('#P9999_PASSWORD').val();
+        var captchaInput = $('#captchaInput').val().trim();
 
-      // ✅ First check captcha
-      if (captchaInput !== currentCaptcha) {
-        showErrorToast("Invalid captcha. Please try again.");
-        drawCaptcha(); // reload captcha on error
-        return;
-      }
-
-      const payload = {
-        action: "function_call",
-        function_name: "user_login_fn",
-        params: {
-          p_user: loguserName,
-          p_password: logPass
+        // ✅ First check captcha
+        if (captchaInput !== currentCaptcha) {
+          showErrorToast("Invalid captcha. Please try again.");
+          drawCaptcha(); // reload captcha on error
+          return;
         }
-      };
 
-      $.ajax({
-        url: `${BASE_API_URL}/commonfunction`,
-        type: "POST",
-        headers: {
-          "X-App-Key": "dipr",
-          "X-App-Name": "dipr"
-        },
-        data: { 
-          data: encryptData(payload)
-        },
-        dataType: "json",
-        success: function (response) {
-          const decrypted = decryptData(response?.data || "");
-          let loginResult = decrypted[0];
-          const secretKey = "55464654654646654";
-                  let encryptedData = CryptoJS.AES.encrypt(
-                      JSON.stringify(loginResult),
-                      secretKey
-                  ).toString();
-                  let encryptedRole = CryptoJS.AES.encrypt(
-        JSON.stringify(loginResult.role || ""),
-        secretKey
-      ).toString();
-                  if (loginResult && (loginResult.status === true || loginResult === "SUCCESS")) {
-    showSuccessToast("Login successfully!");
-    window.location.href = window.basePath + "/index.html";
-    localStorage.setItem("role", encryptedRole || "");
-    localStorage.setItem("userAdminName", encryptedData);
-}  else {
-                showErrorToast(response.message);
-        }
-        },
-        error: function (xhr, status, error) {
-          showErrorToast("Login request failed. Please try again.");
-        },
-        complete: function () {
-          $('#preloader').hide();
-        }
+        const payload = {
+          action: "function_call",
+          function_name: "user_login_fn",
+          params: {
+            p_user: loguserName,
+            p_password: logPass
+          }
+        };
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          type: "POST",
+          headers: {
+            "X-App-Key": "dipr",
+            "X-App-Name": "dipr"
+          },
+          data: {
+            data: encryptData(payload)
+          },
+          dataType: "json",
+          success: function (response) {
+            const decrypted = decryptData(response?.data || "");
+            let loginResult = decrypted[0];
+            const secretKey = "55464654654646654";
+            let encryptedData = CryptoJS.AES.encrypt(
+              JSON.stringify(loginResult),
+              secretKey
+            ).toString();
+            let encryptedRole = CryptoJS.AES.encrypt(
+              JSON.stringify(loginResult.role || ""),
+              secretKey
+            ).toString();
+            if (loginResult && (loginResult.status === true || loginResult === "SUCCESS")) {
+              showSuccessToast("Login successfully!");
+              window.location.href = window.basePath + "/index.html";
+              localStorage.setItem("role", encryptedRole || "");
+              localStorage.setItem("userAdminName", encryptedData);
+            } else {
+              showErrorToast(response.message);
+            }
+          },
+          error: function (xhr, status, error) {
+            showErrorToast("Login request failed. Please try again.");
+          },
+          complete: function () {
+            $('#preloader').hide();
+          }
+        });
       });
-     });
-  });
-   
+    });
+
     function showSuccessToast(message) {
       const toastElement = document.getElementById('successToast');
       const toastBody = document.getElementById('successMessage');
 
       // Set the dynamic message
       toastBody.textContent = message;
-  
+
       // Initialize and show the toast
       const toast = new bootstrap.Toast(toastElement, {
         autohide: true,
@@ -1857,8 +1857,8 @@
       }
     });
 
-    
-     
+
+
   </script>
 </body>
 

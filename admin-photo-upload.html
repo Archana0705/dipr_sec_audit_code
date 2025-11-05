@@ -1039,6 +1039,9 @@
         $("#createAttachmentModal").data("type", "photo").modal("show");
         const form = $("#createAttachmentForm")[0];
         if (form) form.reset();
+
+        $("#createAttachmentSubmitBtn").removeClass("d-none");
+        $("#deleteAttachmentBtn").addClass("d-none");
       });
 
       $("#openCreateModalVideoBtn").on("click", function () {
@@ -1046,6 +1049,9 @@
         $("#createAttachmentModal").data("type", "video").modal("show");
         const form = $("#createAttachmentForm")[0];
         if (form) form.reset();
+
+        $("#createAttachmentSubmitBtn").removeClass("d-none");
+        $("#deleteAttachmentBtn").addClass("d-none");
       });
 
       $(document).ready(function () {
@@ -1256,50 +1262,34 @@
       fetchPhotoData();
 
       $(document).on("click", ".bi-pencil-square", function () {
-        const recordId = $(this).closest("a").data("id");
-        if (!recordId) return;
+        const $row = $(this).closest("tr");
+        console.log("Edit icon clicked, row data:", $row);
 
+        // Extract row data
+        const fileName = $row.find("td:eq(1)").text().trim();
+        const language = $row.find("td:eq(2)").text().trim();
+        const createdOn = $row.find("td:eq(4)").text().trim();
+
+        // Determine type (photo/video)
         const uploadType = $(this).closest("table").attr("id").includes("video") ? "video" : "photo";
         $("#createAttachmentModal").data("type", uploadType);
 
-        const payload = {
-          action: "function_call",
-          function_name: "fn_fetch_govt_attachment_edit", // replace with your API name
-          params: { p_id: recordId },
-        };
+        // Set modal title and fields
+        $("#modalTitle").text(`View / Delete ${uploadType === "photo" ? "Photo" : "Video"} Attachment`);
+        $("#languageSelect").val(language);
+        $("#uploadDate").val(createdOn);
+        $("#fileUpload").val(""); // clear for safety
 
-        $.ajax({
-          url: `${BASE_API_URL}/commonfunction`,
-          method: "POST",
-          data: { data: encryptData(payload) },
-          dataType: "json",
-          success: function (response) {
-            if (response.success) {
-              const data = decryptData(response.data)?.[0];
+        // Toggle footer buttons
+        $("#createAttachmentSubmitBtn").addClass("d-none"); // hide add
+        $("#deleteAttachmentBtn").removeClass("d-none"); // show delete
 
-              // Prefill modal fields
-              $("#modalTitle").text("Edit Attachment");
-              $("#languageSelect").val(data.language || "");
-              $("#uploadDate").val(data.p_date || "");
-              $("#fileUpload").val("");
+        // Store id for deletion
+        const recordId = $(this).data("id");
+        $("#deleteAttachmentBtn").data("id", recordId);
 
-              // Switch to edit mode
-              $("#createAttachmentSubmitBtn").data("mode", "edit").data("id", recordId);
-              $("#submitBtnText").text("Update");
-
-              // ✅ Show delete button only in edit mode
-              $("#deleteAttachmentBtn").removeClass("d-none").data("id", recordId);
-
-              $("#createAttachmentModal").modal("show");
-            } else {
-              alert("Failed to fetch record details.");
-            }
-          },
-          error: function (err) {
-            console.error("❌ Edit fetch error:", err);
-            alert("Error fetching attachment details.");
-          },
-        });
+        // Show modal
+        $("#createAttachmentModal").modal("show");
       });
 
 
