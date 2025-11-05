@@ -684,6 +684,9 @@
 
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" id="deleteAttachmentBtn" class="btn btn-danger d-none">
+                                  Delete
+                                </button>
 
                                 <!-- IMPORTANT: type="button" so browser won't try to submit form -->
                                 <button type="button" id="createAttachmentSubmitBtn" class="btn btn-primary">
@@ -698,8 +701,7 @@
                       </div>
 
                       <!-- Example trigger buttons -->
-                      <button id="openCreateModalPhotoBtn" class="btn btn-success">Create Photo Attachment</button>
-                      <button id="openCreateModalVideoBtn" class="btn btn-success">Create Video Attachment</button>
+
 
 
                       <!-- ================= TABS SECTION ================= -->
@@ -716,7 +718,7 @@
                       <div class="tab-content mt-3">
                         <!-- PHOTO UPLOAD TAB -->
                         <div class="tab-pane fade show active" id="photoPane">
-
+                          <button id="openCreateModalPhotoBtn" class="btn btn-success">Create Photo Attachment</button>
                           <table id="admin-photo-upload-table" class="table table-bordered table-striped">
                             <thead>
                               <tr>
@@ -733,7 +735,7 @@
 
                         <!-- VIDEO UPLOAD TAB -->
                         <div class="tab-pane fade" id="videoPane">
-
+                          <button id="openCreateModalVideoBtn" class="btn btn-success">Create Video Attachment</button>
                           <table id="video-upload-table" class="table table-bordered table-striped">
                             <thead>
                               <tr>
@@ -1204,37 +1206,48 @@
           data: { data: encryptData(payload) },
           dataType: "json",
           success: function (response) {
-            const decryptedData = decryptData(response.data);
-            const tableBody = $("#TASecCon");
-            tableBody.empty();
+            const decryptedData = decryptData(response.data) || [];
 
-            if (!decryptedData || decryptedData.length === 0) {
-              tableBody.append('<tr><td colspan="9" class="text-center">No Data Found</td></tr>');
-              return;
-            }
-
-            decryptedData.forEach((item) => {
-              tableBody.append(`
-            <tr>
-              <td><a data-id="${item.id}" href="javascript:void(0);"><i class="bi bi-pencil-square"></i></a></td>
-              <td>${item.v_name || "N/A"}</td>
-              <td>${item.language || "N/A"}</td>
-              <td>${item.created_by || "N/A"}</td>
-              <td>${item.created_on || "N/A"}</td>
-            </tr>`);
-            });
-
+            // ✅ Destroy existing DataTable first (before touching DOM)
             if ($.fn.DataTable.isDataTable("#video-upload-table")) {
               $("#video-upload-table").DataTable().clear().destroy();
             }
 
+            // ✅ Now safely rebuild table body
+            const tableBody = $("#video-upload-table tbody");
+            tableBody.empty();
+
+            if (decryptedData.length === 0) {
+              tableBody.append('<tr><td colspan="5" class="text-center">No Data Found</td></tr>');
+            } else {
+              decryptedData.forEach((item) => {
+                tableBody.append(`
+            <tr>
+              <td><a data-id="${item.id}" href="javascript:void(0);"><i class="bi bi-pencil-square"></i></a></td>
+              <td>${item.file_name || "N/A"}</td>
+              <td>${item.language || "N/A"}</td>
+              <td>${item.created_by || "N/A"}</td>
+              <td>${item.created_on || "N/A"}</td>
+            </tr>
+          `);
+              });
+            }
+
+            // ✅ Reinitialize DataTable fresh
             $("#video-upload-table").DataTable({
+              destroy: true,
               paging: true,
               searching: true,
               ordering: true,
               order: [[1, "asc"]],
               responsive: true,
+              autoWidth: false,
             });
+          },
+          error: function () {
+            console.error("Error loading video data");
+            const tableBody = $("#video-upload-table tbody");
+            tableBody.html('<tr><td colspan="5" class="text-center">Error loading data</td></tr>');
           },
         });
       }
@@ -1242,11 +1255,70 @@
       // ================= INIT =================
       fetchPhotoData();
 
+      $(document).on("click", ".bi-pencil-square", function () {
+        const recordId = $(this).closest("a").data("id");
+        if (!recordId) return;
+
+        const uploadType = $(this).closest("table").attr("id").includes("video") ? "video" : "photo";
+        $("#createAttachmentModal").data("type", uploadType);
+
+        const payload = {
+          action: "function_call",
+          function_name: "fn_fetch_govt_attachment_edit", // replace with your API name
+          params: { p_id: recordId },
+        };
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: { data: encryptData(payload) },
+          dataType: "json",
+          success: function (response) {
+            if (response.success) {
+              const data = decryptData(response.data)?.[0];
+
+              // Prefill modal fields
+              $("#modalTitle").text("Edit Attachment");
+              $("#languageSelect").val(data.language || "");
+              $("#uploadDate").val(data.p_date || "");
+              $("#fileUpload").val("");
+
+              // Switch to edit mode
+              $("#createAttachmentSubmitBtn").data("mode", "edit").data("id", recordId);
+              $("#submitBtnText").text("Update");
+
+              // ✅ Show delete button only in edit mode
+              $("#deleteAttachmentBtn").removeClass("d-none").data("id", recordId);
+
+              $("#createAttachmentModal").modal("show");
+            } else {
+              alert("Failed to fetch record details.");
+            }
+          },
+          error: function (err) {
+            console.error("❌ Edit fetch error:", err);
+            alert("Error fetching attachment details.");
+          },
+        });
+      });
+
+
+      let videoLoaded = false;
+
       $('a[data-bs-toggle="tab"]').on("shown.bs.tab", function (e) {
         const target = $(e.target).attr("href");
-        if (target === "#photoPane") fetchPhotoData();
-        else if (target === "#videoPane") fetchVideoData();
+
+        if (target === "#photoPane") {
+          fetchPhotoData();
+        } else if (target === "#videoPane") {
+          fetchVideoData(); // or conditionally if you only want once
+          // if (!videoLoaded) {
+          //   fetchVideoData();
+          //   videoLoaded = true;
+          // }
+        }
       });
+
       // =======================================
       // ✅ Language switch
       // =======================================
