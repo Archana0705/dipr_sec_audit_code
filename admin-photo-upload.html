@@ -678,6 +678,8 @@
                                     <label for="fileUpload" class="form-label">Choose File</label>
                                     <input type="file" id="fileUpload" class="form-control"
                                       accept=".jpg,.jpeg,.png,.pdf,.mp4,.mov,.avi,.mkv,.webm" required />
+                                    <input type="text" id="fileNameField" class="form-control mt-2"
+                                      placeholder="No file selected" readonly style="display:none;">
                                   </div>
                                 </div>
                               </div>
@@ -1263,35 +1265,35 @@
 
       $(document).on("click", ".bi-pencil-square", function () {
         const $row = $(this).closest("tr");
-        console.log("Edit icon clicked, row data:", $row);
-
-        // Extract row data
         const fileName = $row.find("td:eq(1)").text().trim();
         const language = $row.find("td:eq(2)").text().trim();
         const createdOn = $row.find("td:eq(4)").text().trim();
 
-        // Determine type (photo/video)
+        // Determine upload type
         const uploadType = $(this).closest("table").attr("id").includes("video") ? "video" : "photo";
         $("#createAttachmentModal").data("type", uploadType);
 
-        // Set modal title and fields
+        // 🧩 Fill modal fields
         $("#modalTitle").text(`View / Delete ${uploadType === "photo" ? "Photo" : "Video"} Attachment`);
         $("#languageSelect").val(language);
         $("#uploadDate").val(createdOn);
-        $("#fileUpload").val(""); // clear for safety
 
-        // Toggle footer buttons
-        $("#createAttachmentSubmitBtn").addClass("d-none"); // hide add
-        $("#deleteAttachmentBtn").removeClass("d-none"); // show delete
+        // ✅ Show filename inside text field
+        $("#fileUpload").hide(); // hide actual file picker
+        $("#fileNameField")
+          .val(fileName)
+          .show();
 
-        // Store id for deletion
+        // Hide add button, show delete
+        $("#createAttachmentSubmitBtn").addClass("d-none");
+        $("#deleteAttachmentBtn").removeClass("d-none");
+
+        // Store ID for deletion
         const recordId = $(this).data("id");
         $("#deleteAttachmentBtn").data("id", recordId);
 
-        // Show modal
         $("#createAttachmentModal").modal("show");
       });
-
 
       let videoLoaded = false;
 

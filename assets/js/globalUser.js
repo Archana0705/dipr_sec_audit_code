@@ -46,7 +46,7 @@ function getDecryptedUserData() {
 // 🔹 Helper function for redirect
 function redirectToLogin() {
     // Adjust login page path as needed
-    const loginPath = window.basePath ? `${window.basePath}/login.html` : "/login.html";
+    const loginPath = window.basePath ? `${window.basePath}/admin-login.html` : "/admin-login.html";
     window.location.href = loginPath;
 }
 
