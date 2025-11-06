@@ -1,0 +1,29 @@
+{
+  "action": "insert",
+  "_table_name": "student_reports",
+  "selected_columns": ["student_name", "district_name", "course_name"],
+  "filter_conditions": {
+    "student_name": "Rahul Kumar",
+    "district_name": "Chennai",
+    "course_name": "B.Sc Computer Science"
+  }
+}
+
+{
+  "action": "update",
+  "_table_name": "student_reports",
+  "selected_columns": ["student_name", "course_name"],
+  "filter_conditions": {
+    "id": 105,
+    "student_name": "Rahul K",
+    "course_name": "B.Sc IT"
+  }
+}
+
+
+{
+  "action": "delete",
+  "_table_name": "student_reports",
+  "filter_conditions": { "id": 105 }
+}
+
