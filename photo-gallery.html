@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/custom.min.css">
     <link rel="apple-touch-icon" href="assets/img/app-icon-192.png">
     <link rel="icon" href="assets/img/app-icon-32.png">
+    <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
     <style type="text/css">
         @font-face {
             font-family: 'FontApex';
@@ -489,12 +490,19 @@
                     <nav id="R33210823764518151" role="navigation" aria-label="Breadcrumb"
                         class="t-BreadcrumbRegion t-BreadcrumbRegion--showBreadcrumb t-BreadcrumbRegion--useBreadcrumbTitle">
                         <div class="t-BreadcrumbRegion-top">
-                            <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--start"></div>
+                            <div class="t-BreadcrumbRegion-buttons t-BreadcrumbRegion-buttons--start">
+                                <button type="button" class="t-Button t-Button--icon t-Button--back"
+                                        onclick="window.history.back();"
+                                        aria-label="Go Back"
+                                        title="Go Back">
+                                    <i class="bi bi-arrow-left-circle-fill" style="font-size: 24px;"></i>
+                                </button>
+                            </div>
                             <div class="t-BreadcrumbRegion-body">
                                 <div class="t-BreadcrumbRegion-breadcrumb">
                                     <ul class="t-Breadcrumb ">
                                         <li class="t-Breadcrumb-item is-active" aria-current="page">
-                                            <h1 class="t-Breadcrumb-label" data-key="photoGallery"></h1>
+                                            <h1 class="t-Breadcrumb-label" data-key="photoGallery">Photo Gallery</h1>
                                         </li>
                                     </ul>
                                 </div>
@@ -733,20 +741,21 @@
                     // Render photo cards
                     // Render photo cards
                     data.forEach(function (item) {
+                        var fullUrl = "https://tngis.tnega.org/lcap_api/dipr-lcap-api" + item.file_attachment_name;
                         var cardHTML = `
         <li class="a-CardView-item">
   <div class="a-CardView has-title has-body">
     <div class="a-CardView-body">
       <div class="a-CardView-mainContent">
-        <img src="${item.url}" 
-             alt="${item.descr || 'photo'}" 
+        <img src="${fullUrl}" 
+             alt="${item.name || 'photo'}" 
              class="card-image">
 
-        <p style="padding:8px;">${item.descr || ''}</p>
+        <p style="padding:8px;">${item.name || ''}</p>
       </div>
       <div class="a-CardView-actions" style="padding:8px; text-align:center;">
-        <button class="btn-preview" data-url="${item.url}" data-descr="${item.descr || ''}">Preview</button>
-        <button class="btn-download" data-url="${item.url}" data-descr="${item.descr || 'photo'}">Download</button>
+        <button class="btn-preview" data-url="${fullUrl}" data-descr="${item.name || ''}">Preview</button>
+        <button class="btn-download" data-url="${fullUrl}" data-descr="${item.name || 'photo'}">Download</button>
       </div>
     </div>
   </div>

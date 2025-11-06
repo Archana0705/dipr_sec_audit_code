@@ -38,6 +38,23 @@
   <link href="assets/vendor/datatable/css/dataTables.css" rel="stylesheet">
 
   <style>
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+      display: inline-block;
+      padding: 0.375rem 0.75rem;
+      margin-left: 0.25rem;
+      margin-right: 0.25rem;
+      border: 1px solid #dee2e6;
+      border-radius: 0.25rem;
+      background-color: #fff;
+      color: #0d6efd;
+      text-decoration: none;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+      background-color: #0d6efd;
+      color: #fff;
+      border-color: #0d6efd;
+    }
     div#admin-photo-upload-table_paginate {
       display: flex;
       justify-content: end;
@@ -684,7 +701,9 @@
                             <thead>
                               <tr>
                                 <th>Edit</th>
-                                <th>File Name</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>URL</th>
                                 <th>Language</th>
                                 <th>Created By</th>
                                 <th>Created On</th>
@@ -763,12 +782,24 @@
                                     <label class="form-label">Date</label>
                                     <input type="date" id="videoDate" class="form-control" required>
                                   </div>
+                                  
+                                  <!-- Name -->
+                                  <div class="col-md-6">
+                                    <label class="form-label">Video Name</label>
+                                    <input type="text" id="videoName" class="form-control" placeholder="Enter video name" required>
+                                  </div>
+
+                                  <!-- YouTube URL -->
+                                  <div class="col-md-6">
+                                    <label class="form-label">YouTube URL</label>
+                                    <input type="url" id="videoUrl" class="form-control" placeholder="https://www.youtube.com/watch?v=..." required>
+                                    <div id="urlError" class="text-danger mt-1 d-none">Please enter a valid YouTube URL.</div>
+                                  </div>
+
+                                  <!-- Description -->
                                   <div class="col-md-12">
-                                    <label class="form-label">Choose File</label>
-                                    <input type="file" id="videoFile" class="form-control"
-                                      accept=".mp4,.mov,.avi,.mkv,.webm,.pdf" required>
-                                    <input type="text" id="videoFileName" class="form-control mt-2" readonly
-                                      placeholder="No file selected" style="display:none;">
+                                    <label class="form-label">Description</label>
+                                    <textarea id="videoDescription" class="form-control" placeholder="Enter description" required></textarea>
                                   </div>
                                 </div>
                               </div>
@@ -1493,58 +1524,94 @@
       });
 
       function fetchPhotoData() {
-        const payload = {
-          action: "function_call",
-          function_name: "fn_govt_attachments",
-          params: { p_language: langSwitch, p_mine: "image" },
-        };
+        // Destroy any existing instance before creating a new one
+        if ($.fn.DataTable.isDataTable("#photoTable")) {
+          $("#photoTable").DataTable().destroy();
+        }
 
-        $.ajax({
-          url: `${BASE_API_URL}/commonfunction`,
-          method: "POST",
-          data: { data: encryptData(payload) },
-          dataType: "json",
-          success: function (res) {
-            const data = decryptData(res.data) || [];
-            const tableBody = $("#photoTable tbody");
-            tableBody.empty();
+        $("#photoTable").DataTable({
+          processing: true,
+          serverSide: true,
+          searching: true,
+          ordering: true,
+          order: [[1, "asc"]],
+          ajax: function (data, callback, settings) {
+            // Map DataTables parameters
+            const payload = {
+              action: "function_call",
+              function_name: "fn_govt_attachments",
+              params: { 
+                p_language: langSwitch, 
+                p_mine: "image" 
+              },
+              limit: data.length,      // number of records per page
+              offset: data.start,      // starting record index
+            };
 
-            if (!data.length) {
-              tableBody.html(
-                '<tr><td colspan="5" class="text-center">No Data Found</td></tr>'
-              );
-            } else {
-              data.forEach((item) => {
-                tableBody.append(`
-                <tr>
-                  <td><a href="javascript:void(0);" class="photo-edit" data-id="${item.id}"><i class="bi bi-pencil-square"></i></a></td>
-                  <td>${item.file_name || "-"}</td>
-                  <td>${item.language || "-"}</td>
-                  <td>${item.created_by || "-"}</td>
-                  <td>${item.created_on || "-"}</td>
-                </tr>`);
-              });
+            // If search box is used
+            if (data.search && data.search.value) {
+              payload.search = data.search.value;
             }
 
-            initDataTable("#photoTable");
+            $.ajax({
+              url: `${BASE_API_URL}/commonfunction`,
+              method: "POST",
+              data: { data: encryptData(payload) },
+              dataType: "json",
+              success: function (res) {
+                const decryptedData = decryptData(res.data) || [];
+                const total = res.pagination?.total || decryptedData.length;
+
+                // Build DataTables response object
+                callback({
+                  draw: data.draw,
+                  recordsTotal: total,
+                  recordsFiltered: total,
+                  data: decryptedData.map((item) => [
+                    `<a href="javascript:void(0);" class="photo-edit" data-id="${item.id}">
+                      <i class="bi bi-pencil-square"></i>
+                    </a>`,
+                    item.file_name || "-",
+                    item.language || "-",
+                    item.created_by || "-",
+                    item.created_on || "-"
+                  ]),
+                });
+              },
+              error: function (xhr) {
+                console.error("Error fetching photo data:", xhr);
+                callback({
+                  draw: data.draw,
+                  recordsTotal: 0,
+                  recordsFiltered: 0,
+                  data: [],
+                });
+              },
+            });
           },
-          error: function (xhr) {
-            console.error("Error fetching photo data:", xhr);
-          },
+          columns: [
+            { title: "Edit", orderable: false },
+            { title: "File Name" },
+            { title: "Language" },
+            { title: "Created By" },
+            { title: "Created On" },
+          ],
         });
       }
 
       $(document).off("click", "#photoSubmitBtn").on("click", "#photoSubmitBtn", function () {
         const file = $("#photoFile")[0].files[0];
-        if (!file) return alert("Select a file before submitting");
+        const id = $(this).data("id"); // undefined for new uploads
+        const isEdit = !!id;
 
         const payload = {
           action: "function_call",
-          function_name: "fn_ins_govt_attachments",
+          function_name: isEdit ? "fn_upd_govt_attachments" : "fn_ins_govt_attachments",
           params: {
-            p_file_attachment_name: `/uploads/${file.name}`,
-            p_file_name: file.name,
-            p_mimetype: file.type,
+            p_id: id || null,
+            p_file_attachment_name: file ? `/uploads/${file.name}` : $("#photoFileName").val(),
+            p_file_name: file ? file.name : $("#photoFileName").val(),
+            p_mimetype: file ? file.type : null,
             p_p_date: $("#photoDate").val(),
             p_language: $("#photoLanguage").val(),
             p_created_by: userId,
@@ -1553,6 +1620,7 @@
 
         const formData = new FormData();
         formData.append("data", encryptData(payload));
+        if (file) formData.append("file", file);
 
         $.ajax({
           url: `${BASE_API_URL}/commonfunction`,
@@ -1561,7 +1629,7 @@
           processData: false,
           contentType: false,
           success: function () {
-            alert("Photo uploaded successfully!");
+            alert(isEdit ? "Photo updated successfully!" : "Photo uploaded successfully!");
             $("#photoAttachmentModal").modal("hide");
             fetchPhotoData();
           },
@@ -1573,12 +1641,22 @@
 
       $(document).on("click", ".photo-edit", function () {
         const row = $(this).closest("tr");
-        $("#photoLanguage").val(row.find("td:eq(2)").text());
-        $("#photoDate").val(row.find("td:eq(4)").text());
-        $("#photoFileName").val(row.find("td:eq(1)").text()).show();
-        $("#photoFile").hide();
-        $("#photoSubmitBtn").addClass("d-none");
-        $("#photoDeleteBtn").removeClass("d-none").data("id", $(this).data("id"));
+        const fileName = row.find("td:eq(1)").text();
+        const language = row.find("td:eq(2)").text();
+        const date = row.find("td:eq(4)").text();
+        const id = $(this).data("id");
+
+        // Fill modal fields
+        $("#photoLanguage").val(language);
+        $("#photoDate").val(date);
+        $("#photoFileName").val(fileName).show();
+        $("#photoFile").val("").show(); // allow file replacement
+
+        // Toggle buttons
+        $("#photoSubmitBtn").removeClass("d-none").text("Update").data("id", id); // update action
+        $("#photoDeleteBtn").removeClass("d-none").data("id", id);
+
+        // Show modal
         $("#photoAttachmentModal").modal("show");
       });
 
@@ -1633,59 +1711,101 @@
       });
 
       function fetchVideoData() {
-        const payload = {
-          action: "function_call",
-          function_name: "fn_govt_attachments",
-          params: { p_language: langSwitch, p_mine: "video" },
-        };
+        // Destroy any existing DataTable instance before reinitializing
+        if ($.fn.DataTable.isDataTable("#videoTable")) {
+          $("#videoTable").DataTable().destroy();
+        }
 
-        $.ajax({
-          url: `${BASE_API_URL}/commonfunction`,
-          method: "POST",
-          data: { data: encryptData(payload) },
-          dataType: "json",
-          success: function (res) {
-            const data = decryptData(res.data) || [];
-            const tableBody = $("#videoTable tbody");
-            tableBody.empty();
+        $("#videoTable").DataTable({
+          processing: true,
+          serverSide: true,
+          searching: true,
+          ordering: true,
+          order: [[1, "asc"]],
+          ajax: function (data, callback, settings) {
+            const payload = {
+              action: "function_call",
+              function_name: "fn_get_govt_attachment_video",
+              params: { p_language: langSwitch },
+              limit: data.length,   // page size
+              offset: data.start,   // starting row index
+            };
 
-            if (!data.length) {
-              tableBody.html(
-                '<tr><td colspan="5" class="text-center">No Data Found</td></tr>'
-              );
-            } else {
-              data.forEach((item) => {
-                tableBody.append(`
-                <tr>
-                  <td><a href="javascript:void(0);" class="video-edit" data-id="${item.id}"><i class="bi bi-pencil-square"></i></a></td>
-                  <td>${item.file_name || "-"}</td>
-                  <td>${item.language || "-"}</td>
-                  <td>${item.created_by || "-"}</td>
-                  <td>${item.created_on || "-"}</td>
-                </tr>`);
-              });
+            // Add search text if user typed something
+            if (data.search && data.search.value) {
+              payload.search = data.search.value;
             }
 
-            initDataTable("#videoTable");
+            $.ajax({
+              url: `${BASE_API_URL}/commonfunction`,
+              method: "POST",
+              data: { data: encryptData(payload) },
+              dataType: "json",
+              success: function (res) {
+                const decryptedData = decryptData(res.data) || [];
+                const total = res.pagination?.total || decryptedData.length;
+
+                // Send formatted data back to DataTables
+                callback({
+                  draw: data.draw,
+                  recordsTotal: total,
+                  recordsFiltered: total,
+                  data: decryptedData.map((item) => [
+                    `<a href="javascript:void(0);" class="video-edit" data-id="${item.id}">
+                      <i class="bi bi-pencil-square"></i>
+                    </a>`,
+                    item.v_name || "-",
+                    item.v_desc || "-",
+                    item.v_url || "-",
+                    item.language || "-",
+                    item.created_by || "-",
+                    item.created_on || "-"
+                  ]),
+                });
+              },
+              error: function (xhr) {
+                console.error("Error fetching video data:", xhr);
+                callback({
+                  draw: data.draw,
+                  recordsTotal: 0,
+                  recordsFiltered: 0,
+                  data: [],
+                });
+              },
+            });
           },
-          error: function (xhr) {
-            console.error("Error fetching video data:", xhr);
-          },
+          columns: [
+            { title: "Edit", orderable: false },
+            { title: "Video Name" },
+            { title: "Description" },
+            { title: "Video URL" },
+            { title: "Language" },
+            { title: "Created By" },
+            { title: "Created On" },
+          ],
         });
       }
 
       $(document).off("click", "#videoSubmitBtn").on("click", "#videoSubmitBtn", function () {
-        const file = $("#videoFile")[0].files[0];
-        if (!file) return alert("Select a file before submitting");
+        const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}(&.*)?$/;
 
+        const videoUrl = $("#videoUrl").val();
+
+        // Validate YouTube URL
+        if (!youtubeRegex.test(videoUrl)) {
+            $("#urlError").removeClass("d-none");
+            return;
+        } else {
+            $("#urlError").addClass("d-none");
+        }
         const payload = {
           action: "function_call",
-          function_name: "fn_ins_govt_attachments",
+          function_name: "fn_ins_govt_attachment_video",
           params: {
-            p_file_attachment_name: `/uploads/${file.name}`,
-            p_file_name: file.name,
-            p_mimetype: file.type,
-            p_p_date: $("#videoDate").val(),
+            p_name: $("#videoName").val(),
+            p_desc: $("#videoDescription").val(),
+            p_url: $("#videoUrl").val(),
+            p_date: $("#videoDate").val(),
             p_language: $("#videoLanguage").val(),
             p_created_by: userId,
           },
@@ -1758,7 +1878,7 @@
       $('a[data-bs-toggle="tab"]').on("shown.bs.tab", function (e) {
         const targetTab = $(e.target).attr("href"); // example: #photoTab or #videoTab
 
-        if (targetTab === "videoPane") {
+        if (targetTab === "#videoPane") {
           fetchVideoData();
         } else if (targetTab === "#photoPane") {
           fetchPhotoData();
