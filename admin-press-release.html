@@ -1734,6 +1734,18 @@
       // ==========================================================
       // 🔹 FETCH PRESS RELEASE DATA
       // ==========================================================
+      function initDataTable(tableId) {
+        if ($.fn.DataTable.isDataTable(tableId)) {
+          $(tableId).DataTable().destroy();
+        }
+        $(tableId).DataTable({
+          paging: true,
+          searching: true,
+          ordering: true,
+          order: [[1, "asc"]],
+        });
+      }
+
       function fetchPressReleaseData() {
         const params = {};
         const tableBody = $("#pressReleaseTableBody");
@@ -1765,6 +1777,8 @@
             if ($.fn.DataTable.isDataTable("#pressReleaseTable")) {
               $("#pressReleaseTable").DataTable().destroy();
             }
+
+
             $("#pressReleaseTable").DataTable({
               paging: true,
               searching: true,
