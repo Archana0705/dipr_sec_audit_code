@@ -47,13 +47,14 @@ try {
         exit;
     }
 
-    if (empty($_POST['data'])) {
+     if (empty($_POST['data'])) {
         throw new Exception('Missing encrypted payload');
     }
 
-    // $p = decryptData($_POST['data']);
-    // $p = $_POST['data'];
-    $p = json_decode($_POST['data'], true);
+    $p = decryptData($_POST['data']);
+    if (!$p || !is_array($p)) {
+        throw new Exception('Invalid or corrupted payload');
+    }
 
   
     if (!$p || !is_array($p)) {
