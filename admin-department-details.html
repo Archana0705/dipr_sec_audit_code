@@ -728,8 +728,8 @@
     href="manifest.json_%3b%20filename_%3dUTF-8%27%27manifestf27b.json?v=24.1.1-41853896899929&amp;lang=en"
     crossorigin="use-credentials" /> -->
 
-    <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#007bff">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#007bff">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -1750,10 +1750,10 @@
                   </a>
                 </li> -->
                 <li class="t-NavigationBar-item a-pwaInstall"> <a class="t-Button t-Button--icon 
-              t-Button--header t-Button--navBar" href="#action$a-pwa-install" title="" target="" 
-              aria-roledescription="action link" style=""> <span class="t-Icon fa fa-cloud-download" 
-              aria-hidden="true"></span><span class="t-Button-label">Install App</span>
-              <span class="t-Button-badge"></span> </a> </li>
+              t-Button--header t-Button--navBar" href="#action$a-pwa-install" title="" target=""
+                    aria-roledescription="action link"> <span class="t-Icon fa fa-cloud-download"
+                      aria-hidden="true"></span><span class="t-Button-label">Install App</span>
+                    <span class="t-Button-badge"></span> </a> </li>
                 <li class="t-NavigationBar-item has-username shownav">
                   <button class="t-Button t-Button--icon t-Button--header t-Button--navBar" type="button">
                     <span class="t-Icon fa fa-user" aria-hidden="true"></span>
@@ -2721,8 +2721,8 @@
   <script src="assets/js/fileValidator.js"></script>
   <script src="assets/js/basepath.js"></script>
   <script src="assets/js/apiConfig.js"></script>
-<script src="assets/js/encrypt_decrypt.js"></script>
-    <script src="assets/js/crypto-js.min.js"></script>
+  <script src="assets/js/encrypt_decrypt.js"></script>
+  <script src="assets/js/crypto-js.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const links = document.querySelectorAll(".t-Header-nav a, .t-Header-nav ul li a");
@@ -2824,34 +2824,34 @@
   <script>
     $(document).ready(function () {
       const secretKey = decryptKey();
-    const encryptedUserData = localStorage.getItem("userAdminName");
-    let userId = null;
+      const encryptedUserData = localStorage.getItem("userAdminName");
+      let userId = null;
 
-    if (encryptedUserData) {
+      if (encryptedUserData) {
         try {
-            const decryptedData = JSON.parse(
-                CryptoJS.AES.decrypt(encryptedUserData, secretKey).toString(CryptoJS.enc.Utf8)
-            );
-            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+          const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedUserData, secretKey).toString(CryptoJS.enc.Utf8)
+          );
+          userId = decryptedData?.user_id || null; // assuming loginResult has user_id
         } catch (err) {
-            console.error("Error decrypting user data:", err);
+          console.error("Error decrypting user data:", err);
         }
-    }
-const encryptedData = localStorage.getItem("role");
-let role = null;
+      }
+      const encryptedData = localStorage.getItem("role");
+      let role = null;
 
-if (encryptedData) {
-    try {
-        const decryptedData = JSON.parse(
+      if (encryptedData) {
+        try {
+          const decryptedData = JSON.parse(
             CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-        );
-        console.log(decryptedData);
-          
-        role = decryptedData || null; // assuming loginResult has user_id
-    } catch (err) {
-        console.error("Error decrypting user data:", err);
-    }
-}
+          );
+          console.log(decryptedData);
+
+          role = decryptedData || null; // assuming loginResult has user_id
+        } catch (err) {
+          console.error("Error decrypting user data:", err);
+        }
+      }
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
         $('.admin-name-change').text(role);
@@ -2880,59 +2880,59 @@ if (encryptedData) {
       $('.t-NavigationBar-item.has-username.shownav').append(appendSignout);
 
       $(".signOutBtn").on("click", function (event) {
-    event.preventDefault();
+        event.preventDefault();
 
-    const secretKey = decryptKey();
-    const encryptedData = localStorage.getItem("userAdminName");
-    let userId = null;
+        const secretKey = decryptKey();
+        const encryptedData = localStorage.getItem("userAdminName");
+        let userId = null;
 
-    if (encryptedData) {
-        try {
+        if (encryptedData) {
+          try {
             const decryptedData = JSON.parse(
-                CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+              CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
             );
             userId = decryptedData?.user_id || null; // assuming loginResult has user_id
-        } catch (err) {
+          } catch (err) {
             console.error("Error decrypting user data:", err);
+          }
         }
-    }
- 
 
-    // Prepare encrypted logout payload
-    const payload = {
-        action: "function_call",
-        function_name: "user_logout",
-        params: { user_id: userId }
-    };
 
-    
-    $.ajax({
-        url: `${BASE_API_URL}/commonfunction`,
-        type: "POST",
-        headers: {
+        // Prepare encrypted logout payload
+        const payload = {
+          action: "function_call",
+          function_name: "user_logout",
+          params: { user_id: userId }
+        };
+
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          type: "POST",
+          headers: {
             "X-App-Key": "dipr",
             "X-App-Name": "dipr"
-        },
-        data: { 
+          },
+          data: {
             data: encryptData(payload) // <-- important!
-        },
-        dataType: "json",
-        success: function (response) {
+          },
+          dataType: "json",
+          success: function (response) {
             if (response.success) {
-                localStorage.removeItem("role");
-                localStorage.removeItem("userAdminName");
-                showSuccessToast(response.message || "Logged out successfully!");
-                window.location.href = "index.html";
+              localStorage.removeItem("role");
+              localStorage.removeItem("userAdminName");
+              showSuccessToast(response.message || "Logged out successfully!");
+              window.location.href = "index.html";
             } else {
-                showErrorToast(response.message || "Logout failed");
+              showErrorToast(response.message || "Logout failed");
             }
-        },
-        error: function (xhr, status, error) {
+          },
+          error: function (xhr, status, error) {
             console.error("Logout request failed:", error);
             showErrorToast("Logout request failed. Please try again.");
-        }
-    });
-  });
+          }
+        });
+      });
     });
 
   </script>
@@ -3048,26 +3048,26 @@ if (encryptedData) {
       //   });
       // }
       // fetchData();
-        // debugger
+      // debugger
       $('#preloader').hide();
       let tableData;
       let selectedId;
       let fileName;
       // const userId = localStorage.getItem("role_id");
       const secretKey = decryptKey();
-    const encryptedUserData = localStorage.getItem("userAdminName");
-    let userId = null;
+      const encryptedUserData = localStorage.getItem("userAdminName");
+      let userId = null;
 
-    if (encryptedUserData) {
+      if (encryptedUserData) {
         try {
-            const decryptedData = JSON.parse(
-                CryptoJS.AES.decrypt(encryptedUserData, secretKey).toString(CryptoJS.enc.Utf8)
-            );
-            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+          const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedUserData, secretKey).toString(CryptoJS.enc.Utf8)
+          );
+          userId = decryptedData?.user_id || null; // assuming loginResult has user_id
         } catch (err) {
-            console.error("Error decrypting user data:", err);
+          console.error("Error decrypting user data:", err);
         }
-    }
+      }
       const apiUrl = `${BASE_API_URL}/general/commonApi`;
       const tableBody = $("#pressReleaseTableBody");
       let dataTable;
@@ -3084,7 +3084,7 @@ if (encryptedData) {
           "user_id": userId
 
         };
-        
+
         $.ajax({
           url: apiUrl,
           method: "POST",
@@ -3096,7 +3096,7 @@ if (encryptedData) {
             data: encryptData(viewPayload)
           }),
           success: function (response) {
-             
+
             tableData = response.data;
 
             if (!tableData || tableData.length === 0) {
@@ -3174,7 +3174,7 @@ if (encryptedData) {
           contentType: "application/json",
           data: JSON.stringify({
             data: encryptData(viewPayload)  // encrypting the payload
-        }),
+          }),
           success: function (response) {
             divisionWiseTableApiData = response.data;
 
@@ -3253,7 +3253,7 @@ if (encryptedData) {
           contentType: "application/json",
           data: JSON.stringify({
             data: encryptData(viewPayload)  // encrypting the payload
-        }),
+          }),
           success: function (response) {
             transportCorpTableApiData = response.data;
 
@@ -3329,8 +3329,8 @@ if (encryptedData) {
           },
           contentType: "application/json",
           data: JSON.stringify({
-    data: encryptData(viewPayload) 
-}),
+            data: encryptData(viewPayload)
+          }),
           success: function (response) {
             otherDepTableApiData = response.data;
 
@@ -3407,8 +3407,8 @@ if (encryptedData) {
           },
           contentType: "application/json",
           data: JSON.stringify({
-    data: encryptData(viewPayload) 
-}),
+            data: encryptData(viewPayload)
+          }),
           success: function (response) {
             districtITableApiData = response.data;
 
@@ -3484,8 +3484,8 @@ if (encryptedData) {
           },
           contentType: "application/json",
           data: JSON.stringify({
-    data: encryptData(viewPayload) 
-}),
+            data: encryptData(viewPayload)
+          }),
           success: function (response) {
             corpTableApiData = response.data;
 
@@ -3562,8 +3562,8 @@ if (encryptedData) {
           },
           contentType: "application/json",
           data: JSON.stringify({
-    data: encryptData(viewPayload) 
-}),
+            data: encryptData(viewPayload)
+          }),
           success: function (response) {
             sectionHQTableApiData = response.data;
 
@@ -3947,140 +3947,140 @@ if (encryptedData) {
       }
 
 
-async function registerNewData() {
-      const secretKey = decryptKey();
-      const encryptedData = localStorage.getItem("role");
-      let role = null;
+      async function registerNewData() {
+        const secretKey = decryptKey();
+        const encryptedData = localStorage.getItem("role");
+        let role = null;
 
-      if (encryptedData) {
+        if (encryptedData) {
           try {
-              const decryptedData = JSON.parse(
-                  CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-              );
-              console.log(decryptedData);
-                
-              role = decryptedData || null; // assuming loginResult has user_id
+            const decryptedData = JSON.parse(
+              CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            console.log(decryptedData);
+
+            role = decryptedData || null; // assuming loginResult has user_id
           } catch (err) {
-              console.error("Error decrypting user data:", err);
+            console.error("Error decrypting user data:", err);
           }
-      }
+        }
 
-  // Get values
-  let name = $('#Press_create_name').val().trim();
-  let designation = $('#Press_create_designation').val().trim();
-  let phone = $('#Press_create_phone').val().trim();
-  let language = $('#pressCreateLangugage').val();
-  let sequence = $('#pressCreateSequence').val();
+        // Get values
+        let name = $('#Press_create_name').val().trim();
+        let designation = $('#Press_create_designation').val().trim();
+        let phone = $('#Press_create_phone').val().trim();
+        let language = $('#pressCreateLangugage').val();
+        let sequence = $('#pressCreateSequence').val();
 
-  // Sanitizer to prevent HTML Injection
-  function sanitizeInput(input) {
-    return $('<div>').text(input).html();
-  }
+        // Sanitizer to prevent HTML Injection
+        function sanitizeInput(input) {
+          return $('<div>').text(input).html();
+        }
 
-  name = sanitizeInput(name);
-  designation = sanitizeInput(designation);
-  phone = sanitizeInput(phone);
-// Remove all non-numeric characters
-phone = phone.replace(/\D/g, '');
+        name = sanitizeInput(name);
+        designation = sanitizeInput(designation);
+        phone = sanitizeInput(phone);
+        // Remove all non-numeric characters
+        phone = phone.replace(/\D/g, '');
 
-// Convert to integer (or NaN if empty)
-phone = phone ? parseInt(phone, 10) : null;
-  // Validation
-  // Validation
-const namePattern = /^[a-zA-Z\s]+$/;
-const phonePattern = /^[0-9]{10}$/;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
+        // Validation
+        // Validation
+        const namePattern = /^[a-zA-Z\s]+$/;
+        const phonePattern = /^[0-9]{10}$/;
 
-if (!name) {
-    showErrorToast("Name is required.");
-    return;
-}
-if (!namePattern.test(name)) {
-    showErrorToast("Name can only contain letters and spaces.");
-    return;
-}
-if (!designation) {
-    showErrorToast("Designation is required.");
-    return;
-}
-if (!phonePattern.test(phone)) {
-    showErrorToast("Phone must be exactly 10 digits.");
-    return;
-}
-if (!language || language.trim() === "") {
-    showErrorToast("Please select a language.");
-    return;
-}
-if (!sequence || sequence.trim() === "") {
-    showErrorToast("Please select a sequence.");
-    return;
-} 
+        if (!name) {
+          showErrorToast("Name is required.");
+          return;
+        }
+        if (!namePattern.test(name)) {
+          showErrorToast("Name can only contain letters and spaces.");
+          return;
+        }
+        if (!designation) {
+          showErrorToast("Designation is required.");
+          return;
+        }
+        if (!phonePattern.test(phone)) {
+          showErrorToast("Phone must be exactly 10 digits.");
+          return;
+        }
+        if (!language || language.trim() === "") {
+          showErrorToast("Please select a language.");
+          return;
+        }
+        if (!sequence || sequence.trim() === "") {
+          showErrorToast("Please select a sequence.");
+          return;
+        }
 
-  // Build safe payload
-  const insertPayload = {
-    "action": "insert",
-    "table": "UNIT_OFFICERS",
-    "NAME": name,
-    "DESIGNATION": designation,
-    "PHONE": phone,
-    "LANGUAGE": language,
-    "SEQUENCE": sequence,
-    "user_id": userId
-  };
+        // Build safe payload
+        const insertPayload = {
+          "action": "insert",
+          "table": "UNIT_OFFICERS",
+          "NAME": name,
+          "DESIGNATION": designation,
+          "PHONE": phone,
+          "LANGUAGE": language,
+          "SEQUENCE": sequence,
+          "user_id": userId
+        };
 
 
-  $.ajax({
-    url: `${BASE_API_URL}/general/commonApi`,
-    type: 'POST',
-    contentType: 'application/json',
-    xhrFields: {
+        $.ajax({
+          url: `${BASE_API_URL}/general/commonApi`,
+          type: 'POST',
+          contentType: 'application/json',
+          xhrFields: {
             withCredentials: true
           },
-     data: JSON.stringify({
-    data: encryptData(insertPayload) 
-}),
-    success: function (response) {
-       
-      if (response.success === 1) {
-        showSuccessToast("Created successfully!");
-        setTimeout(() => window.location.href = "admin-department-details.html", 1000);
-      } else {
-        showErrorToast(response.message);
+          data: JSON.stringify({
+            data: encryptData(insertPayload)
+          }),
+          success: function (response) {
+
+            if (response.success === 1) {
+              showSuccessToast("Created successfully!");
+              setTimeout(() => window.location.href = "admin-department-details.html", 1000);
+            } else {
+              showErrorToast(response.message);
+            }
+          },
+          error: function () {
+            showErrorToast("Failed.");
+          }
+        });
       }
-    },
-    error: function () {
-      showErrorToast("Failed.");
-    }
-  });
-}
 
       async function registerDivData() {
         //debugger
         const secretKey = decryptKey();
-const encryptedData = localStorage.getItem("role");
-let role = null;
+        const encryptedData = localStorage.getItem("role");
+        let role = null;
 
-if (encryptedData) {
-    try {
-        const decryptedData = JSON.parse(
-            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-        );
-        console.log(decryptedData);
-          
-        role = decryptedData || null; // assuming loginResult has user_id
-    } catch (err) {
-        console.error("Error decrypting user data:", err);
-    }
-}
+        if (encryptedData) {
+          try {
+            const decryptedData = JSON.parse(
+              CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            console.log(decryptedData);
+
+            role = decryptedData || null; // assuming loginResult has user_id
+          } catch (err) {
+            console.error("Error decrypting user data:", err);
+          }
+        }
         var name = $('#Press_create_div_name').val() || 0;
         var designation = $('#Press_create_div_designation').val() || 0;
         var phone = $('#Press_create_div_phone').val() || 0;
         var division = $('#Press_create_div_division').val() || 0;
         var language = $('#pressCreateDivLangugage').val() || 0;
         var sequence = $('#pressCreatDivSequence').val() || 0;
-          phone = phone.replace(/\D/g, '');
+        phone = phone.replace(/\D/g, '');
 
-          // Convert to integer (or NaN if empty)
-          phone = phone ? parseInt(phone, 10) : null;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
         var insertPayload = {
           "action": "insert",
           "table": "TN_DIVISION_WISE_UNIT_OFFICERS",
@@ -4098,9 +4098,9 @@ if (encryptedData) {
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
           contentType: 'application/json',
-           data: JSON.stringify({
-    data: encryptData(insertPayload) 
-}),
+          data: JSON.stringify({
+            data: encryptData(insertPayload)
+          }),
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
@@ -4118,30 +4118,30 @@ if (encryptedData) {
       async function registerPrOfcrData() {
         //debugger
         const secretKey = decryptKey();
-const encryptedData = localStorage.getItem("role");
-let role = null;
+        const encryptedData = localStorage.getItem("role");
+        let role = null;
 
-if (encryptedData) {
-    try {
-        const decryptedData = JSON.parse(
-            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-        );
-        console.log(decryptedData);
-          
-        role = decryptedData || null; // assuming loginResult has user_id
-    } catch (err) {
-        console.error("Error decrypting user data:", err);
-    }
-}
+        if (encryptedData) {
+          try {
+            const decryptedData = JSON.parse(
+              CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            console.log(decryptedData);
+
+            role = decryptedData || null; // assuming loginResult has user_id
+          } catch (err) {
+            console.error("Error decrypting user data:", err);
+          }
+        }
         var name = $('#officerName').val() || 0;
         var designation = $('#officerDesignation').val() || 0;
         var phone = $('#officerPhone').val() || 0;
         var language = $('#languageSelect').val() || 0;
         var sequence = $('#sequenceSelect').val() || 0;
-phone = phone.replace(/\D/g, '');
+        phone = phone.replace(/\D/g, '');
 
-// Convert to integer (or NaN if empty)
-phone = phone ? parseInt(phone, 10) : null;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
         var insertPayload = {
           "action": "insert",
           "table": "I_PR_OFFICERS_TRANS_CORP",
@@ -4158,9 +4158,9 @@ phone = phone ? parseInt(phone, 10) : null;
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
           contentType: 'application/json',
-           data: JSON.stringify({
-    data: encryptData(insertPayload) 
-}),
+          data: JSON.stringify({
+            data: encryptData(insertPayload)
+          }),
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
@@ -4178,30 +4178,30 @@ phone = phone ? parseInt(phone, 10) : null;
       async function registerPrOfcrOtherDepData() {
         //debugger
         const secretKey = decryptKey();
-const encryptedData = localStorage.getItem("role");
-let role = null;
+        const encryptedData = localStorage.getItem("role");
+        let role = null;
 
-if (encryptedData) {
-    try {
-        const decryptedData = JSON.parse(
-            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-        );
-        console.log(decryptedData);
-          
-        role = decryptedData || null; // assuming loginResult has user_id
-    } catch (err) {
-        console.error("Error decrypting user data:", err);
-    }
-}
+        if (encryptedData) {
+          try {
+            const decryptedData = JSON.parse(
+              CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            console.log(decryptedData);
+
+            role = decryptedData || null; // assuming loginResult has user_id
+          } catch (err) {
+            console.error("Error decrypting user data:", err);
+          }
+        }
         var name = $('#officerNameOtherDept').val() || 0;
         var designation = $('#officerDesignationOtherDept').val() || 0;
         var phone = $('#officerPhoneOtherDept').val() || 0;
         var language = $('#languageSelectOtherDept').val() || 0;
         var sequence = $('#sequenceSelectOtherDept').val() || 0;
-phone = phone.replace(/\D/g, '');
+        phone = phone.replace(/\D/g, '');
 
-// Convert to integer (or NaN if empty)
-phone = phone ? parseInt(phone, 10) : null;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
         var insertPayload = {
           "action": "insert",
           "table": "I_PR_OFFICERS_OTHER_DEPT",
@@ -4218,9 +4218,9 @@ phone = phone ? parseInt(phone, 10) : null;
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
           contentType: 'application/json',
-           data: JSON.stringify({
-    data: encryptData(insertPayload) 
-}),
+          data: JSON.stringify({
+            data: encryptData(insertPayload)
+          }),
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
@@ -4238,31 +4238,31 @@ phone = phone ? parseInt(phone, 10) : null;
       async function registerDistrictProData() {
         //debugger
         const secretKey = decryptKey();
-const encryptedData = localStorage.getItem("role");
-let role = null;
+        const encryptedData = localStorage.getItem("role");
+        let role = null;
 
-if (encryptedData) {
-    try {
-        const decryptedData = JSON.parse(
-            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-        );
-        console.log(decryptedData);
-          
-        role = decryptedData || null; // assuming loginResult has user_id
-    } catch (err) {
-        console.error("Error decrypting user data:", err);
-    }
-}
+        if (encryptedData) {
+          try {
+            const decryptedData = JSON.parse(
+              CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            console.log(decryptedData);
+
+            role = decryptedData || null; // assuming loginResult has user_id
+          } catch (err) {
+            console.error("Error decrypting user data:", err);
+          }
+        }
         var district = $('#districtId').val() || 0;
         var name = $('#nameId').val() || 0;
         var designation = $('#designationId').val() || 0;
         var phone = $('#phoneId').val() || 0;
         var language = $('#languageId').val() || 0;
         var sequence = $('#sequenceId').val() || 0;
-phone = phone.replace(/\D/g, '');
+        phone = phone.replace(/\D/g, '');
 
-// Convert to integer (or NaN if empty)
-phone = phone ? parseInt(phone, 10) : null;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
         var insertPayload = {
           "action": "insert",
           "table": "DISTRICT_I_PRO",
@@ -4280,9 +4280,9 @@ phone = phone ? parseInt(phone, 10) : null;
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
           contentType: 'application/json',
-           data: JSON.stringify({
-    data: encryptData(insertPayload) 
-}),
+          data: JSON.stringify({
+            data: encryptData(insertPayload)
+          }),
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
@@ -4300,30 +4300,30 @@ phone = phone ? parseInt(phone, 10) : null;
       async function registerCorporationData() {
         //debugger
         const secretKey = decryptKey();
-const encryptedData = localStorage.getItem("role");
-let role = null;
+        const encryptedData = localStorage.getItem("role");
+        let role = null;
 
-if (encryptedData) {
-    try {
-        const decryptedData = JSON.parse(
-            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-        );
-        console.log(decryptedData);
-          
-        role = decryptedData || null; // assuming loginResult has user_id
-    } catch (err) {
-        console.error("Error decrypting user data:", err);
-    }
-}
+        if (encryptedData) {
+          try {
+            const decryptedData = JSON.parse(
+              CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            console.log(decryptedData);
+
+            role = decryptedData || null; // assuming loginResult has user_id
+          } catch (err) {
+            console.error("Error decrypting user data:", err);
+          }
+        }
         var name = $('#corporationName').val() || 0;
         var designation = $('#corporationDesignation').val() || 0;
         var phone = $('#corporationPhone').val() || 0;
         var language = $('#corporationLanguage').val() || 0;
         var sequence = $('#corporationSequence').val() || 0;
-phone = phone.replace(/\D/g, '');
+        phone = phone.replace(/\D/g, '');
 
-// Convert to integer (or NaN if empty)
-phone = phone ? parseInt(phone, 10) : null;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
         var insertPayload = {
           "action": "insert",
           "table": "TN_CORPORATIONS",
@@ -4340,9 +4340,9 @@ phone = phone ? parseInt(phone, 10) : null;
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
           contentType: 'application/json',
-           data: JSON.stringify({
-    data: encryptData(insertPayload) 
-}),
+          data: JSON.stringify({
+            data: encryptData(insertPayload)
+          }),
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
@@ -4360,29 +4360,29 @@ phone = phone ? parseInt(phone, 10) : null;
       async function registerSectionHQData() {
         //debugger
         const secretKey = decryptKey();
-const encryptedData = localStorage.getItem("role");
-let role = null;
+        const encryptedData = localStorage.getItem("role");
+        let role = null;
 
-if (encryptedData) {
-    try {
-        const decryptedData = JSON.parse(
-            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-        );
-        console.log(decryptedData);
-          
-        role = decryptedData || null; // assuming loginResult has user_id
-    } catch (err) {
-        console.error("Error decrypting user data:", err);
-    }
-}
+        if (encryptedData) {
+          try {
+            const decryptedData = JSON.parse(
+              CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+            );
+            console.log(decryptedData);
+
+            role = decryptedData || null; // assuming loginResult has user_id
+          } catch (err) {
+            console.error("Error decrypting user data:", err);
+          }
+        }
         var sections = $('#hqSectionName').val() || 0;
         var phone = $('#hqSectionPhone').val() || 0;
         var language = $('#hqSectionLanguage').val() || 0;
         var sequence = $('#hqSectionSequence').val() || 0;
-phone = phone.replace(/\D/g, '');
+        phone = phone.replace(/\D/g, '');
 
-// Convert to integer (or NaN if empty)
-phone = phone ? parseInt(phone, 10) : null;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
         var insertPayload = {
           "action": "insert",
           "table": "TN_SECTIONS_HQ",
@@ -4399,9 +4399,9 @@ phone = phone ? parseInt(phone, 10) : null;
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
           contentType: 'application/json',
-           data: JSON.stringify({
-    data: encryptData(insertPayload) 
-}),
+          data: JSON.stringify({
+            data: encryptData(insertPayload)
+          }),
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
@@ -4494,10 +4494,10 @@ phone = phone ? parseInt(phone, 10) : null;
         var designation = $("#Press_designation").val();
         var phone = $("#Press_phone").val();
         var sequence = $("#Press_sequence").val();
-phone = phone.replace(/\D/g, '');
+        phone = phone.replace(/\D/g, '');
 
-// Convert to integer (or NaN if empty)
-phone = phone ? parseInt(phone, 10) : null;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "UNIT_OFFICERS",
@@ -4514,9 +4514,9 @@ phone = phone ? parseInt(phone, 10) : null;
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
-           data: JSON.stringify({
-    data: encryptData(updatePayload) 
-}),
+          data: JSON.stringify({
+            data: encryptData(updatePayload)
+          }),
           contentType: 'application/json', // Use JSON since we're sending structured data
           success: function (response) {
             if (response.success === 1) {
@@ -4540,10 +4540,10 @@ phone = phone ? parseInt(phone, 10) : null;
         var phone = $("#Press_div_phone").val();
         var sequence = $("#Press_div_sequence").val();
         var division = $("#Press_div_division").val();
-phone = phone.replace(/\D/g, '');
+        phone = phone.replace(/\D/g, '');
 
-// Convert to integer (or NaN if empty)
-phone = phone ? parseInt(phone, 10) : null;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "TN_DIVISION_WISE_UNIT_OFFICERS",
@@ -4562,8 +4562,8 @@ phone = phone ? parseInt(phone, 10) : null;
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
           data: JSON.stringify({
-    data: encryptData(updatePayload) 
-}),
+            data: encryptData(updatePayload)
+          }),
           contentType: 'application/json', // Use JSON since we're sending structured data
           success: function (response) {
             if (response.success === 1) {
@@ -4588,10 +4588,10 @@ phone = phone ? parseInt(phone, 10) : null;
         var designation = $("#Press_pr_designation").val();
         var phone = $("#Press_pr_phone").val();
         var sequence = $("#Press_pr_sequence").val();
-phone = phone.replace(/\D/g, '');
+        phone = phone.replace(/\D/g, '');
 
-// Convert to integer (or NaN if empty)
-phone = phone ? parseInt(phone, 10) : null;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "I_PR_OFFICERS_TRANS_CORP",
@@ -4609,8 +4609,8 @@ phone = phone ? parseInt(phone, 10) : null;
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
           data: JSON.stringify({
-    data: encryptData(updatePayload) 
-}),
+            data: encryptData(updatePayload)
+          }),
           contentType: 'application/json', // Use JSON since we're sending structured data
           success: function (response) {
             if (response.success === 1) {
@@ -4635,10 +4635,10 @@ phone = phone ? parseInt(phone, 10) : null;
         var designation = $("#Press_pr_other_designation").val();
         var phone = $("#Press_pr_other_phone").val();
         var sequence = $("#Press_pr_other_sequence").val();
-phone = phone.replace(/\D/g, '');
+        phone = phone.replace(/\D/g, '');
 
-// Convert to integer (or NaN if empty)
-phone = phone ? parseInt(phone, 10) : null;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "I_PR_OFFICERS_OTHER_DEPT",
@@ -4656,8 +4656,8 @@ phone = phone ? parseInt(phone, 10) : null;
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
           data: JSON.stringify({
-    data: encryptData(updatePayload) 
-}),
+            data: encryptData(updatePayload)
+          }),
           contentType: 'application/json', // Use JSON since we're sending structured data
           success: function (response) {
             if (response.success === 1) {
@@ -4682,10 +4682,10 @@ phone = phone ? parseInt(phone, 10) : null;
         var designation = $("#districtPrDesignation").val();
         var phone = $("#districtPrPhone").val();
         var sequence = $("#districtPrSequence").val();
-phone = phone.replace(/\D/g, '');
+        phone = phone.replace(/\D/g, '');
 
-// Convert to integer (or NaN if empty)
-phone = phone ? parseInt(phone, 10) : null;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "I_PR_OFFICERS_OTHER_DEPT",
@@ -4703,8 +4703,8 @@ phone = phone ? parseInt(phone, 10) : null;
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
           data: JSON.stringify({
-    data: encryptData(updatePayload) 
-}),
+            data: encryptData(updatePayload)
+          }),
           contentType: 'application/json', // Use JSON since we're sending structured data
           success: function (response) {
             if (response.success === 1) {
@@ -4729,10 +4729,10 @@ phone = phone ? parseInt(phone, 10) : null;
         var designation = $("#Corporation_designation").val();
         var phone = $("#Corporation_phone").val();
         var sequence = $("#Corporation_sequence").val();
-phone = phone.replace(/\D/g, '');
+        phone = phone.replace(/\D/g, '');
 
-// Convert to integer (or NaN if empty)
-phone = phone ? parseInt(phone, 10) : null;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "TN_CORPORATIONS",
@@ -4750,8 +4750,8 @@ phone = phone ? parseInt(phone, 10) : null;
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
           data: JSON.stringify({
-    data: encryptData(updatePayload) 
-}),
+            data: encryptData(updatePayload)
+          }),
           contentType: 'application/json', // Use JSON since we're sending structured data
           success: function (response) {
             if (response.success === 1) {
@@ -4776,10 +4776,10 @@ phone = phone ? parseInt(phone, 10) : null;
         var designation = $("#Press_pr_hq_sections").val();
         var phone = $("#Press_pr_hq_phone").val();
         var sequence = $("#Press_pr_hq_sequence").val();
-phone = phone.replace(/\D/g, '');
+        phone = phone.replace(/\D/g, '');
 
-// Convert to integer (or NaN if empty)
-phone = phone ? parseInt(phone, 10) : null;
+        // Convert to integer (or NaN if empty)
+        phone = phone ? parseInt(phone, 10) : null;
         let updatePayload = {
           "action": "update",
           "table": "TN_SECTIONS_HQ",
@@ -4797,8 +4797,8 @@ phone = phone ? parseInt(phone, 10) : null;
           url: `${BASE_API_URL}/general/commonApi`,
           type: 'POST',
           data: JSON.stringify({
-    data: encryptData(updatePayload) 
-}),
+            data: encryptData(updatePayload)
+          }),
           contentType: 'application/json', // Use JSON since we're sending structured data
           success: function (response) {
             if (response.success === 1) {
@@ -4833,11 +4833,11 @@ phone = phone ? parseInt(phone, 10) : null;
         //debugger
         $('#preloader').show();
         var deletePayload = {
-            action: "delete",
-            table: "UNIT_OFFICERS",
-            primary_key: "id",
-            id: id,
-            "user_id": userId,
+          action: "delete",
+          table: "UNIT_OFFICERS",
+          primary_key: "id",
+          id: id,
+          "user_id": userId,
         };
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,
@@ -4845,7 +4845,7 @@ phone = phone ? parseInt(phone, 10) : null;
           dataType: "json",
           contentType: "application/json",
           data: JSON.stringify({
-              data: encryptData(deletePayload)
+            data: encryptData(deletePayload)
           }),
           success: function (response) {
             $('#preloader').hide();
@@ -4891,7 +4891,7 @@ phone = phone ? parseInt(phone, 10) : null;
   </script>
 
   <script src="assets/js/install.js"></script>
-  
+
 </body>
 
 </html>

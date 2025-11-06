@@ -715,8 +715,8 @@
     href="manifest.json_%3b%20filename_%3dUTF-8%27%27manifestf27b.json?v=24.1.1-41853896899929&amp;lang=en"
     crossorigin="use-credentials" /> -->
 
-    <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#007bff">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#007bff">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -1163,10 +1163,10 @@
                   </a>
                 </li> -->
                 <li class="t-NavigationBar-item a-pwaInstall"> <a class="t-Button t-Button--icon 
-              t-Button--header t-Button--navBar" href="#action$a-pwa-install" title="" target="" 
-              aria-roledescription="action link" style=""> <span class="t-Icon fa fa-cloud-download" 
-              aria-hidden="true"></span><span class="t-Button-label">Install App</span>
-              <span class="t-Button-badge"></span> </a> </li>
+              t-Button--header t-Button--navBar" href="#action$a-pwa-install" title="" target=""
+                    aria-roledescription="action link"> <span class="t-Icon fa fa-cloud-download"
+                      aria-hidden="true"></span><span class="t-Button-label">Install App</span>
+                    <span class="t-Button-badge"></span> </a> </li>
                 <li class="t-NavigationBar-item has-username shownav">
                   <button class="t-Button t-Button--icon t-Button--header t-Button--navBar" type="button">
                     <span class="t-Icon fa fa-user" aria-hidden="true"></span>
@@ -1568,8 +1568,8 @@
   <script src="assets/js/fileValidator.js"></script>
   <script src="assets/js/basepath.js"></script>
   <script src="assets/js/apiConfig.js"></script>
-<script src="assets/js/encrypt_decrypt.js"></script>
-    <script src="assets/js/crypto-js.min.js"></script>
+  <script src="assets/js/encrypt_decrypt.js"></script>
+  <script src="assets/js/crypto-js.min.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -1673,21 +1673,21 @@
   <script>
     $(document).ready(function () {
       const secretKey = decryptKey();
-const encryptedData = localStorage.getItem("role");
-let role = null;
+      const encryptedData = localStorage.getItem("role");
+      let role = null;
 
-if (encryptedData) {
-    try {
-        const decryptedData = JSON.parse(
+      if (encryptedData) {
+        try {
+          const decryptedData = JSON.parse(
             CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-        );
-        console.log(decryptedData);
-          
-        role = decryptedData || null; // assuming loginResult has user_id
-    } catch (err) {
-        console.error("Error decrypting user data:", err);
-    }
-}
+          );
+          console.log(decryptedData);
+
+          role = decryptedData || null; // assuming loginResult has user_id
+        } catch (err) {
+          console.error("Error decrypting user data:", err);
+        }
+      }
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
         $('.admin-name-change').text(role);
@@ -1716,59 +1716,59 @@ if (encryptedData) {
       $('.t-NavigationBar-item.has-username.shownav').append(appendSignout);
 
       $(".signOutBtn").on("click", function (event) {
-    event.preventDefault();
+        event.preventDefault();
 
-    const secretKey = decryptKey();
-    const encryptedData = localStorage.getItem("userAdminName");
-    let userId = null;
+        const secretKey = decryptKey();
+        const encryptedData = localStorage.getItem("userAdminName");
+        let userId = null;
 
-    if (encryptedData) {
-        try {
+        if (encryptedData) {
+          try {
             const decryptedData = JSON.parse(
-                CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+              CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
             );
             userId = decryptedData?.user_id || null; // assuming loginResult has user_id
-        } catch (err) {
+          } catch (err) {
             console.error("Error decrypting user data:", err);
+          }
         }
-    }
- 
 
-    // Prepare encrypted logout payload
-    const payload = {
-        action: "function_call",
-        function_name: "user_logout",
-        params: { user_id: userId }
-    };
 
-    
-    $.ajax({
-        url: `${BASE_API_URL}/commonfunction`,
-        type: "POST",
-        headers: {
+        // Prepare encrypted logout payload
+        const payload = {
+          action: "function_call",
+          function_name: "user_logout",
+          params: { user_id: userId }
+        };
+
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          type: "POST",
+          headers: {
             "X-App-Key": "dipr",
             "X-App-Name": "dipr"
-        },
-        data: { 
+          },
+          data: {
             data: encryptData(payload) // <-- important!
-        },
-        dataType: "json",
-        success: function (response) {
+          },
+          dataType: "json",
+          success: function (response) {
             if (response.success) {
-                localStorage.removeItem("role");
-                localStorage.removeItem("userAdminName");
-                showSuccessToast(response.message || "Logged out successfully!");
-                window.location.href = "index.html";
+              localStorage.removeItem("role");
+              localStorage.removeItem("userAdminName");
+              showSuccessToast(response.message || "Logged out successfully!");
+              window.location.href = "index.html";
             } else {
-                showErrorToast(response.message || "Logout failed");
+              showErrorToast(response.message || "Logout failed");
             }
-        },
-        error: function (xhr, status, error) {
+          },
+          error: function (xhr, status, error) {
             console.error("Logout request failed:", error);
             showErrorToast("Logout request failed. Please try again.");
-        }
-    });
-  });
+          }
+        });
+      });
     });
 
   </script>
@@ -1828,18 +1828,18 @@ if (encryptedData) {
       tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
       const encryptedData = localStorage.getItem("userAdminName");
       const secretKey = decryptKey();
-let userId = null;
+      let userId = null;
 
-if (encryptedData) {
-    try {
-        const decryptedData = JSON.parse(
+      if (encryptedData) {
+        try {
+          const decryptedData = JSON.parse(
             CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-        );
-        userId = decryptedData?.user_id || null; // assuming loginResult has user_id
-    } catch (err) {
-        console.error("Error decrypting user data:", err);
-    }
-}
+          );
+          userId = decryptedData?.user_id || null; // assuming loginResult has user_id
+        } catch (err) {
+          console.error("Error decrypting user data:", err);
+        }
+      }
       function fetchData() {
         var viewPayload = {
           // "lang": langSwitch
@@ -2031,27 +2031,27 @@ if (encryptedData) {
           reader.readAsDataURL(file); // Convert file to Base64
         });
       }
-       function validateNoHtml(id, fieldName) {
-  const value = $(`#${id}`).val() || "";
+      function validateNoHtml(id, fieldName) {
+        const value = $(`#${id}`).val() || "";
 
-  // Regex checks for <, >, ", ', /, &
-  const pattern = /[<>"'&/]/;
+        // Regex checks for <, >, ", ', /, &
+        const pattern = /[<>"'&/]/;
 
-  if (pattern.test(value)) {
-    showErrorToast(`${fieldName} contains invalid characters like <, >, ', " or &.`);
-    return false; // ❌ invalid
-  }
+        if (pattern.test(value)) {
+          showErrorToast(`${fieldName} contains invalid characters like <, >, ', " or &.`);
+          return false; // ❌ invalid
+        }
 
-  return true; // ✅ valid
-}
+        return true; // ✅ valid
+      }
       async function registerNewData() {
 
-                 // Validate text fields
-  if (!validateNoHtml("Press_create_memorial", "Memorial")) return;
-  if (!validateNoHtml("Press_create_place", "Place")) return;
-  if (!validateNoHtml("Press_create_district", "District")) return;
-  if (!validateNoHtml("Press_create_video_name", "Video Name")) return;
-       
+        // Validate text fields
+        if (!validateNoHtml("Press_create_memorial", "Memorial")) return;
+        if (!validateNoHtml("Press_create_place", "Place")) return;
+        if (!validateNoHtml("Press_create_district", "District")) return;
+        if (!validateNoHtml("Press_create_video_name", "Video Name")) return;
+
         //debugger
         let fileInput = $('#press_create_video_FileUpload_input')[0]; // Get file input
         let file = fileInput.files[0]; // Get selected file
@@ -2111,7 +2111,7 @@ if (encryptedData) {
 
 
       $('#updateBtn').on('click', function () {
-      
+
 
         if (!selectedId) {
           showErrorToast("Failed to fetch required data for update.");
@@ -2206,10 +2206,11 @@ if (encryptedData) {
           //   "slno": id
           // }),
           data: JSON.stringify({
-            data: encryptData({   
+            data: encryptData({
               "action": "delete",
-            "slno": id,
-          "user_id": userId,})
+              "slno": id,
+              "user_id": userId,
+            })
           }),
           success: function (response) {
             $('#preloader').hide();
@@ -2244,7 +2245,7 @@ if (encryptedData) {
 
   <script src="assets/js/install.js"></script>
 
-  
+
 </body>
 
 </html>

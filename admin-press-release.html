@@ -716,9 +716,9 @@
   <!-- <link rel="manifest"
     href="manifest.json_%3b%20filename_%3dUTF-8%27%27manifestf27b.json?v=24.1.1-41853896899929&amp;lang=en"
     crossorigin="use-credentials" /> -->
-    
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#007bff">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#007bff">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -1031,10 +1031,10 @@
                   </a>
                 </li> -->
                 <li class="t-NavigationBar-item a-pwaInstall"> <a class="t-Button t-Button--icon 
-              t-Button--header t-Button--navBar" href="#action$a-pwa-install" title="" target="" 
-              aria-roledescription="action link" style=""> <span class="t-Icon fa fa-cloud-download" 
-              aria-hidden="true"></span><span class="t-Button-label">Install App</span>
-              <span class="t-Button-badge"></span> </a> </li>
+              t-Button--header t-Button--navBar" href="#action$a-pwa-install" title="" target=""
+                    aria-roledescription="action link"> <span class="t-Icon fa fa-cloud-download"
+                      aria-hidden="true"></span><span class="t-Button-label">Install App</span>
+                    <span class="t-Button-badge"></span> </a> </li>
                 <li class="t-NavigationBar-item has-username shownav">
                   <button class="t-Button t-Button--icon t-Button--header t-Button--navBar" type="button">
                     <span class="t-Icon fa fa-user" aria-hidden="true"></span>
@@ -1626,202 +1626,185 @@
 
 
   <script>
-    const secretKey = decryptKey();
-    const encryptedData = localStorage.getItem("role");
-    let role = null;
-
-    if (encryptedData) {
-      try {
-        const decryptedData = JSON.parse(
-          CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-        );
-        console.log(decryptedData);
-
-        role = decryptedData || null; // assuming loginResult has user_id
-      } catch (err) {
-        console.error("Error decrypting user data:", err);
-      }
-    }
-    var userAdminName = localStorage.getItem("userAdminName");
-    if (role) {
-      $('.admin-name-change').text(role);
-      $('.js-tabLike .admin-menu-show').css('display', 'block');
-      var interval = setInterval(function () {
-        if ($('#t_MenuNav_7').length) {
-          $('#t_MenuNav_7').css('display', 'flex');
-        }
-        if ($('#t_MenuNav_8').length) {
-          $('#t_MenuNav_8').css('display', 'flex');
-        }
-        if ($('#t_MenuNav_7').length && $('#t_MenuNav_8').length) {
-          clearInterval(interval);
-        }
-      }, 100);
-    }
-
-    function showSuccessToast(message) {
-      const toastElement = document.getElementById('successToast');
-      const toastBody = document.getElementById('successMessage');
-
-      // Set the dynamic message
-      toastBody.textContent = message;
-
-      // Initialize and show the toast
-      const toast = new bootstrap.Toast(toastElement, {
-        autohide: true,
-        delay: 3000
-      });
-      toast.show();
-    }
-    // Function to show a error toast with a dynamic message
-    function showErrorToast(message) {
-      const toastElement = document.getElementById('errorToast');
-      const toastBody = document.getElementById('errorMessage');
-
-      // Set the dynamic message
-      toastBody.textContent = message;
-
-      // Initialize and show the toast
-      const toast = new bootstrap.Toast(toastElement, {
-        autohide: true,
-        delay: 3000
-      });
-      toast.show();
-    }
-
     $(document).ready(function () {
-      //debugger
-      $('#preloader').hide();
-      var langSwitch = 'en';
-      $(document).on({
-        ajaxStart: function () {
-          $('#preloader').show();
-          $("body").addClass("user_loading");
-        },
-        ajaxStop: function () {
-          $('#preloader').hide();
-          $("body").removeClass("user_loading");
-        }
-      });
+      // ==========================================================
+      // 🔹 GLOBAL CONFIG
+      // ==========================================================
+      const secretKey = decryptKey();
+      let langSwitch = "en";
+      const BASE_API_URL_COMMON = `${BASE_API_URL}/commonfunction`;
 
+      // ==========================================================
+      // 🔹 DECRYPT USER + ROLE INFO
+      // ==========================================================
+      const encryptedRole = localStorage.getItem("role");
+      const encryptedUserData = localStorage.getItem("userAdminName");
+      let role = null, userId = null;
 
-
-      // });
-      $('#preloader').hide();
-      let tableData;
-      let selectedId;
-      let dataTable;
-      // const userId = localStorage.getItem("role_id");
-      const apiUrl = `${BASE_API_URL}/admin/pressRelease/viewPressReleaseReport`;
-      const tableBody = $("#pressReleaseTableBody");
-      tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
-      const encryptedData = localStorage.getItem("userAdminName");
-
-      let userId = null;
-
-      if (encryptedData) {
-        try {
-          const decryptedData = JSON.parse(
-            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
+      try {
+        if (encryptedRole) {
+          const decryptedRole = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedRole, secretKey).toString(CryptoJS.enc.Utf8)
           );
-          userId = decryptedData?.user_id || null; // assuming loginResult has user_id
-        } catch (err) {
-          console.error("Error decrypting user data:", err);
+          role = decryptedRole || null;
         }
+
+        if (encryptedUserData) {
+          const decryptedUser = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedUserData, secretKey).toString(CryptoJS.enc.Utf8)
+          );
+          userId = decryptedUser?.user_id || null;
+        }
+      } catch (err) {
+        console.error("Error decrypting stored data:", err);
       }
-      function fetchData() {
-        var viewPayload = {
-          "lang": langSwitch
-        };
-        $.ajax({
-          url: apiUrl,
-          method: "POST",
-          //contentType: "application/json",
-          //data: JSON.stringify(state_customize_reportPayload),
-          success: function (response) {
-            tableData = response.data;
-            tableBody.empty();
 
-            if (!tableData || tableData.length === 0) {
-              tableBody.append('<tr><td colspan="9" class="text-center">No Data Found</td></tr>');
-              return;
-            }
+      // ==========================================================
+      // 🔹 UI ROLE HANDLING
+      // ==========================================================
+      if (role) {
+        $(".admin-name-change").text(role);
+        $(".js-tabLike .admin-menu-show").css("display", "block");
 
-            if ($.fn.DataTable.isDataTable("#pressReleaseTable")) {
-              $("#pressReleaseTable").DataTable().clear().destroy();
-            }
-
-            let tableRows = "";
-            tableData.forEach(item => {
-              tableRows += `
-              <tr>
-              <td class="u-tL">   <a data-id="${item.id}" id="open-modal-btn" href="javascript:void(0);">
-             <i class="bi bi-pencil-square"></i>
-             </a></td>
-              <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${(item.pr_date) || 'N/A'}</td>
-              <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${(item.language) || 'N/A'}</td>
-              <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${(item.press_name) || 'N/A'}</td>
-              <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${(item.uploaded_by) || 'N/A'}</td>
-              <td tabindex="-1" role="gridcell" class="a-GV-cell u-tC is-readonly">${(item.uploaded_date) || 'N/A'}</td>
-              </tr>`;
-            });
-            tableBody.html(tableRows);
-            dataTable = $("#pressReleaseTable").DataTable({
-              paging: true,
-              searching: true,
-              ordering: true,
-              order: [[0, 'asc']],
-              responsive: true,
-            });
-
-          },
-          error: function (xhr, status, error) {
-            console.error("Error fetching data: ", error);
-            tableBody.html('<tr><td colspan="9" class="text-center">Failed to load data</td></tr>');
+        const interval = setInterval(() => {
+          if ($("#t_MenuNav_7").length && $("#t_MenuNav_8").length) {
+            $("#t_MenuNav_7, #t_MenuNav_8").css("display", "flex");
+            clearInterval(interval);
           }
+        }, 100);
+      }
+
+      // ==========================================================
+      // 🔹 TOAST UTILITIES
+      // ==========================================================
+      function showSuccessToast(message) {
+        $("#successMessage").text(message);
+        const toast = new bootstrap.Toast($("#successToast")[0], { delay: 3000 });
+        toast.show();
+      }
+
+      function showErrorToast(message) {
+        $("#errorMessage").text(message);
+        const toast = new bootstrap.Toast($("#errorToast")[0], { delay: 3000 });
+        toast.show();
+      }
+
+      // ==========================================================
+      // 🔹 COMMON API CALL FUNCTION
+      // ==========================================================
+      function callCommonAPI(function_name, params, successCallback, errorCallback) {
+        const payload = {
+          action: "function_call",
+          function_name,
+          params,
+        };
+
+        $.ajax({
+          url: BASE_API_URL_COMMON,
+          method: "POST",
+          data: { data: encryptData(payload) },
+          dataType: "json",
+          beforeSend: () => $("#preloader").show(),
+          complete: () => $("#preloader").hide(),
+          success: (res) => {
+            const decrypted = decryptData(res.data);
+            if (successCallback) successCallback(decrypted);
+          },
+          error: (xhr) => {
+            console.error("API Error:", xhr);
+            if (errorCallback) errorCallback(xhr);
+          },
         });
       }
 
-      fetchData();
-
-      $("#modal").dialog({
-        autoOpen: false,
-        modal: true,
-        closeOnEscape: true,
-        draggable: false,
-        width: 720,
-        resizable: false
+      // ==========================================================
+      // 🔹 LOADING SPINNER GLOBAL HANDLER
+      // ==========================================================
+      $(document).on({
+        ajaxStart: function () {
+          $("#preloader").show();
+          $("body").addClass("user_loading");
+        },
+        ajaxStop: function () {
+          $("#preloader").hide();
+          $("body").removeClass("user_loading");
+        },
       });
 
-      $("#uploadModal").dialog({
-        autoOpen: false,
-        modal: true,
-        closeOnEscape: true,
-        draggable: false,
-        width: 720,
-        resizable: false
-      });
+      // ==========================================================
+      // 🔹 FETCH PRESS RELEASE DATA
+      // ==========================================================
+      function fetchPressReleaseData() {
+        const params = {};
+        const tableBody = $("#pressReleaseTableBody");
+        tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
 
-      // $("body").on("click", "#open-modal-btn", function () {
-      //   $("#modal").dialog("open");
-      // });
+        callCommonAPI(
+          "fn_get_press_release",
+          params,
+          function (data) {
+            if (!data || !data.length) {
+              tableBody.html('<tr><td colspan="9" class="text-center">No Data Found</td></tr>');
+              return;
+            }
+
+            let rows = "";
+            data.forEach((item) => {
+              rows += `
+              <tr>
+                <td><a href="javascript:void(0);" class="press-edit" data-id="${item.id}"><i class="bi bi-pencil-square"></i></a></td>
+                <td>${item.pr_date || "N/A"}</td>
+                <td>${item.language || "N/A"}</td>
+                <td>${item.press_name || "N/A"}</td>
+                <td>${item.uploaded_by || "N/A"}</td>
+                <td>${item.uploaded_date || "N/A"}</td>
+              </tr>`;
+            });
+
+            tableBody.html(rows);
+            if ($.fn.DataTable.isDataTable("#pressReleaseTable")) {
+              $("#pressReleaseTable").DataTable().destroy();
+            }
+            $("#pressReleaseTable").DataTable({
+              paging: true,
+              searching: true,
+              ordering: true,
+              order: [[0, "asc"]],
+              responsive: true,
+            });
+          },
+          function () {
+            tableBody.html('<tr><td colspan="9" class="text-center text-danger">Error loading data</td></tr>');
+          }
+        );
+      }
+
+      fetchPressReleaseData();
+
+      // ==========================================================
+      // 🔹 MODAL HANDLING
+      // ==========================================================
+      $("#modal").dialog({ autoOpen: false, modal: true, width: 720, resizable: false });
+      $("#uploadModal").dialog({ autoOpen: false, modal: true, width: 720, resizable: false });
 
       $("#upload-press-open-modal").on("click", function () {
         $("#uploadModal").dialog("open");
-      })
+      });
 
-      $("body").on("click", "#open-modal-btn", function () {
-        //debugger
-        const pressId = $(this).data("id");
-        selectedId = $(this).data("id");
-        const selectedItem = tableData.find(item => item.id == pressId);
-
-        if (selectedItem) {
-          $("#Press_name").text(selectedItem.press_name || "");
-          $("#Press_date input").val(selectedItem.pr_date || "");
-          $("#pressLangugage").val(selectedItem.language || "").trigger("change");
-          $("#modal").dialog("open");
-        }
+      $("body").on("click", ".press-edit", function () {
+        const id = $(this).data("id");
+        callCommonAPI(
+          "fn_get_press_release_by_id",
+          { p_id: id },
+          function (data) {
+            const item = data?.[0] || {};
+            $("#Press_name").text(item.press_name || "");
+            $("#Press_date input").val(item.pr_date || "");
+            $("#pressLangugage").val(item.language || "").trigger("change");
+            $("#modal").dialog("open");
+            $("#deleteBtn").data("id", id);
+          }
+        );
       });
 
       $(".close-button").on("click", function () {
@@ -1832,204 +1815,122 @@
         $("#uploadModal").dialog("close");
       });
 
-      $("#createUploadBtn").on("click", function () {
-        registerNewData();
-      });
-
+      // ==========================================================
+      // 🔹 FILE VALIDATION
+      // ==========================================================
       function checkFile(selector) {
-        var fileInput = $(selector).find('input[type="file"]');
-        // Acceptable MIME types
-        const validTypes = [
-          'application/pdf',
-          'image/jpeg', // covers both .jpg and .jpeg
-          'image/png'
-        ];
-        const maxSize = 2 * 1024 * 1024; // 2MB in bytes
-        var file = fileInput[0].files[0];
+        const file = $(selector)[0].files[0];
+        const validTypes = ["application/pdf", "image/jpeg", "image/png"];
+        const maxSize = 2 * 1024 * 1024; // 2MB
 
-        // Check if a file has been selected
-        if (file) {
-          // ✅ Check file type
-          if (!validTypes.includes(file.type)) {
-            errors = true;
-            $('#' + selector.replace('#', '') + '_error_placeholder')
-              .text('Invalid file type. Supported types are .pdf, .jpg, .jpeg, .png.')
-              .css('color', 'red');
-            return false; // stop further execution
-          }
-
-          // ✅ Check file size
-          if (file.size > maxSize) {
-            errors = true;
-            $('#' + selector.replace('#', '') + '_error_placeholder')
-              .text("File size exceeds the 2MB limit.")
-              .css('color', 'red');
-            return false;
-          }
-
-          // Clear error if file is valid
-          $('#' + selector.replace('#', '') + '_error_placeholder').text('');
-          return true;
+        if (!file) {
+          showErrorToast("Please upload a file.");
+          return false;
         }
-        return false; // no file selected
+
+        if (!validTypes.includes(file.type)) {
+          showErrorToast("Invalid file type. Only PDF, JPG, PNG allowed.");
+          return false;
+        }
+
+        if (file.size > maxSize) {
+          showErrorToast("File size exceeds 2MB limit.");
+          return false;
+        }
+
+        return true;
       }
 
       function processFile(selector) {
         return new Promise((resolve, reject) => {
-          var fileInput = $(selector)[0];
-          var file = fileInput.files[0];
-          if (file === undefined) showErrorToast('Please upload all the required files');
-          if (file) {
-            const reader = new FileReader();
-            const fileData = {};
+          const file = $(selector)[0].files[0];
+          if (!file) return reject("No file selected");
 
-            reader.onload = function (event) {
-              // File processed as Base64 string
-              fileData.fileBase64 = event.target.result.split(',')[1];
-              fileData.mimetype = file.type;
-              fileData.filename = file.name;
-
-              resolve(fileData); // Resolve the promise with fileData
-            };
-
-            reader.onerror = function (error) {
-              reject(error); // Reject the promise in case of error
-            };
-
-            reader.readAsDataURL(file); // Read the file as a data URL (Base64)
-          }
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            resolve({
+              fileBase64: e.target.result.split(",")[1],
+              mimetype: file.type,
+              filename: file.name,
+            });
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
         });
       }
 
-      async function registerNewData() {
-
-        function convertDateFormat(dateString) {
-          if (dateString === "") {
-            return "";
-          } else {
-            let [month, day, year] = dateString.split("/");
-            return `${day}-${month}-${year}`;
-          }
-        }
-        //debugger
+      // ==========================================================
+      // 🔹 INSERT PRESS RELEASE
+      // ==========================================================
+      async function registerNewPressRelease() {
         try {
+          const pressDate = $("#Press_create_date input").val() || "";
+          const pressLanguage = $("#pressCreateLangugage").val() || "";
 
-          var pressDate = $('#Press_create_date input').val() || "";
-          var formattedPressDate = convertDateFormat(pressDate);
-          var pressLangugage = document.getElementById('pressCreateLangugage').value || "";
-          if (!pressDate) {
-            showErrorToast("Press release date is required.");
-            return;
-          }
+          if (!pressDate) return showErrorToast("Press release date is required.");
+          if (!pressLanguage) return showErrorToast("Language is required.");
+          if (!checkFile("#pressFileUpload_input")) return;
 
-          if (!pressLangugage) {
-            showErrorToast("Press release language is required.");
-            return;
-          }
+          const fileData = await processFile("#pressFileUpload_input");
 
-          if (!checkFile('#pressFileUpload')) {
-            showErrorToast("Please upload a valid file (PDF, JPG, JPEG, PNG under 2MB).");
-            return;
-          }
-          let pressInputFile = await processFile('#pressFileUpload_input');
-
-          if (pressDate) {
-            var dateObj = new Date(pressDate);
-            var formattedDate = ("0" + dateObj.getDate()).slice(-2) + "-" +
-              ("0" + (dateObj.getMonth() + 1)).slice(-2) + "-" +
-              dateObj.getFullYear();
-            pressDate = formattedDate;
-          }
-
-          var registrationPayload = {
-            "PRESS_FILE_NAME": pressInputFile && pressInputFile.fileBase64 ? pressInputFile.fileBase64 : null,
-            "UPLOADED_BY": role,
-            "PRESS_RELEASE_NO": "PR12345",
-            "PRESS_NAME": pressInputFile && pressInputFile.filename ? pressInputFile.filename : null,
-            "MIMETYPE": pressInputFile && pressInputFile.mimetype ? pressInputFile.mimetype : null,
-            "PR_DATE": formattedDate,
-            "LANGUAGE": pressLangugage
+          const params = {
+            p_press_file_name: fileData.fileBase64,
+            p_uploaded_by: role,
+            p_press_release_no: "PR12345",
+            p_press_name: fileData.filename,
+            p_mimetype: fileData.mimetype,
+            p_pr_date: pressDate,
+            p_language: pressLanguage,
           };
 
-
-          await $.ajax({
-            url: `${BASE_API_URL}/general/pressReleases/InsertPressReleaseForm`,
-            type: 'POST',
-            contentType: 'application/json',
-            data: encryptData(registrationPayload),
-            success: async function (response) {
-              showSuccessToast('Data Submitted Successfully');
-              $('#uploadModal').dialog('close');
-              location.reload();
+          callCommonAPI(
+            "fn_ins_press_release",
+            params,
+            function () {
+              showSuccessToast("Press Release Uploaded Successfully!");
+              $("#uploadModal").dialog("close");
+              fetchPressReleaseData();
             },
-            error: function (error) {
-              console.error('Error:', error);
-              showErrorToast("An error occurred during submission of data.");
+            function () {
+              showErrorToast("Error uploading press release.");
             }
-          });
-
-          await showSuccessToast('Data Submitted Successfully');
-        } catch (error) {
-          console.error('Error:', error);
-          showErrorToast("An unexpected error occurred.");
+          );
+        } catch (err) {
+          console.error("Error:", err);
+          showErrorToast("Unexpected error occurred.");
         }
       }
 
+      $("#createUploadBtn").on("click", registerNewPressRelease);
 
-
+      // ==========================================================
+      // 🔹 DELETE PRESS RELEASE
+      // ==========================================================
       $("#deleteBtn").on("click", function () {
-        if (!selectedId) {
-          alert("No item selected for deletion.");
-          return;
-        }
+        const id = $(this).data("id");
+        if (!id) return showErrorToast("No record selected.");
+        if (!confirm("Are you sure you want to delete this press release?")) return;
 
-        if (confirm("Are you sure you want to delete this item?")) {
-          // alert(selectedId)
-          deleteData(selectedId);
-        }
+        callCommonAPI(
+          "fn_del_press_release",
+          { p_id: id, p_user_id: userId },
+          function () {
+            showSuccessToast("Deleted successfully!");
+            $("#modal").dialog("close");
+            fetchPressReleaseData();
+          },
+          function () {
+            showErrorToast("Error deleting press release.");
+          }
+        );
       });
 
-      function deleteData(id) {
-        //debugger
-        $('#preloader').show();
-        $.ajax({
-          url: `${BASE_API_URL}/admin/pressRelease/deletePressReleaseForm`,
-          type: "POST",
-          dataType: "json",
-          contentType: "application/json",
-          // data: JSON.stringify({
-          //   ID: id
-          // }),
-          data: JSON.stringify({
-            data: encryptData({ ID: id, "user_id": userId })
-          }),
-          success: function (response) {
-            $('#preloader').hide();
-            if (response.success === 1) {
-              showSuccessToast("Data deleted successfully!");
-              location.reload();
-            } else {
-              showErrorToast("Error: " + response.message);
-            }
-          },
-          error: function (xhr, status, error) {
-            $('#preloader').hide();
-            console.error("AJAX Error:", error);
-            alert("Failed to delete data. Please try again.");
-          }
-        });
-      }
-
-      // Language change event
-      document.getElementById('P0_LANGUAGE').addEventListener('change', function () {
-        const selectedValue = this.value;
-        if (selectedValue === "en") {
-          langSwitch = "en";
-          fetchData();
-        } else {
-          langSwitch = "ta";
-          fetchData();
-        }
+      // ==========================================================
+      // 🔹 LANGUAGE SWITCH
+      // ==========================================================
+      $("#P0_LANGUAGE").on("change", function () {
+        langSwitch = $(this).val();
+        fetchPressReleaseData();
       });
     });
   </script>
