@@ -52,9 +52,9 @@ try {
         throw new Exception('Missing encrypted payload');
     }
 
-    // $p = decryptData($_POST['data']);
+    $p = decryptData($_POST['data']);
     // $p = $_POST['data'];
-    $p = json_decode($_POST['data'], true);
+    // $p = json_decode($_POST['data'], true);
 
   
     if (!$p || !is_array($p)) {
