@@ -27,3 +27,25 @@
   "filter_conditions": { "id": 105 }
 }
 
+
+
+{
+  "action": "select",
+  "_table_name": "tn_memorials",
+  "selected_columns": [
+    "slno","memorial"
+  ],
+  "filter_conditions": {
+"slno":"275"
+  },
+  "group_by_columns": [],
+  "sort_columns": {
+  },
+  "limit_rows": 20,
+  "offset_rows": 0,
+  "count_columns": [],
+  "sum_columns": [],
+  "distinct_count_columns": [],
+  "p_file_path": null,
+  "p_file_name": null
+}
