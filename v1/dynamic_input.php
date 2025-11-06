@@ -22,6 +22,7 @@
 
 require_once('../helper/header.php');
 require_once('../helper/db/dipr_read.php');
+require_once('../helper/db/dipr_write.php');
 
 header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
@@ -47,14 +48,13 @@ try {
         exit;
     }
 
-     if (empty($_POST['data'])) {
+    if (empty($_POST['data'])) {
         throw new Exception('Missing encrypted payload');
     }
 
-    $p = decryptData($_POST['data']);
-    if (!$p || !is_array($p)) {
-        throw new Exception('Invalid or corrupted payload');
-    }
+    // $p = decryptData($_POST['data']);
+    // $p = $_POST['data'];
+    $p = json_decode($_POST['data'], true);
 
   
     if (!$p || !is_array($p)) {
@@ -99,15 +99,15 @@ try {
     switch ($action) {
         case 'insert':
             $proc = 'public.dynamicreport_insert';
-            $db = $write_db;
+            $db = $dipr_write_db;
             break;
         case 'update':
             $proc = 'public.dynamicreport_update';
-            $db = $write_db;
+            $db = $dipr_write_db;
             break;
         case 'delete':
             $proc = 'public.dynamicreport_delete';
-            $db = $write_db;
+            $db = $dipr_write_db;
             break;
         default:
             $proc = 'public.dynamicreport';
