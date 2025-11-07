@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js  page-17 app-INFO-PRDEPT103" lang="en">
+<html class="no-js  page-18 app-INFO-PRDEPT103" lang="en">
 
 <head>
   <script>
@@ -9,7 +9,7 @@
   </script>
   <meta http-equiv="x-ua-compatible" content="IE=edge" />
   <meta charset="utf-8">
-  <title>Sections Content</title>
+  <title>Press Release</title>
   <link rel="stylesheet" type="text/css" href="assets/css/Core.min.css">
   <link rel="stylesheet" type="text/css" href="assets/css/Theme-Standard.min.css">
   <link rel="stylesheet" type="text/css" href="assets/css/font-apex.min.css">
@@ -18,15 +18,77 @@
   <link rel="stylesheet" type="text/css" href="assets/css/custom.min.css">
   <link rel="apple-touch-icon" href="assets/img/app-icon-192.png">
   <link rel="icon" href="assets/img/app-icon-32.png">
-  <link href="assets/vendor/datatable/css/dataTables.css" rel="stylesheet">
-  <!-- CSS File -->
-  <link rel="stylesheet" href="assets/vendor/datatable/dataTables.bootstrap5.min.css">
-  <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/toastr/toastr.min.css" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://static.oracle.com/cdn/apex/24.1.7/libraries/oraclejet/16.0.10/css/libs/oj/16.0.10/redwood/oj-redwood-notag-min.css?v=24.1.7"
+    type="text/css" />
+  <link rel="stylesheet" href="https://static.oracle.com/cdn/apex/24.1.7/app_ui/css/Core.min.css?v=24.1.7"
+    type="text/css" />
+  <link rel="stylesheet" href="https://static.oracle.com/cdn/apex/24.1.7/app_ui/css/Theme-Standard.min.css?v=24.1.7"
+    type="text/css" />
+
+  <link rel="stylesheet"
+    href="https://static.oracle.com/cdn/apex/24.1.7/libraries/font-apex/2.3/css/font-apex.min.css?v=24.1.7"
+    type="text/css" />
+  <link rel="stylesheet" href="https://static.oracle.com/cdn/apex/24.1.7/themes/theme_42/23.1/css/Core.min.css?v=24.1.7"
+    type="text/css" />
   <link rel="stylesheet" type="text/css" href="assets/css/menu.css">
+  <link href="assets/vendor/datatable/css/dataTables.css" rel="stylesheet">
+
   <style>
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+      display: inline-block;
+      padding: 0.375rem 0.75rem;
+      margin-left: 0.25rem;
+      margin-right: 0.25rem;
+      border: 1px solid #dee2e6;
+      border-radius: 0.25rem;
+      background-color: #fff;
+      color: #0d6efd;
+      text-decoration: none;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+      background-color: #0d6efd;
+      color: #fff;
+      border-color: #0d6efd;
+    }
+    div#admin-press-upload-table_paginate {
+      display: flex;
+      justify-content: end;
+      cursor: pointer;
+      gap: 15px;
+    }
+
+    div#admin-press-upload-table_paginate span {
+      display: flex;
+      gap: 10px;
+    }
+
+    div#admin-press-upload-table_paginate a.paginate_button {
+      color: #333;
+      text-decoration: none;
+    }
+
+    div#video-upload-table_paginate {
+      display: flex;
+      justify-content: end;
+      cursor: pointer;
+      gap: 15px;
+    }
+
+    div#video-upload-table_paginate span {
+      display: flex;
+      gap: 10px;
+    }
+
+    div#video-upload-table_paginate a.paginate_button {
+      color: #333;
+      text-decoration: none;
+    }
+
     .showlink {
       display: none !important;
       position: absolute;
@@ -77,27 +139,10 @@
       z-index: 100;
       padding: 5px;
     }
-
-    /* 
-    .t-NavigationBar-menu ul li {
-      margin-left: 10px;
-    } */
   </style>
-  <style>
-    .titlePos .t-Body-title {
-      position: unset !important;
-    }
-
-    .toast-container {
-      right: 0.5%;
-    }
-
-    #successToast {
-      background: #198754 !important;
-    }
-
-    #errorToast {
-      background: #ff0000 !important;
+  <style type="text/css">
+    #engSecContent tr td {
+      text-align: left !important;
     }
 
     #preloader {
@@ -148,83 +193,12 @@
       }
     }
 
-
-
-    /* .a-CardView-items {
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: row;
-        overflow-x: auto;
-        gap: 10px;
-        padding: 10px;
-        list-style: none;
-        white-space: nowrap;
-      }
-  
-      .a-CardView-item {
-        flex: 0 0 auto;
-      }
-  
-      .a-CardView-item img {
-        width: 100px;
-        height: 100px;
-      } */
-    .a-CardView-items {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      gap: 10px;
-      padding: 10px;
-      list-style: none;
-      size: 7rem;
-      width: 100%;
+    #engSecContent tr td {
+      text-align: left !important;
     }
 
-    .a-CardView-item img {
-      width: 120px;
-      height: 120px;
-    }
-  </style>
-  <style type="text/css">
-    @font-face {
-      font-family: 'FontApex';
-      src: url('../font/apex-5-icon-font.woff2') format('woff2'),
-        url('../font/apex-5-icon-font.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-
-    @font-face {
-      font-family: 'Font-APEX';
-      src: url('../fonts/Font-APEX-Small.woff2') format('woff2'),
-        url('../fonts/Font-APEX-Small.woff') format('woff'),
-        url('../fonts/Font-APEX-Large.woff2') format('woff2'),
-        url('../fonts/Font-APEX-Large.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-  </style>
-  <style type="text/css">
-    img.a-CardView-icon {
-      background: #fff !important;
-    }
-
-    img.a-CardView-icon {
-      width: auto !important;
-    }
-
-    .t-CardsRegion--styleB .a-CardView-headerBody {
-      text-align: center;
-      white-space: nowrap !important;
-    }
-
-    .a-CardView.has-title.has-icon.has-icon--top {
-      padding-left: 5rem !important;
-      padding-right: 5rem !important;
-    }
-
-    .a-CardView-item a {
-      color: initial !important;
+    #TASecCon tr td {
+      text-align: left !important;
     }
 
     .t-Footer {
@@ -262,6 +236,7 @@
       background: #3b3b79;
       width: 105px;
     }
+
 
     .fa {
       padding: 10px;
@@ -312,6 +287,7 @@
       font-weight: var(--a-base-font-weight-semibold, 500);
       line-height: 1.5;
       color: #3b3b79;
+
     }
 
     .t-Breadcrumb-label {
@@ -386,6 +362,7 @@
 
     .center-text center {
       color: #c52c27;
+
     }
 
     .txtBlue {
@@ -402,11 +379,20 @@
       margin-right: 8%;
     }
 
-    @media only screen and (max-width: 600px) {
+    .container {
+      width: 80%;
+      text-align: justify;
+    }
+
+    @media only screen and (max-width:600px) {
       .header-images {
         max-height: 50px;
         display: inline-block;
         vertical-align: middle;
+      }
+
+      .container {
+        width: 95%;
       }
 
       #first_image {
@@ -419,9 +405,11 @@
 
       .center-text {
         display: block;
+        text-align: center;
         margin: auto;
         font-weight: 400;
         font-size: .8rem;
+
       }
 
       .txtBlue {
@@ -429,281 +417,21 @@
         font-weight: 800;
         font-size: .9rem;
       }
+
     }
 
-    .carousel img {
-      Width: 100%;
-    }
-
-    .container {
-      width: 80%;
-      text-align: justify;
-    }
-
-    #home_container .container {
-      width: 100% !important;
-    }
+    /* .first_image{
+                    position:
+                } */
   </style>
-  <style type="text/css">
-    .t-Header {
-      left: 0;
-      min-width: 0;
-      position: relative;
-      right: 0;
-      top: 0;
-      z-index: 800
-    }
 
-    .slider {
-      width: 100%;
-      overflow: hidden;
-      height: 640px;
-      position: relative;
-    }
-
-    .sliderList {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      list-style: none;
-    }
-
-    .sliderList li {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      overflow: hidden;
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-    }
-
-    .sliderList li img {
-      width: 100%;
-      min-height: 100%;
-      border: none;
-    }
-
-    .bulletList {
-      position: absolute;
-      bottom: 15px;
-      width: 100%;
-      margin: 0px 700px;
-      list-style: none;
-    }
-
-    .bulletList li {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin: 0 5px;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      -ms-border-radius: 50%;
-      border-radius: 50%;
-      background-color: #fff;
-      cursor: pointer;
-    }
-
-    .bulletList .bulletActive {
-      background-color: #0b0d18;
-    }
-
-    .button {
-      position: absolute;
-      bottom: 15px;
-      z-index: 2;
-      display: block;
-      width: 40px;
-      height: 40px;
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      border: none;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      -ms-border-radius: 5px;
-      border-radius: 5px;
-      background-color: rgba(5, 0, 36, 0.6);
-      color: #fff;
-    }
-
-    .button-prev {
-      left: 15px;
-    }
-
-    .button-next {
-      right: 15px;
-    }
-
-    .t-CardsRegion--styleB .has-icon--top .a-CardView-iconWrap .a-CardView-iconImg {
-      border-radius: 0;
-      width: 50%;
-    }
-
-    #carousel img {
-      width: 100%;
-    }
-
-    /* .i-h640>.t-Region-bodyWrap>.t-Region-body {
-        //  height: 650px;
-        overflow-y: hidden;
-      } */
-
-    #carousel:hover img {
-      animation-play-state: paused;
-    }
-
-    /*
-        .t-Region--carousel:hover .t-Region-body {
-        animation-play-state: paused;
-        }
-        */
-    @media(min-width:320px) {
-      .i-h640>.t-Region-bodyWrap>.t-Region-body {
-        height: 200px;
-      }
-    }
-
-    @media(min-width:420px) {
-      .i-h640>.t-Region-bodyWrap>.t-Region-body {
-        height: 280px;
-      }
-    }
-
-    @media(min-width:650px) {
-      .i-h640>.t-Region-bodyWrap>.t-Region-body {
-        height: 340px;
-      }
-    }
-
-    @media(min-width:760px) {
-      .i-h640>.t-Region-bodyWrap>.t-Region-body {
-        height: 420px;
-      }
-    }
-
-    @media(min-width:840px) {
-      .i-h640>.t-Region-bodyWrap>.t-Region-body {
-        height: 500px;
-      }
-    }
-
-    @media(min-width:1025px) {
-      .i-h640>.t-Region-bodyWrap>.t-Region-body {
-        height: 630px;
-      }
-    }
-
-    @media(min-width:1400px) {
-      .i-h640>.t-Region-bodyWrap>.t-Region-body {
-        height: 740px;
-      }
-    }
-
-    @media(min-width:1600px) {
-      .i-h640>.t-Region-bodyWrap>.t-Region-body {
-        height: 840px;
-      }
-    }
-
-    @media(min-width:1800px) {
-      .i-h640>.t-Region-bodyWrap>.t-Region-body {
-        height: 900px;
-      }
-    }
-
-    .container .row:nth-child(1),
-    .container .row:nth-child(2) {
-      padding: 0;
-    }
-
-    .container .row {
-      padding: 1% 10%;
-    }
-
-    .scroll-container {
-      border-color: var(--a-cv-state-border-color, var(--a-cv-type-border-color, var(--a-cv-border-color)));
-      border-radius: 5px;
-      height: 320px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .t-Report-report {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      padding: 20px;
-      background-color: #FFF;
-      animation: scrollAnimation 40s linear infinite;
-    }
-
-    .t-Report-tableWrap {
-      height: 35vh;
-    }
-
-    .scroll-container:hover .t-Report-report {
-      animation-play-state: paused;
-      /* Pause the animation on hover */
-    }
-
-    .t-Report-cell {
-      cursor: pointer;
-    }
-
-    .t-Report-cell:hover {
-      background-color: #f0f0f0;
-    }
-
-    @keyframes scrollAnimation {
-      0% {
-        top: 100%;
-      }
-
-      100% {
-        top: -100%;
-        /* Adjust this value to control scroll speed */
-      }
+  <link rel="stylesheet" href="r/dipr/103/files/theme/42/v87/10689188252099023.css" type="text/css" />
 
 
-    }
 
-    #modal label {
-      color: #080000 !important;
-    }
+  <link rel="apple-touch-icon" href="r/dipr/103/files/static/v397/icons/app-icon-192.png" />
+  <link rel="icon" href="r/dipr/103/files/static/v397/icons/app-icon-32.png" />
 
-    #modal {
-      display: none;
-      /* Hidden by default */
-      padding: 20px;
-      background: #fff;
-      border: 0;
-      width: 720px;
-      box-shadow: none;
-      margin-top: 0.5rem;
-    }
-
-    .close-button {
-      cursor: pointer;
-    }
-
-    #uploadcancelBtn {
-      cursor: pointer;
-    }
-
-    a.download-btn-upload {
-      text-decoration: none;
-      border: 1px solid;
-      display: block;
-      border-radius: 5px;
-      padding: .3rem;
-      text-align: center;
-    }
-  </style>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="-1" />
@@ -713,293 +441,18 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Info&#x26;PRDept" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <!-- <link rel="manifest"
-    href="manifest.json_%3b%20filename_%3dUTF-8%27%27manifestf27b.json?v=24.1.1-41853896899929&amp;lang=en"
-    crossorigin="use-credentials" /> -->
 
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#007bff">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Toast -->
-  <div class="toast-container position-fixed p-3 custom_toast" x-data="transButtonComponent()">
-    <div id="errorToast" class="toast align-items-center text-bg-primary border-0 " role="alert" aria-live="assertive"
-      aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body">
-          <p id="errorMessage" class="mb-0"></p>
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-          aria-label="Close"></button>
-      </div>
-    </div>
-    <div id="successToast" class="toast align-items-center text-bg-primary border-0 " role="alert" aria-live="assertive"
-      aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body">
-          <p id="successMessage" class="mb-0"></p>
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-          aria-label="Close"></button>
-      </div>
-    </div>
-  </div>
-  <!-- Toast -->
-
-  <div id="preloader"></div>
+  <!-- <div id="preloader"></div> -->
 </head>
 
 <body
   class="t-PageBody t-PageBody--hideLeft t-PageBody--hideActions no-anim t-PageTemplate--standard   apex-top-nav apex-icons-fontapex apex-theme-vita-copy-2-copy-1"
   id="t_PageBody">
   <a href="#main" id="t_Body_skipToContent">Skip to Main Content</a>
-  <div id="modal" title="Upload">
-    <div class="modalWrap">
-      <div class="t-Form-inputContainer col col-12">
-        <div class="t-Form-itemWrapper file_wrap">
-          <div class="col col-6 apex-col-auto col-start">
-            <div
-              class="t-Form-fieldContainer is-required rel-col t-Form-fieldContainer--stretchInputs t-Form-fieldContainer--indicatorAsterisk t-Form-fieldContainer--large apex-item-wrapper apex-item-wrapper--text-field">
-              <div class="t-Form-labelContainer col col-2">
-                <label for="Press_name" id="Press_name_LABEL">Press Name</label>
-              </div>
-              <div class="t-Form-inputContainer col col-6">
-                <div class="t-Form-itemWrapper">
-                  <textarea id="Press_name" class="form-control" rows="3" name="Press_name"
-                    class="text_field&#x20;apex-item-text" value="" size="70" maxlength="10"></textarea>
-                </div>
-                <div class="t-Form-itemAssistance">
-                  <span id="Press_name_error_placeholder" class="a-Form-error"
-                    data-template-id="70091003340642546032_ET"></span>
-                  <div class="t-Form-itemRequired" aria-hidden="true">Required</div>
-                </div>
-              </div>
-            </div>
 
-            <div
-              class="t-Form-fieldContainer is-required rel-col t-Form-fieldContainer--stretchInputs t-Form-fieldContainer--indicatorAsterisk t-Form-fieldContainer--large apex-item-wrapper apex-item-wrapper--text-field"
-              id="Press_date">
-              <div class="t-Form-labelContainer col col-2">
-                <label for="Press_date" id="Press_date_LABEL">Date</label>
-              </div>
-              <div class="t-Form-inputContainer col col-6">
-                <div class="t-Form-itemWrapper">
-                  <input type="date" placeholder="Select Date" aria-haspopup="dialog"
-                    class="apex-item-text&#x20;apex-item-datepicker" name="P50_DATE_OF_FIR" size="30">
-                </div>
-                <div class="t-Form-itemAssistance">
-                  <span id="Press_date_error_placeholder" class="a-Form-error"
-                    data-template-id="70091003340642546032_ET"></span>
-                  <div class="t-Form-itemRequired" aria-hidden="true">Required</div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="t-Form-fieldContainer is-required rel-col t-Form-fieldContainer--stretchInputs t-Form-fieldContainer--indicatorAsterisk t-Form-fieldContainer--large apex-item-wrapper apex-item-wrapper--text-field">
-              <div class="t-Form-labelContainer col col-2">
-                <label for="pressLangugage" id="pressLangugage_LABEL">Language</label>
-              </div>
-              <div class="t-Form-inputContainer col col-6">
-                <div class="t-Form-itemWrapper">
-                  <div class="t-Form-itemWrapper">
-                    <select id="pressLangugage" name="pressLangugage" class="selectlist&#x20;apex-item-select"
-                      data-native-menu="false" size="1">
-                      <option value="" selected="selected">-Select-</option>
-                      <option value="en">English</option>
-                      <option value="ta">Tamil</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="t-Form-itemAssistance">
-                  <span id="pressLangugage_error_placeholder" class="a-Form-error"
-                    data-template-id="70091003340642546032_ET"></span>
-                  <div class="t-Form-itemRequired" aria-hidden="true">Required</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="t-Region-buttons-right float-end pad0">
-        <button
-          class="t-Button bg-success text-white t-Button--icon t-Button--large t-Button--iconLeft t-Button--padLeft t-Button--padRight"
-          id="deleteBtn">Delete</button>
-      </div>
-      <div class="t-Region-buttons-right float-end pad0">
-        <button
-          class="bg-danger text-white t-Button t-Button--icon t-Button--large t-Button--iconLeft t-Button--padLeft t-Button--padRight close-button"
-          id="cancelBtn"> Cancel </button>
-      </div>
-    </div>
-  </div>
-
-  <div id="uploadModal" title="Upload">
-    <div class="modalWrap">
-      <div class="t-Form-inputContainer col col-12">
-        <div class="t-Form-itemWrapper file_wrap">
-          <div class="col col-6 apex-col-auto col-start">
-            <div
-              class="t-Form-fieldContainer is-required rel-col t-Form-fieldContainer--stretchInputs t-Form-fieldContainer--indicatorAsterisk t-Form-fieldContainer--large apex-item-wrapper apex-item-wrapper--text-field">
-
-
-            </div>
-
-            <div
-              class="t-Form-fieldContainer is-required rel-col t-Form-fieldContainer--stretchInputs t-Form-fieldContainer--indicatorAsterisk t-Form-fieldContainer--large apex-item-wrapper apex-item-wrapper--text-field"
-              id="Press_create_date">
-              <div class="t-Form-labelContainer col col-2">
-                <label for="Press_create_date" id="Press_date_LABEL">Date</label>
-              </div>
-              <div class="t-Form-inputContainer col col-6">
-                <div class="t-Form-itemWrapper">
-                  <input type="date" placeholder="Select Date" aria-haspopup="dialog"
-                    class="apex-item-text&#x20;apex-item-datepicker" name="Press_create_date" size="30">
-                </div>
-                <div class="t-Form-itemAssistance">
-                  <span id="Press_create_date_error_placeholder" class="a-Form-error"
-                    data-template-id="70091003340642546032_ET"></span>
-                  <div class="t-Form-itemRequired" aria-hidden="true">Required</div>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="t-Form-fieldContainer is-required rel-col t-Form-fieldContainer--stretchInputs t-Form-fieldContainer--indicatorAsterisk t-Form-fieldContainer--large apex-item-wrapper apex-item-wrapper--text-field">
-              <div class="t-Form-labelContainer col col-2">
-                <label for="pressCreateLangugage" id="pressCreateLangugage_LABEL">Language</label>
-              </div>
-              <div class="t-Form-inputContainer col col-6">
-                <div class="t-Form-itemWrapper">
-                  <div class="t-Form-itemWrapper">
-                    <select id="pressCreateLangugage" name="pressCreateLangugage"
-                      class="selectlist&#x20;apex-item-select" data-native-menu="false" size="1">
-                      <option value="" selected="selected">-Select-</option>
-                      <option value="en">English</option>
-                      <option value="ta">Tamil</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="t-Form-itemAssistance">
-                  <span id="pressCreateLangugage_error_placeholder" class="a-Form-error"
-                    data-template-id="70091003340642546032_ET"></span>
-                  <div class="t-Form-itemRequired" aria-hidden="true">Required</div>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="t-Form-fieldContainer is-required rel-col t-Form-fieldContainer--stretchInputs t-Form-fieldContainer--indicatorAsterisk t-Form-fieldContainer--large apex-item-wrapper apex-item-wrapper--text-field">
-              <div class="t-Form-labelContainer col col-2">
-                <label for="pressFileUpload" id="pressFileUpload_LABEL">File Upload</label>
-              </div>
-              <div class="t-Form-inputContainer col col-6">
-                <div class="t-Form-itemWrapper">
-                  <a-file-upload id="pressFileUpload" name="pressFileUpload" upload-type="FILE" display-style="NATIVE"
-                    accept=".pdf,.jpg,.jpeg,.png" size="30" max-file-size="2048">
-
-                    <!-- ✅ add accept attribute here -->
-                    <input type="file" id="pressFileUpload_input" name="pressFileUpload"
-                      class="text_field apex-item-text" value="" maxlength="1000" accept=".pdf,.jpg,.jpeg,.png" />
-
-                    <div class="a-FileDrop a-FileDrop--native"></div>
-                  </a-file-upload>
-                </div>
-                <div class="t-Form-itemAssistance">
-                  <span id="pressFileUpload_error_placeholder" class="a-Form-error"
-                    data-template-id="70091003340642546032_ET"></span>
-                  <div class="t-Form-itemRequired" aria-hidden="true">Required</div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="t-Region-buttons-right float-end pad0">
-        <button
-          class="t-Button bg-success text-white t-Button--icon t-Button--large t-Button--iconLeft t-Button--padLeft t-Button--padRight"
-          id="createUploadBtn">Create</button>
-      </div>
-      <div class="t-Region-buttons-right float-end pad0">
-        <button
-          class="bg-danger text-white t-Button t-Button--icon t-Button--large t-Button--iconLeft t-Button--padLeft t-Button--padRight close-button"
-          id="uploadcancelBtn"> Cancel </button>
-      </div>
-    </div>
-  </div>
-
-  <form role="none" action="wwv_flow.accept?p_context=info-prdept103/press-release/606351205798953" method="post"
-    name="wwv_flow" id="wwvFlowForm" data-oj-binding-provider="none" novalidate autocomplete="off">
-    <input type="hidden" name="p_flow_id" value="103" id="pFlowId" /><input type="hidden" name="p_flow_step_id"
-      value="17" id="pFlowStepId" /><input type="hidden" name="p_instance" value="606351205798953"
-      id="pInstance" /><input type="hidden" name="p_page_submission_id"
-      value="MzIxOTYwOTE3MTU0NjI0NDEwNTE3OTAxODQ1NTM2OTY5Njc4Mzc2&#x2F;QAf9u-uaeoNmZhp5xLCb6ZwaNE-mssd84Tt6IhXuxw8-8da18lEfk-6MSa50iB1gKHM2OGGVAVSPeAdr5d5fAw"
-      id="pPageSubmissionId" /><input type="hidden" name="p_request" value="" id="pRequest" /><input type="hidden"
-      name="p_reload_on_submit" value="S" id="pReloadOnSubmit" /><input type="hidden"
-      value="info-prdept103&#x2F;press-release&#x2F;606351205798953" id="pContext" /><input type="hidden"
-      value="321960917154624410517901845536969678376" id="pSalt" />
+  <form>
     <header class="t-Header" id="t_Header" role="banner">
-
-
-      <!-- <div class="t-Header-navBar">
-
-        <div class="t-Header-navBar--start">
-
-          <div class="t-Header-navBar--end">
-            <div
-              class="t-Form-fieldContainer rel-col t-Form-fieldContainer--large t-Form-fieldContainer--normalDisplay apex-item-wrapper apex-item-wrapper--has-initial-value apex-item-wrapper--select-list"
-              id="P0_LANGUAGE_CONTAINER">
-              <div class="t-Form-labelContainer col col-null">
-                <label for="P0_LANGUAGE" id="P0_LANGUAGE_LABEL" class="t-Form-label"></label>
-              </div>
-              <div class="t-Form-inputContainer col col-null">
-                <div class="t-Form-itemWrapper"><select id="P0_LANGUAGE" name="P0_LANGUAGE"
-                    class="selectlist&#x20;apex-item-select" data-native-menu="false" size="1">
-                    <option value="en" selected="selected">English</option>
-                    <option value="ta">Tamil</option>
-                  </select></div><span id="P0_LANGUAGE_error_placeholder" class="a-Form-error"
-                  data-template-id="32751098700172723_ET"></span>
-              </div>
-            </div>
-          </div>
-          <div class="t-Header-navBar--center">
-            <ul class="t-NavigationBar " id="32861498506172843">
-              <li class="t-NavigationBar-item a-pwaInstall">
-                <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#action$a-pwa-install"
-                  title="" target="">
-                  <span class="t-Icon fa&#x20;fa-cloud-download" aria-hidden="true"></span><span
-                    class="t-Button-label">Install App</span><span class="t-Button-badge"></span>
-                </a>
-              </li>
-              <li class="t-NavigationBar-item has-username">
-                <button class="t-Button t-Button--icon t-Button t-Button--header t-Button--navBar" type="button"
-                  id="L33048349307174626" data-menu="menu_L33048349307174626" title="">
-                  <span class="t-Icon fa&#x20;fa-user" aria-hidden="true"></span><span
-                    class="t-Button-label">DHIVAHAR</span><span class="t-Button-badge"></span><span
-                    class="a-Icon icon-down-arrow" aria-hidden="true"></span>
-                </button>
-                <div class="t-NavigationBar-menu" style="display: none" id="menu_L33048349307174626">
-                  <ul>
-                    <li class="" data-current="false" data-icon="fa&#x20;fa-sign-out"><a
-                        href="apex_authentication.logout?p_app_id=103&p_session_id=606351205798953" title=""
-                        target="">Sign Out</a></li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="t-Header-navBar--end"></div>
-          <a href="https://www.facebook.com/TNDIPR" class="fa fa-facebook" target='_blank'></a>
-          <a href="https://twitter.com/TNDIPRNEWS" class="fa fa-twitter " target='_blank'></a>
-          <a href="https://www.instagram.com/tndipr"><img src="r/dipr/103/files/static/v397/instagram.jpeg"
-              style="height:35px;" class="fa fa-twitter" target='_blank'>
-            <a href="https://www.youtube.com/c/tndipr21" class="fa fa-youtube" target='_blank'></a>
-
-
-        </div>
-
-      </div> -->
 
       <div class="t-Header-navBar">
 
@@ -1023,18 +476,13 @@
             </div>
             <div class="t-Header-navBar--center">
               <ul class="t-NavigationBar " id="32861498506172843">
-                <!-- <li class="t-NavigationBar-item a-pwaInstall">
+                <li class="t-NavigationBar-item a-pwaInstall">
                   <a class="t-Button t-Button--icon t-Button--header t-Button--navBar" href="#action$a-pwa-install"
                     title="" target="">
                     <span class="t-Icon fa&#x20;fa-cloud-download" aria-hidden="true"></span><span
                       class="t-Button-label">Install App</span><span class="t-Button-badge"></span>
                   </a>
-                </li> -->
-                <li class="t-NavigationBar-item a-pwaInstall"> <a class="t-Button t-Button--icon 
-              t-Button--header t-Button--navBar" href="#action$a-pwa-install" title="" target=""
-                    aria-roledescription="action link"> <span class="t-Icon fa fa-cloud-download"
-                      aria-hidden="true"></span><span class="t-Button-label">Install App</span>
-                    <span class="t-Button-badge"></span> </a> </li>
+                </li>
                 <li class="t-NavigationBar-item has-username shownav">
                   <button class="t-Button t-Button--icon t-Button--header t-Button--navBar" type="button">
                     <span class="t-Icon fa fa-user" aria-hidden="true"></span>
@@ -1043,12 +491,12 @@
                     <span class="a-Icon icon-down-arrow" aria-hidden="true"></span>
                   </button>
                   <!-- <div class="t-NavigationBar-menu showlink">
-                    <ul>
-                      <li>
-                        <a href="#">Sign Out</a>
-                      </li>
-                    </ul>
-                  </div> -->
+							<ul>
+							  <li>
+								<a href="#">Sign Out</a>
+							  </li>
+							</ul>
+						  </div> -->
                 </li>
               </ul>
             </div>
@@ -1067,42 +515,46 @@
 
       </div>
 
+      <!-- <div class=" nobgcolor ">
+<img id="first_image" style=" height: 100%;" src = 'r/dipr/103/files/static/v397/left-png.png' > <span class="alignCenter"><center> Information and Public Relations Department </br> செய்தி – மக்கள் தொடர்புத்துறை </center></span>
+    <img id="last_image" style=" height: 100%;" src = "r/dipr/103/files/static/v397/right-png.png" > 
+
+   </div> -->
       <div class="nobgcolor">
         <div class="widthFixed">
           <!-- <img id="first_image" class="header-images" src="r/dipr/103/files/static/v397/left-png.png"> -->
           <div class="center-text">
-            <center>Information and Public Relations Department <br> <span class="txtBlue">செய்தி – மக்கள்
-                தொடர்புத்துறை</span></center>
+            <center>Information and Public Relations Department
+              <br> <span class="txtBlue">செய்தி – மக்கள் தொடர்புத்துறை</span>
+            </center>
           </div>
           <!-- <img id="last_image" class="header-images" src="r/dipr/103/files/static/v397/right-png.png"> -->
         </div>
       </div>
 
-      <!-- <div id="navbar-container"></div> -->
       <div class="t-Header-nav">
         <div class="t-Header-nav-list js-tabLike js-tabLike" id="t_MenuNav">
           <ul>
             <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                class="a-MenuBar-label" href="/index.html" title="" target="">Home</a>
+                class="a-MenuBar-label" href="index.html" title="" target="">Home</a>
             </li>
             <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                class="a-MenuBar-label" href="/about_page.html" title="" target="">About
+                class="a-MenuBar-label" href="about_page.html" title="" target="">About
                 Us</a></li>
             <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                class="a-MenuBar-label" href="/gallery1.html" title="" target="">Photo
+                class="a-MenuBar-label" href="gallery1.html" title="" target="">Photo
                 &#x2F; Video</a></li>
             <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                class="a-MenuBar-label" href="/press-release1.html" title="" target="">Press
-                Release &#x2F; Press
+                class="a-MenuBar-label" href="press-release1.html" title="" target="">Press Release &#x2F; Press
                 Note</a></li>
             <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                class="a-MenuBar-label" href="/government-orders.html" title="" target="">Government Orders</a></li>
+                class="a-MenuBar-label" href="government-orders.html" title="" target="">Government Orders</a></li>
             <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                class="a-MenuBar-label" href="/sections.html" title="" target="">Sections</a></li>
+                class="a-MenuBar-label" href="sections.html" title="" target="">Sections</a></li>
             <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                class="a-MenuBar-label" href="/download-forms.html" title="" target="">Download Forms</a></li>
+                class="a-MenuBar-label" href="download-forms.html" title="" target="">Download Forms</a></li>
             <li class="a-MenuBar-item admin-menu-show" data-id="" data-disabled="" data-hide="" data-shortcut=""
-              data-icon=""><a class="a-MenuBar-label" href="/admin-google-sheets.html" title="" target="">Google
+              data-icon=""><a class="a-MenuBar-label" href="admin-google-sheets.html" title="" target="">Google
                 Sheets - Report</a>
             </li>
             <li class="a-MenuBar-item admin-menu-show a-Menu--current" data-current="true" data-id="" data-disabled=""
@@ -1110,66 +562,45 @@
                 target="">Administration</a>
               <ul style="display: none">
                 <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-photo-upload.html" title="" target="">Photo&#x2F;Video Upload</a>
+                    href="admin-photo-upload.html" title="" target="">Photo&#x2F;Video Upload</a>
                 </li>
                 <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-press-release.html" title="" target="">Upload Press Release</a>
+                    href="admin-press-release.html" title="" target="">Upload Press Release</a>
                 </li>
                 <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-section-content.html" title="" target="">Sections Content</a>
+                    href="admin-section-content.html" title="" target="">Sections Content</a>
                 </li>
                 <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-goverment-orders.html" title="" target="">Upload Government
+                    href="admin-goverment-orders.html" title="" target="">Upload Government
                     Orders</a></li>
                 <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-sections-data-report.html" title="" target="">Sections Data
+                    href="admin-sections-data-report.html" title="" target="">Sections Data
                     Report</a></li>
                 <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-forms-report.html" title="" target="">Forms Report</a></li>
+                    href="admin-forms-report.html" title="" target="">Forms Report</a></li>
                 <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-memorial-video-report.html" title="" target="">memorial_video_report</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-monuments.html" title="" target="">Monuments</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-arangams.html" title="" target="">Arangams</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-commemoration-pillars.html" title="" target="">Commemoration
-                    Pillars</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-commemoration-arch.html" title="" target="">Commemoration
-                    Arch</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-department-pictures.html" title="" target="">Department
+                    href="admin-department-pictures.html" title="" target="">Department
                     Pictures</a></li>
                 <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-department-details.html" title="" target="">Department
+                    href="admin-department-details.html" title="" target="">Department
                     Details</a></li>
                 <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-conclusion-photos.html" title="" target="">Conclusion_Photos</a>
-                </li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-google-sheets.html" title="" target="">Google Sheets</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-press-notes.html" title="" target="">Upload Press Note</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-add-user.html" title="" target="">Add
+                    href="admin-press-notes.html" title="" target="">Upload Press Note</a></li>
+                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="admin-add-user.html"
+                    title="" target="">Add
                     User</a></li>
-                <li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
-                    href="/admin-navigation-list-entry.html" title="" target="">Navigation Menu
-                    Report</a></li>
               </ul>
             </li>
           </ul>
           </ul>
         </div>
       </div>
-    </header>
 
     </header>
 
-    <div class="t-Body ">
+    <div class="t-Body">
 
-      <div class="t-Body-main titlePos">
+      <div class="t-Body-main">
         <div class="t-Body-title" id="t_Body_title">
           <nav id="R34839297483869595" role="navigation" aria-label="Breadcrumb"
             class="t-BreadcrumbRegion t-BreadcrumbRegion--showBreadcrumb t-BreadcrumbRegion--useBreadcrumbTitle">
@@ -1209,139 +640,79 @@
                 </div>
                 <div class="row ">
                   <div class="col col-12 apex-col-auto col-start col-end">
-                    <div id="R34839964403869597" role="region" aria-label="Press&#x20;Release" class="t-IRR-region ">
-                      <div class="t-Region-orderBy"></div>
+                    <div class="t-TabsRegion js-useLocalStorage t-TabsRegion-mod--simple apex-tabs-region"
+                      id="R37494869251508934">
 
-                      <div id="R34839964403869597_ir" class="a-IRR-container">
-                        <div id="R34839964403869597_worksheet_region" class="a-IRR" aria-live="polite">
-                          <div id="R34839964403869597_single_row_view" class="a-IRR-singleRowView"></div>
-                          <div id="R34839964403869597_full_view" class="a-IRR-fullView">
-                            <div id="R34839964403869597_actions_menu"></div>
-                            <div id="R34839964403869597_column_search_drop" class="a-IRR-colSearch"></div>
-                            <div id="R34839964403869597_toolbar" class="a-IRR-toolbar">
-
-                              <div style="display: flex; justify-content: flex-end; width: 100%;">
-                                <button class="t-Button t-Button--hot js-ignoreChange" type="button"
-                                  id="upload-press-open-modal">
-                                  <span class="t-Button-label">Upload Press Release</span>
-                                </button>
-                              </div>
-
-                            </div>
-                            <div id="R34839964403869597_content" class="a-IRR-content ">
-                              <div id="R34839964403869597_dialog_js" class="a-IRR-dialogBody" style="display:none">
-                              </div><input type="hidden" id="R34839964403869597_worksheet_id"
-                                value="34839996188869597" />
-                              <input type="hidden" id="R34839964403869597_app_user" value="DHIVAHAR" />
-                              <input type="hidden" id="R34839964403869597_report_id" value="34873436359923276" />
-                              <input type="hidden" id="R34839964403869597_view_mode" value="REPORT" />
-                              <style id="R34839964403869597_worksheet_css" type="text/css">
-                              </style>
-                              <div role="region" aria-label="Chart&#x20;view&#x20;of&#x20;Press&#x20;Release"
-                                id="R34839964403869597_chart" class="a-IRR-chartView"></div>
-                              <div role="region" aria-label="Group&#x20;by&#x20;view&#x20;of&#x20;Press&#x20;Release"
-                                id="R34839964403869597_group_by" class="a-IRR-groupByView"></div>
-                              <div role="region" aria-label="Pivot&#x20;view&#x20;of&#x20;Press&#x20;Release"
-                                id="R34839964403869597_pivot" class="a-IRR-pivotView"></div>
-                              <div role="region" aria-label="Data&#x20;view&#x20;of&#x20;Press&#x20;Release"
-                                id="R34839964403869597_data_panel" class="a-IRR-reportView">
-                                <div class="a-IRR-tableContainer">
-
-                                  <table
-                                    aria-label="Press&#x20;Release,&#x20;Report&#x20;&#x3D;&#x20;Primary&#x20;Default,&#x20;View&#x20;&#x3D;&#x20;Report"
-                                    class="a-IRR-table" id="pressReleaseTable">
-                                    <thead>
-                                      <tr>
-                                        <!-- <th class="a-IRR-header a-IRR-header--linkCol" id="R34839964403869597_LINK">
-                                        <span class="u-vh">Link</span>
-                                      </th> -->
-                                        <th class="a-IRR-header u-tL" id="C117484399239914210"><a aria-haspopup="dialog"
-                                            class="a-IRR-headerLink" data-column="117484399239914210" href="#">Link</a>
-                                        </th>
-                                        <th class="a-IRR-header u-tL" id="C11748439923991421"><a aria-haspopup="dialog"
-                                            class="a-IRR-headerLink" data-column="11748439923991421" href="#">Pr
-                                            Date</a>
-                                        </th>
-                                        <th class="a-IRR-header u-tL" id="C11747689722991413"><a aria-haspopup="dialog"
-                                            class="a-IRR-headerLink" data-column="11747689722991413"
-                                            href="#">Language</a>
-                                        </th>
-                                        <th class="a-IRR-header u-tL" id="C37710503093077076"><a aria-haspopup="dialog"
-                                            class="a-IRR-headerLink" data-column="37710503093077076" href="#">Press
-                                            Name</a></th>
-                                        <th class="a-IRR-header u-tL" id="C37707438775077045"><a aria-haspopup="dialog"
-                                            class="a-IRR-headerLink" data-column="37707438775077045" href="#">Uploaded
-                                            By</a></th>
-                                        <th class="a-IRR-header u-tL" id="C37707553402077046"><a aria-haspopup="dialog"
-                                            class="a-IRR-headerLink" data-column="37707553402077046" href="#">Uploaded
-                                            Date</a></th>
-                                      </tr>
-                                    </thead>
-                                    <tbody id="pressReleaseTableBody">
-                                      <!-- Dynamic rows will be inserted here -->
-                                    </tbody>
-                                  </table>
-                                </div>
-
-                              </div>
-                            </div>
-                          </div>
+                      <div class="tab-content mt-3">
+                        <!-- =================== Press TAB =================== -->
+                        <div class="tab-pane fade show active" id="pressPane">
+                          <button id="openPressModalBtn" class="btn btn-success mb-3">Upload Press Release</button>
+                          <table id="pressTable" class="table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                <th>Edit</th>
+                                <th>Pr Date</th>
+                                <th>Language</th>
+                                <th>Press Name</th>
+                                <th>Uploaded By</th>
+                                <th>Uploaded Date</th>
+                              </tr>
+                            </thead>
+                            <tbody></tbody>
+                          </table>
                         </div>
-                        <div role="dialog" aria-label="Column&#x20;Actions" aria-modal="true" class="a-IRR-sortWidget"
-                          id="R34839964403869597_sort_widget" style="display:none;">
-                          <h1 class="u-vh" aria-roledescription="Visually&#x20;hidden&#x20;dialog&#x20;title">Column
-                            Actions</h1>
-                          <ul role="toolbar" class="a-IRR-sortWidget-actions"
-                            id="R34839964403869597_sort_widget_actions">
-                            <li role="none" class="a-IRR-sortWidget-actions-item"
-                              id="R34839964403869597_sort_widget_action_up"><button
-                                class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button"
-                                title="Sort&#x20;Ascending" aria-label="Sort&#x20;Ascending" data-option="up"><span
-                                  aria-hidden="true" class="a-Icon icon-irr-sort-asc"></span></button></li>
-                            <li role="none" class="a-IRR-sortWidget-actions-item"
-                              id="R34839964403869597_sort_widget_action_down"><button
-                                class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button"
-                                title="Sort&#x20;Descending" aria-label="Sort&#x20;Descending" data-option="down"><span
-                                  aria-hidden="true" class="a-Icon icon-irr-sort-desc"></span></button></li>
-                            <li role="none" class="a-IRR-sortWidget-actions-item"
-                              id="R34839964403869597_sort_widget_action_hide"><button
-                                class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button"
-                                title="Hide&#x20;Column" aria-label="Hide&#x20;Column" data-option="hide"><span
-                                  aria-hidden="true" class="a-Icon icon-irr-remove-col"></span></button></li>
-                            <li role="none" class="a-IRR-sortWidget-actions-item"
-                              id="R34839964403869597_sort_widget_action_break"><button
-                                class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button"
-                                title="Control&#x20;Break" aria-label="Control&#x20;Break" data-option="break"><span
-                                  aria-hidden="true" class="a-Icon icon-irr-control-break"></span></button></li>
-                            <li role="none" class="a-IRR-sortWidget-actions-item"
-                              id="R34839964403869597_sort_widget_action_help"><button
-                                class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Help"
-                                aria-label="Help" data-option="help" aria-pressed="false"><span aria-hidden="true"
-                                  class="a-Icon icon-irr-help"></span></button></li>
-                            <li role="none" class="a-IRR-sortWidget-actions-item"
-                              id="R34839964403869597_sort_widget_action_computation"><button
-                                class="a-Button a-IRR-button a-IRR-sortWidget-button" type="button" title="Compute"
-                                aria-label="Compute" data-option="computation"><span aria-hidden="true"
-                                  class="a-Icon icon-irr-calculator"></span></button></li>
-                          </ul>
-                          <div role="region" aria-label="Help" class="a-IRR-sortWidget-help"
-                            id="R34839964403869597_sort_widget_help"></div>
-                          <div role="search" class="a-IRR-sortWidget-search" id="R34839964403869597_sort_widget_search">
-                            <label for="R34839964403869597_sort_widget_search_field"><span aria-hidden="true"
-                                class="a-IRR-sortWidget-searchLabel"></span><span
-                                class="u-vh">Search</span></label><input
-                              id="R34839964403869597_sort_widget_search_field" class="a-IRR-sortWidget-searchField"
-                              type="text" placeholder="Filter..." />
-                            <div role="group" aria-label="Filter&#x20;suggestions" class="a-IRR-sortWidget-rows"
-                              id="R34839964403869597_sort_widget_rows"></div>
+                      </div>
+
+                      <!-- =================== Press MODAL =================== -->
+                      <div class="modal fade" id="pressAttachmentModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                              <h5 class="modal-title">Upload Press Release</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <form id="pressAttachmentForm" enctype="multipart/form-data" action="javascript:void(0);">
+                              <div class="modal-body">
+                                <div class="row g-3">
+                                  <div class="col-md-6">
+                                    <label class="form-label">Language</label>
+                                    <select id="pressLanguage" class="form-select" required>
+                                      <option value="">Select</option>
+                                      <option value="en">English</option>
+                                      <option value="ta">Tamil</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <label class="form-label">Date</label>
+                                    <input type="date" id="pressDate" class="form-control" required>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label class="form-label">Choose File</label>
+                                    <input type="file" id="pressFile" class="form-control" accept=".jpg,.jpeg,.png,.pdf"
+                                      required>
+                                    <input type="text" id="pressFileName" class="form-control mt-2" readonly
+                                      placeholder="No file selected" style="display:none;">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" id="pressDeleteBtn" class="btn btn-danger d-none">Delete</button>
+                                <button type="button" id="pressSubmitBtn" class="btn btn-primary">Submit</button>
+                              </div>
+                            </form>
                           </div>
                         </div>
                       </div>
+
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
           </main>
           <footer class="t-Footer" id="t_Footer" role="contentinfo">
             <div class="t-Footer-body">
@@ -1349,8 +720,8 @@
                 <div class="container">
                   <div class="row ">
                     <div class="col col-12 apex-col-auto col-start col-end">
-                      <div id="R11684238522218402" class="">Information & Public Relations Department, Secretariat,
-                        Chennai 600 009</div>
+                      <div id="R11684238522218402" class="">Information & Public Relations
+                        Department, Secretariat, Chennai 600 009</div>
                     </div>
                   </div>
                 </div>
@@ -1358,7 +729,6 @@
               <div class="t-Footer-apex">
 
                 <div class="t-Footer-version">
-                  <!--   <div class="t-Header-nav-list js-tabLike js-tabLike" id="t_MenuNav"><ul><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/home?session=606351205798953" title="" target="">Home</a></li><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/about_page?session=606351205798953" title="" target="">About Us</a></li><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/gallery1?session=606351205798953" title="" target="">Photo &#x2F; Video</a></li><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/press-release1?session=606351205798953" title="" target="">Press Release &#x2F; Press Note</a></li><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/government-orders?session=606351205798953" title="" target="">Government Orders</a></li><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/sections?session=606351205798953" title="" target="">Sections</a></li><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/download-forms?session=606351205798953" title="" target="">Download Forms</a></li><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/google-sheets-report?session=606351205798953" title="" target="">Google Sheets - Report</a></li><li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="/ords/r/dipr/info-prdept103/administration?session=606351205798953" title="" target="">Administration</a><ul style="display: none"><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/photo-upload?session=606351205798953" title="" target="">Photo&#x2F;Video Upload</a></li><li data-current="true" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/press-release?session=606351205798953" title="" target="">Upload Press Release</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/sections-content?session=606351205798953" title="" target="">Sections Content</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/goverment-orders?session=606351205798953" title="" target="">Upload Government Orders</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/sections-data-report?session=606351205798953" title="" target="">Sections  Data Report</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/forms-report?session=606351205798953" title="" target="">Forms Report</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/memorial-video-report?session=606351205798953" title="" target="">memorial_video_report</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/monuments?session=606351205798953" title="" target="">Monuments</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/arangams?session=606351205798953" title="" target="">Arangams</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/commemoration-pillars?session=606351205798953" title="" target="">Commemoration Pillars</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/commemoration-arch1?session=606351205798953" title="" target="">Commemoration Arch</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/department-pictures?session=606351205798953" title="" target="">Department Pictures</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/department-details?session=606351205798953" title="" target="">Department Details</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/conclusion-photos?session=606351205798953" title="" target="">Conclusion_Photos</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/google-sheets?session=606351205798953" title="" target="">Google Sheets</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/press-notes?session=606351205798953" title="" target="">Upload Press Note</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/add-district-pros?session=606351205798953" title="" target="">Add User</a></li><li data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a href="/ords/r/dipr/info-prdept103/navigation-list-entry?session=606351205798953" title="" target="">Navigation Menu Report</a></li></ul></li></ul></div> -->
 
                 </div>
                 <div class="t-Footer-customize">
@@ -1375,19 +745,13 @@
         </div>
       </div>
     </div>
-    <div class="t-Body-inlineDialogs" id="t_Body_inlineDialogs"></div><input type="hidden" id="pPageFormRegionChecksums"
-      value="&#x5B;&#x5D;">
-    <input type="hidden" id="pPageItemsRowVersion" value="" /><input type="hidden" id="pPageItemsProtected"
-      value="&#x2F;vD7fBxRAam3mHjcj50UL8pQyNu3ka625aJArB-y_q5WSI-zwy056GI6nKpPXmzG6l6r6IhNbuewSh_hGyK6UhQ" />
+    <div class="t-Body-inlineDialogs" id="t_Body_inlineDialogs"></div>
+    <input type="hidden" id="pPageFormRegionChecksums" value="&#x5B;&#x5D;">
+    <input type="hidden" id="pPageItemsRowVersion" value="" />
+    <input type="hidden" id="pPageItemsProtected"
+      value="&#x2F;J4ieeBRwL3lIIKqd0-cL5kzutqFyrLI3idLlAiE2MmdvDJ3gUXpKHuJRINK-moovG6G6oeKYG8JP--3FNT8zHw" />
   </form>
 
-  <!-- <script type="text/javascript">
-    apex.da.initDaEventList = function () {
-      apex.da.gEventList = [
-        { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE_SELECTION", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-Mzc0OTQ3NjY4MDA1MDg5MzI\u002FSO7vt39C9TQHB-SEDBuFCOkpp_ihyi67dmP0ufd6Js4pNSGu5v_1Wh4EvU03Enoo8w2oG9G80HTJcfZSDrscDg", "attribute01": "#P0_LANGUAGE_SELECTION", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }] },
-        { "triggeringElementType": "ITEM", "triggeringElement": "P0_LANGUAGE", "bindType": "bind", "executionType": "IMMEDIATE", "bindEventType": "change", "anyActionsFireOnInit": false, actionList: [{ "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, "waitForResult": true, javascriptFunction: apex.da.executePlSqlCode, "ajaxIdentifier": "REEgVFlQRX5-NDM0MzQzOTA5NTkyMjI3NTI\u002Fpa3Aj0lYJUNZTKs0aczMu8B_oFdXmzoD930MKT_4t73jEPkRk6hQfmqg_bR5yB--NgceL9krPyBLr302jlUkag", "attribute01": "#P0_LANGUAGE", "attribute04": "N", "action": "NATIVE_EXECUTE_PLSQL_CODE" }, { "eventResult": true, "executeOnPageInit": false, "stopExecutionOnError": true, javascriptFunction: apex.da.submitPage, "attribute02": "Y", "action": "NATIVE_SUBMIT_PAGE" }] }];
-    }
-  </script> -->
   <script src="assets/js/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="assets/js/desktop_all.min.js"></script>
   <script src="assets/vendor/datatable/jquery.dataTables.min.js"></script>
@@ -1398,28 +762,7 @@
   <script src="assets/js/apiConfig.js"></script>
   <script src="assets/js/encrypt_decrypt.js"></script>
   <script src="assets/js/crypto-js.min.js"></script>
-  <!-- <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const links = document.querySelectorAll(".t-Header-nav a, .t-Header-nav ul li a");
-
-      links.forEach(link => {
-        const originalHref = link.getAttribute("href");
-
-        // ✅ Skip external or already-correct links
-        if (
-          !originalHref ||
-          originalHref.startsWith("http") ||
-          originalHref.startsWith(window.basePath)
-        ) return;
-
-        const fixedHref = window.basePath + originalHref.replace(/^(\.\.\/)+/, "");
-
-        console.log(`Rewriting ${originalHref} → ${fixedHref}`); // ✅ Debug log
-
-        link.setAttribute("href", fixedHref);
-      });
-    });
-  </script> -->
+  <script src="assets/js/toastUtil.js"></script>
   <script type="text/javascript">
     apex.session.initTimeouts(300, { "idle_time_ms": 3595000, "life_time_ms": 28755000, "max_idle_time_ms": 3600000 }, '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fhome', '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fhome');
     apex.jQuery(function () {
@@ -1474,37 +817,22 @@
     apex.pwa.init({ serviceWorkerPath: '\u002Fords\u002Fr\u002Fdipr\u002Finfo-prdept103\u002Fsw.js?v=24.1.7-44329441868468\u0026lang=en' });
   </script>
 
-
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const navLinks = document.querySelectorAll(".t-Header-nav .a-MenuBar-label");
 
-      navLinks.forEach(link => {
-        let href = link.getAttribute("href");
-        if (!href || href.trim() === "" || href === "#" || href.startsWith("http")) {
-          return;
-        }
-        if (href.startsWith(window.basePath)) return;
 
-        const cleanedHref = href.replace(/^\/+/, '');
-        const updatedHref = window.basePath + cleanedHref;
-        link.setAttribute("href", updatedHref);
-      });
-    });
-
-  </script>
-  <script>
     $(document).ready(function () {
       $("#adminLoginBtn").on("click", function () {
         window.location.href = "admin-login.html";
       });
 
       $('.shownav').on('click', function (e) {
-        e.stopPropagation();
-        $('.showlink').not($(this).find('.showlink')).removeClass('force-show');
+
+        e.stopPropagation(); // Prevent closing when clicking inside
+        $('.showlink').not($(this).find('.showlink')).removeClass('force-show'); // Close other dropdowns
         $(this).find('.showlink').toggleClass('force-show');
       });
 
+      // Click outside to hide dropdown
       $(document).on('click', function () {
         $('.showlink').removeClass('force-show');
       });
@@ -1523,73 +851,38 @@
           const decryptedData = JSON.parse(
             CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
           );
-          console.log(decryptedData);
-
-          role = decryptedData || null; // assuming loginResult has user_id
+          role = decryptedData || null;
         } catch (err) {
           console.error("Error decrypting user data:", err);
         }
       }
-      $('#pressFileUpload_input').on('change', function () {
-        const validation = validateFile(this);
-        if (!validation.valid) {
-          alert(validation.error);
-          $(this).val(''); // Clear the invalid file
-        }
-      });
+
       var userAdminName = localStorage.getItem("userAdminName");
       if (role) {
         $('.admin-name-change').text(role);
         $('.js-tabLike .admin-menu-show').css('display', 'block');
-        var interval = setInterval(function () {
-          if ($('#t_MenuNav_7').length) {
-            $('#t_MenuNav_7').css('display', 'flex');
-          }
-          if ($('#t_MenuNav_8').length) {
-            $('#t_MenuNav_8').css('display', 'flex');
-          }
 
-          if ($('#t_MenuNav_7').length && $('#t_MenuNav_8').length) {
-            clearInterval(interval);
-          }
+        var interval = setInterval(function () {
+          if ($('#t_MenuNav_7').length) $('#t_MenuNav_7').css('display', 'flex');
+          if ($('#t_MenuNav_8').length) $('#t_MenuNav_8').css('display', 'flex');
+          if ($('#t_MenuNav_7').length && $('#t_MenuNav_8').length) clearInterval(interval);
         }, 100);
       }
-      var appendSignout = '<div class="t-NavigationBar-menu showlink">' +
-        '<ul>' +
-        '<li>' +
-        '<a href="../index.html" class="signOutBtn">Sign Out</a>' +
-        '</li>' +
-        '</ul>' +
-        '</div>';
 
+      var appendSignout = `
+    <div class="t-NavigationBar-menu showlink">
+      <ul><li><a href="../index.html" class="signOutBtn">Sign Out</a></li></ul>
+    </div>`;
       $('.t-NavigationBar-item.has-username.shownav').append(appendSignout);
 
       $(".signOutBtn").on("click", function (event) {
         event.preventDefault();
 
-        const secretKey = decryptKey();
-        const encryptedData = localStorage.getItem("userAdminName");
-        let userId = null;
-
-        if (encryptedData) {
-          try {
-            const decryptedData = JSON.parse(
-              CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
-            );
-            userId = decryptedData?.user_id || null; // assuming loginResult has user_id
-          } catch (err) {
-            console.error("Error decrypting user data:", err);
-          }
-        }
-
-
-        // Prepare encrypted logout payload
         const payload = {
           action: "function_call",
           function_name: "user_logout",
           params: { user_id: userId }
         };
-
 
         $.ajax({
           url: `${BASE_API_URL}/commonfunction`,
@@ -1598,12 +891,9 @@
             "X-App-Key": "dipr",
             "X-App-Name": "dipr"
           },
-          data: {
-            data: encryptData(payload) // <-- important!
-          },
+          data: { data: encryptData(payload) },
           dataType: "json",
           success: function (response) {
-
             if (response.success) {
               localStorage.removeItem("role");
               localStorage.removeItem("userAdminName");
@@ -1621,118 +911,35 @@
       });
     });
 
+
   </script>
 
 
 
   <script>
     $(document).ready(function () {
+      let langSwitch = "en";
+
       // ==========================================================
-      // 🔹 GLOBAL CONFIG
+      // 🔹 Decrypt User Info
       // ==========================================================
       const secretKey = decryptKey();
-      let langSwitch = "en";
-      const BASE_API_URL_COMMON = `${BASE_API_URL}/commonfunction`;
+      const encryptedData = localStorage.getItem("userAdminName");
+      let userId = null;
 
-      // ==========================================================
-      // 🔹 DECRYPT USER + ROLE INFO
-      // ==========================================================
-      const encryptedRole = localStorage.getItem("role");
-      const encryptedUserData = localStorage.getItem("userAdminName");
-      let role = null, userId = null;
-
-      try {
-        if (encryptedRole) {
-          const decryptedRole = JSON.parse(
-            CryptoJS.AES.decrypt(encryptedRole, secretKey).toString(CryptoJS.enc.Utf8)
+      if (encryptedData) {
+        try {
+          const decryptedData = JSON.parse(
+            CryptoJS.AES.decrypt(encryptedData, secretKey).toString(CryptoJS.enc.Utf8)
           );
-          role = decryptedRole || null;
+          userId = decryptedData?.user_id || "Admin";
+        } catch (err) {
+          console.error("Error decrypting user data:", err);
         }
-
-        if (encryptedUserData) {
-          const decryptedUser = JSON.parse(
-            CryptoJS.AES.decrypt(encryptedUserData, secretKey).toString(CryptoJS.enc.Utf8)
-          );
-          userId = decryptedUser?.user_id || null;
-        }
-      } catch (err) {
-        console.error("Error decrypting stored data:", err);
       }
 
       // ==========================================================
-      // 🔹 UI ROLE HANDLING
-      // ==========================================================
-      if (role) {
-        $(".admin-name-change").text(role);
-        $(".js-tabLike .admin-menu-show").css("display", "block");
-
-        const interval = setInterval(() => {
-          if ($("#t_MenuNav_7").length && $("#t_MenuNav_8").length) {
-            $("#t_MenuNav_7, #t_MenuNav_8").css("display", "flex");
-            clearInterval(interval);
-          }
-        }, 100);
-      }
-
-      // ==========================================================
-      // 🔹 TOAST UTILITIES
-      // ==========================================================
-      function showSuccessToast(message) {
-        $("#successMessage").text(message);
-        const toast = new bootstrap.Toast($("#successToast")[0], { delay: 3000 });
-        toast.show();
-      }
-
-      function showErrorToast(message) {
-        $("#errorMessage").text(message);
-        const toast = new bootstrap.Toast($("#errorToast")[0], { delay: 3000 });
-        toast.show();
-      }
-
-      // ==========================================================
-      // 🔹 COMMON API CALL FUNCTION
-      // ==========================================================
-      function callCommonAPI(function_name, params, successCallback, errorCallback) {
-        const payload = {
-          action: "function_call",
-          function_name,
-          params,
-        };
-
-        $.ajax({
-          url: BASE_API_URL_COMMON,
-          method: "POST",
-          data: { data: encryptData(payload) },
-          dataType: "json",
-          beforeSend: () => $("#preloader").show(),
-          complete: () => $("#preloader").hide(),
-          success: (res) => {
-            const decrypted = decryptData(res.data);
-            if (successCallback) successCallback(decrypted);
-          },
-          error: (xhr) => {
-            console.error("API Error:", xhr);
-            if (errorCallback) errorCallback(xhr);
-          },
-        });
-      }
-
-      // ==========================================================
-      // 🔹 LOADING SPINNER GLOBAL HANDLER
-      // ==========================================================
-      $(document).on({
-        ajaxStart: function () {
-          $("#preloader").show();
-          $("body").addClass("user_loading");
-        },
-        ajaxStop: function () {
-          $("#preloader").hide();
-          $("body").removeClass("user_loading");
-        },
-      });
-
-      // ==========================================================
-      // 🔹 FETCH PRESS RELEASE DATA
+      // 🔹 COMMON UTILITY FUNCTION
       // ==========================================================
       function initDataTable(tableId) {
         if ($.fn.DataTable.isDataTable(tableId)) {
@@ -1746,210 +953,262 @@
         });
       }
 
-      function fetchPressReleaseData() {
-        const params = {};
-        const tableBody = $("#pressReleaseTableBody");
-        tableBody.html('<tr><td colspan="9" class="text-center">Loading...</td></tr>');
+      // ==========================================================
+      // 🔹 Press SECTION
+      // ==========================================================
+      function resetPressModal() {
+        const form = $("#pressAttachmentForm")[0];
+        if (form) form.reset();
+        $("#pressFileName").hide().val("");
+        $("#pressFile").show();
+        $("#pressSubmitBtn").removeClass("d-none");
+        $("#pressDeleteBtn").addClass("d-none").removeData("id");
+      }
 
-        callCommonAPI(
-          "fn_get_press_release",
-          params,
-          function (data) {
-            if (!data || !data.length) {
-              tableBody.html('<tr><td colspan="9" class="text-center">No Data Found</td></tr>');
-              return;
+      $("#openPressModalBtn").on("click", function () {
+        resetPressModal();
+        $("#pressAttachmentModal .modal-title").text("Upload Press Release");
+        $("#pressAttachmentModal").modal("show");
+      });
+
+      function fetchPressData() {
+        // Destroy any existing instance before creating a new one
+        if ($.fn.DataTable.isDataTable("#pressTable")) {
+          $("#pressTable").DataTable().destroy();
+        }
+
+        $("#pressTable").DataTable({
+          processing: true,
+          serverSide: true,
+          searching: true,
+          ordering: true,
+          order: [[1, "asc"]],
+          ajax: function (data, callback, settings) {
+            // Map DataTables parameters
+            const payload = {
+              action: "function_call",
+              function_name: "fn_get_press_release",
+              params: {},
+              limit: data.length,      // number of records per page
+              offset: data.start,      // starting record index
+              searchable_columns: ["language", "press_name", "uploaded_by"]
+            };
+
+            // If search box is used
+            if (data.search && data.search.value) {
+              payload.search = data.search.value;
             }
+            // Add sorting info
+            if (data.order && data.order.length > 0) {
+              const orderInfo = data.order[0];
+              const columnIndex = orderInfo.column;
+              const columnName = data.columns[columnIndex].data || data.columns[columnIndex].name || null;
+              const orderDir = orderInfo.dir;
 
-            let rows = "";
-            data.forEach((item) => {
-              rows += `
-              <tr>
-                <td><a href="javascript:void(0);" class="press-edit" data-id="${item.id}"><i class="bi bi-pencil-square"></i></a></td>
-                <td>${item.pr_date || "N/A"}</td>
-                <td>${item.language || "N/A"}</td>
-                <td>${item.press_name || "N/A"}</td>
-                <td>${item.uploaded_by || "N/A"}</td>
-                <td>${item.uploaded_date || "N/A"}</td>
-              </tr>`;
-            });
-
-            tableBody.html(rows);
-            if ($.fn.DataTable.isDataTable("#pressReleaseTable")) {
-              $("#pressReleaseTable").DataTable().destroy();
+              if (columnName) {
+                payload.order_by = columnName;
+                payload.order_dir = orderDir;
+              }
             }
+            $.ajax({
+              url: `${BASE_API_URL}/commonfunction`,
+              method: "POST",
+              data: { data: encryptData(payload) },
+              dataType: "json",
+              success: function (res) {
+                const decryptedData = decryptData(res.data) || [];
+                const total = res.pagination?.total || decryptedData.length;
 
-
-            $("#pressReleaseTable").DataTable({
-              paging: true,
-              searching: true,
-              ordering: true,
-              order: [[0, "asc"]],
-              responsive: true,
+                // Build DataTables response object
+                callback({
+                  draw: data.draw,
+                  recordsTotal: total,
+                  recordsFiltered: total,
+                  data: decryptedData.map((item) => ({
+                    edit: `<a href="javascript:void(0);" class="press-edit" data-id="${item.id}">
+                            <i class="bi bi-pencil-square"></i>
+                          </a>`,
+                    pr_date: item.pr_date || "-",
+                    language: item.language || "-",
+                    press_name: item.press_name || "-",
+                    uploaded_by: item.uploaded_by || "-",
+                    uploaded_date: item.uploaded_date || "-"
+                  }))
+                });
+              },
+              error: function (xhr) {
+                console.error("Error fetching data:", xhr);
+                callback({
+                  draw: data.draw,
+                  recordsTotal: 0,
+                  recordsFiltered: 0,
+                  data: [],
+                });
+              },
             });
           },
-          function () {
-            tableBody.html('<tr><td colspan="9" class="text-center text-danger">Error loading data</td></tr>');
-          }
-        );
-      }
-
-      fetchPressReleaseData();
-
-      // ==========================================================
-      // 🔹 MODAL HANDLING
-      // ==========================================================
-      $("#modal").dialog({ autoOpen: false, modal: true, width: 720, resizable: false });
-      $("#uploadModal").dialog({ autoOpen: false, modal: true, width: 720, resizable: false });
-
-      $("#upload-press-open-modal").on("click", function () {
-        $("#uploadModal").dialog("open");
-      });
-
-      $("body").on("click", ".press-edit", function () {
-        const id = $(this).data("id");
-        callCommonAPI(
-          "fn_get_press_release_by_id",
-          { p_id: id },
-          function (data) {
-            const item = data?.[0] || {};
-            $("#Press_name").text(item.press_name || "");
-            $("#Press_date input").val(item.pr_date || "");
-            $("#pressLangugage").val(item.language || "").trigger("change");
-            $("#modal").dialog("open");
-            $("#deleteBtn").data("id", id);
-          }
-        );
-      });
-
-      $(".close-button").on("click", function () {
-        $("#modal").dialog("close");
-      });
-
-      $("#uploadcancelBtn").on("click", function () {
-        $("#uploadModal").dialog("close");
-      });
-
-      // ==========================================================
-      // 🔹 FILE VALIDATION
-      // ==========================================================
-      function checkFile(selector) {
-        const file = $(selector)[0].files[0];
-        const validTypes = ["application/pdf", "image/jpeg", "image/png"];
-        const maxSize = 2 * 1024 * 1024; // 2MB
-
-        if (!file) {
-          showErrorToast("Please upload a file.");
-          return false;
-        }
-
-        if (!validTypes.includes(file.type)) {
-          showErrorToast("Invalid file type. Only PDF, JPG, PNG allowed.");
-          return false;
-        }
-
-        if (file.size > maxSize) {
-          showErrorToast("File size exceeds 2MB limit.");
-          return false;
-        }
-
-        return true;
-      }
-
-      function processFile(selector) {
-        return new Promise((resolve, reject) => {
-          const file = $(selector)[0].files[0];
-          if (!file) return reject("No file selected");
-
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            resolve({
-              fileBase64: e.target.result.split(",")[1],
-              mimetype: file.type,
-              filename: file.name,
-            });
-          };
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
+          columns: [
+            { title: "Edit", orderable: false, data: "edit" },
+            { title: "Pr Date", data: "pr_date" },
+            { title: "Language", data: "language" },
+            { title: "Press Name", data: "press_name" },
+            { title: "Uploaded By", data: "uploaded_by" },
+            { title: "Uploaded Date", data: "uploaded_date" },
+          ],
         });
       }
 
-      // ==========================================================
-      // 🔹 INSERT PRESS RELEASE
-      // ==========================================================
-      async function registerNewPressRelease() {
-        try {
-          const pressDate = $("#Press_create_date input").val() || "";
-          const pressLanguage = $("#pressCreateLangugage").val() || "";
+      $(document).off("click", "#pressSubmitBtn").on("click", "#pressSubmitBtn", function () {
+        let isValid = true;
 
-          if (!pressDate) return showErrorToast("Press release date is required.");
-          if (!pressLanguage) return showErrorToast("Language is required.");
-          if (!checkFile("#pressFileUpload_input")) return;
+        // Clear previous error messages
+        $(".error-msg").remove();
 
-          const fileData = await processFile("#pressFileUpload_input");
+        const file = $("#pressFile")[0].files[0];
+        const language = $("#pressLanguage").val();
+        const date = $("#pressDate").val();
 
-          const params = {
-            p_press_file_name: fileData.fileBase64,
-            p_uploaded_by: role,
-            p_press_release_no: "PR12345",
-            p_press_name: fileData.filename,
-            p_mimetype: fileData.mimetype,
-            p_pr_date: pressDate,
-            p_language: pressLanguage,
-          };
-
-          callCommonAPI(
-            "fn_ins_press_release",
-            params,
-            function () {
-              showSuccessToast("Press Release Uploaded Successfully!");
-              $("#uploadModal").dialog("close");
-              fetchPressReleaseData();
-            },
-            function () {
-              showErrorToast("Error uploading press release.");
-            }
-          );
-        } catch (err) {
-          console.error("Error:", err);
-          showErrorToast("Unexpected error occurred.");
+        // Validate language
+        if (!language) {
+            isValid = false;
+            $("#pressLanguage").after('<div class="text-danger error-msg">Please select a language.</div>');
         }
+
+        // Validate date
+        if (!date) {
+            isValid = false;
+            $("#pressDate").after('<div class="text-danger error-msg">Please select a date.</div>');
+        }
+
+        // Validate file
+        if (!file) {
+            isValid = false;
+            $("#pressFile").after('<div class="text-danger error-msg">Please choose a file.</div>');
+        } else if (file.type !== "application/pdf") {
+            isValid = false;
+            $("#pressFile").after('<div class="text-danger error-msg">Only PDF files are allowed.</div>');
+        }
+
+        if (!isValid) return; // Stop submission if validation fails
+
+        const id = $(this).data("id"); // undefined for new uploads
+        const isEdit = !!id;
+
+        const payload = {
+          action: "function_call",
+          function_name: isEdit ? "fn_upd_press_release" : "fn_ins_press_release",
+          params: {
+            ...(isEdit && { p_id: id || null }),
+            p_file_attachment_name: file ? `/uploads/${file.name}` : null,
+            p_press_release_no: null,
+            p_press_name: file ? file.name : $("#pressFileName").val(),
+            p_mimetype: file ? file.type : null,
+            p_pr_date: date,
+            p_language: language,
+            p_uploaded_by: userId,
+          },
+        };
+
+        const formData = new FormData();
+        formData.append("data", encryptData(payload));
+        if (file) formData.append("file", file);
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function () {
+            alert(isEdit ? "Press updated successfully!" : "Press uploaded successfully!");
+            $("#pressAttachmentModal").modal("hide");
+            fetchPressData();
+          },
+          error: function (xhr) {
+            console.error("Error uploading press:", xhr);
+          },
+        });
+      });
+
+      $(document).on("click", ".press-edit", function () {
+        $(".error-msg").remove();
+        const row = $(this).closest("tr");
+        const fileName = row.find("td:eq(3)").text();
+        const language = row.find("td:eq(2)").text();
+        const date = row.find("td:eq(1)").text();
+        const id = $(this).data("id");
+
+        // Fill modal fields
+        $("#pressLanguage").val(language);
+        $("#pressDate").val(date);
+        $("#pressFileName").val(fileName).show();
+        $("#pressFile").val("").show(); // allow file replacement
+
+        // Toggle buttons
+        $("#pressSubmitBtn").removeClass("d-none").text("Update").data("id", id); // update action
+        $("#pressDeleteBtn").removeClass("d-none").data("id", id);
+
+        // Show modal
+        $("#pressAttachmentModal").modal("show");
+      });
+
+      $("#pressDeleteBtn").on("click", function () {
+        const id = $(this).data("id");
+        if (!id || !confirm("Delete this press?")) return;
+
+        const payload = {
+          action: "function_call",
+          function_name: "fn_del_press_release",
+          params: { p_id: id },
+        };
+
+        const formData = new FormData();
+        formData.append("data", encryptData(payload));
+
+        $.ajax({
+          url: `${BASE_API_URL}/commonfunction`,
+          method: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function () {
+            alert("Press deleted successfully.");
+            $("#pressAttachmentModal").modal("hide");
+            fetchPressData();
+          },
+          error: function (xhr) {
+            console.error("Error deleting press:", xhr);
+          },
+        });
+      });
+
+      fetchPressData();
+
+      // ==========================================================
+      // 🔹 VIDEO SECTION
+      // ==========================================================
+      function resetVideoModal() {
+        const form = $("#videoAttachmentForm")[0];
+        if (form) form.reset();
+        $("#videoFileName").hide().val("");
+        $("#videoFile").show();
+        $("#videoSubmitBtn").removeClass("d-none");
+        $("#videoDeleteBtn").addClass("d-none").removeData("id");
       }
 
-      $("#createUploadBtn").on("click", registerNewPressRelease);
+      $("#openVideoModalBtn").on("click", function () {
+        resetVideoModal();
+        $("#videoAttachmentModal .modal-title").text("Add New Video Attachment");
+        $("#videoAttachmentModal").modal("show");
+      });
+      $('a[data-bs-toggle="tab"]').on("shown.bs.tab", function (e) {
+        const targetTab = $(e.target).attr("href"); // example: #pressTab or #videoTab
 
-      // ==========================================================
-      // 🔹 DELETE PRESS RELEASE
-      // ==========================================================
-      $("#deleteBtn").on("click", function () {
-        const id = $(this).data("id");
-        if (!id) return showErrorToast("No record selected.");
-        if (!confirm("Are you sure you want to delete this press release?")) return;
-
-        callCommonAPI(
-          "fn_del_press_release",
-          { p_id: id, p_user_id: userId },
-          function () {
-            showSuccessToast("Deleted successfully!");
-            $("#modal").dialog("close");
-            fetchPressReleaseData();
-          },
-          function () {
-            showErrorToast("Error deleting press release.");
-          }
-        );
+          fetchPressData();
       });
 
-      // ==========================================================
-      // 🔹 LANGUAGE SWITCH
-      // ==========================================================
-      $("#P0_LANGUAGE").on("change", function () {
-        langSwitch = $(this).val();
-        fetchPressReleaseData();
-      });
     });
   </script>
-
-  <script src="assets/js/install.js"></script>
 
 </body>
 

@@ -757,16 +757,19 @@
                                       <option value="en">English</option>
                                       <option value="ta">Tamil</option>
                                     </select>
+                                    <div class="text-danger mt-1 d-none"></div>
                                   </div>
                                   <div class="col-md-6">
                                     <label class="form-label">Date</label>
                                     <input type="date" id="videoDate" class="form-control" required>
+                                    <div class="text-danger mt-1 d-none"></div>
                                   </div>
                                   
                                   <!-- Name -->
                                   <div class="col-md-6">
                                     <label class="form-label">Video Name</label>
                                     <input type="text" id="videoName" class="form-control" placeholder="Enter video name" required>
+                                    <div class="text-danger mt-1 d-none"></div>
                                   </div>
 
                                   <!-- YouTube URL -->
@@ -780,6 +783,7 @@
                                   <div class="col-md-12">
                                     <label class="form-label">Description</label>
                                     <textarea id="videoDescription" class="form-control" placeholder="Enter description" required></textarea>
+                                    <div class="text-danger mt-1 d-none"></div>
                                   </div>
                                 </div>
                               </div>
@@ -1592,6 +1596,43 @@
       }
 
       $(document).off("click", "#photoSubmitBtn").on("click", "#photoSubmitBtn", function () {
+        // Clear previous errors
+        $(".error-msg").remove();
+
+        // Get form values
+        const language = $("#photoLanguage").val();
+        const date = $("#photoDate").val();
+        const fileInput = $("#photoFile")[0];
+        const inputFile = fileInput.files[0];
+
+        let isValid = true;
+
+        // Validate Language
+        if (!language) {
+            $("#photoLanguage").after('<div class="text-danger error-msg">Please select a language.</div>');
+            isValid = false;
+        }
+
+        // Validate Date
+        if (!date) {
+            $("#photoDate").after('<div class="text-danger error-msg">Please select a date.</div>');
+            isValid = false;
+        }
+
+        // Validate File
+        if (!inputFile) {
+            $("#photoFile").after('<div class="text-danger error-msg">Please select a file.</div>');
+            isValid = false;
+        } else {
+            const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+            if (!allowedTypes.includes(inputFile.type)) {
+                $("#photoFile").after('<div class="text-danger error-msg">Only JPG, JPEG, PNG files are allowed.</div>');
+                isValid = false;
+            }
+        }
+
+        // Stop if validation failed
+        if (!isValid) return;
         const file = $("#photoFile")[0].files[0];
         const id = $(this).data("id"); // undefined for new uploads
         const isEdit = !!id;
@@ -1632,6 +1673,7 @@
       });
 
       $(document).on("click", ".photo-edit", function () {
+        $(".error-msg").remove();
         const row = $(this).closest("tr");
         const fileName = row.find("td:eq(1)").text();
         const language = row.find("td:eq(2)").text();
@@ -1794,17 +1836,53 @@
       }
 
       $(document).off("click", "#videoSubmitBtn").on("click", "#videoSubmitBtn", function () {
-        const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}(&.*)?$/;
+       let isValid = true;
 
-        const videoUrl = $("#videoUrl").val();
+        // Clear previous errors
+        $(".text-danger").addClass("d-none").text("");
+
+        // Field values
+        const videoName = $("#videoName").val().trim();
+        const videoDescription = $("#videoDescription").val().trim();
+        const videoUrl = $("#videoUrl").val().trim();
+        const videoDate = $("#videoDate").val();
+        const videoLanguage = $("#videoLanguage").val();
+
+        // Validate Name
+        if (!videoName) {
+            $("#videoName").next(".text-danger").removeClass("d-none").text("Please enter video name.");
+            isValid = false;
+        }
+
+        // Validate Description
+        if (!videoDescription) {
+            $("#videoDescription").next(".text-danger").removeClass("d-none").text("Please enter description.");
+            isValid = false;
+        }
 
         // Validate YouTube URL
-        if (!youtubeRegex.test(videoUrl)) {
-            $("#urlError").removeClass("d-none");
-            return;
-        } else {
-            $("#urlError").addClass("d-none");
+        const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}(&.*)?$/;
+        if (!videoUrl) {
+            $("#urlError").removeClass("d-none").text("Please enter YouTube URL.");
+            isValid = false;
+        } else if (!youtubeRegex.test(videoUrl)) {
+            $("#urlError").removeClass("d-none").text("Please enter a valid YouTube URL.");
+            isValid = false;
         }
+
+        // Validate Date
+        if (!videoDate) {
+            $("#videoDate").next(".text-danger").removeClass("d-none").text("Please select a date.");
+            isValid = false;
+        }
+
+        // Validate Language
+        if (!videoLanguage) {
+            $("#videoLanguage").next(".text-danger").removeClass("d-none").text("Please select a language.");
+            isValid = false;
+        }
+
+        if (!isValid) return; // Stop if validation failed
         const id = $(this).data("id"); // undefined for new uploads
         const isEdit = !!id;
         const payload = {
@@ -1842,6 +1920,7 @@
       });
 
       $(document).on("click", ".video-edit", function () {
+        $(".text-danger").addClass("d-none").text("");
         const table = $("#videoTable").DataTable();
         const rowData = table.row($(this).closest("tr")).data();
 
