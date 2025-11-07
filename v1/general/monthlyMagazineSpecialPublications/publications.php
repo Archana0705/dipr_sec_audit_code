@@ -5,10 +5,11 @@ require_once('../../../helper/db/dipr_read.php');
 header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 session_start();
-function checkRateLimit($ip, $maxRequests = 1, $windowSeconds = 10) {
+function checkRateLimit($ip, $maxRequests = 1, $windowSeconds = 10)
+{
     $key = "rate_limit_" . md5($ip);
     $now = time();
-    
+
     if (!isset($_SESSION[$key])) {
         $_SESSION[$key] = [];
     }
@@ -30,25 +31,26 @@ checkRateLimit($_SERVER['REMOTE_ADDR']);
 // ----------------------
 // Helper: Detect forbidden patterns (HTML/CSS/JS injection)
 // ----------------------
-function containsForbiddenPattern($value, &$found = null) {
+function containsForbiddenPattern($value, &$found = null)
+{
     $found = [];
     if (preg_match('/[<>&\'"]/', $value)) {
         $found[] = 'forbidden characters < > & \' "';
     }
     $patterns = [
-        '/<\s*script\b/i'           => '<script>',
-        '/<\s*style\b/i'            => '<style>',
-        '/on\w+\s*=/i'              => 'event_handler (onclick, onerror, etc.)',
-        '/style\s*=/i'              => 'style attribute',
-        '/javascript\s*:/i'         => 'javascript: URI',
-        '/data\s*:/i'               => 'data: URI',
-        '/expression\s*\(/i'        => 'CSS expression()',
+        '/<\s*script\b/i' => '<script>',
+        '/<\s*style\b/i' => '<style>',
+        '/on\w+\s*=/i' => 'event_handler (onclick, onerror, etc.)',
+        '/style\s*=/i' => 'style attribute',
+        '/javascript\s*:/i' => 'javascript: URI',
+        '/data\s*:/i' => 'data: URI',
+        '/expression\s*\(/i' => 'CSS expression()',
         '/url\s*\(\s*["\']?\s*javascript\s*:/i' => 'url(javascript:...)',
-        '/<\s*iframe\b/i'           => '<iframe>',
-        '/<\s*svg\b/i'              => '<svg>',
-        '/<\s*img\b[^>]*on\w+/i'    => 'img with on* handler',
-        '/<\s*meta\b/i'             => '<meta>',
-        '/<\/\s*script\s*>/i'       => '</script>',
+        '/<\s*iframe\b/i' => '<iframe>',
+        '/<\s*svg\b/i' => '<svg>',
+        '/<\s*img\b[^>]*on\w+/i' => 'img with on* handler',
+        '/<\s*meta\b/i' => '<meta>',
+        '/<\/\s*script\s*>/i' => '</script>',
     ];
     foreach ($patterns as $pat => $desc) {
         if (preg_match($pat, $value)) {
@@ -61,7 +63,8 @@ function containsForbiddenPattern($value, &$found = null) {
 // ----------------------
 // Validate all input recursively
 // ----------------------
-function validateInputRecursive($data, &$badFields, $parentKey = '') {
+function validateInputRecursive($data, &$badFields, $parentKey = '')
+{
     if (is_array($data)) {
         foreach ($data as $k => $v) {
             $keyName = $parentKey === '' ? $k : ($parentKey . '.' . $k);
@@ -69,7 +72,8 @@ function validateInputRecursive($data, &$badFields, $parentKey = '') {
         }
         return;
     }
-    if (!is_string($data)) return;
+    if (!is_string($data))
+        return;
 
     $value = $data;
     $found = [];
@@ -84,29 +88,41 @@ function validateInputRecursive($data, &$badFields, $parentKey = '') {
 $jsonData = file_get_contents("php://input");
 $data = json_decode($jsonData, true) ?? $_POST;
 if (isset($data['data'])) {
-            $data = decryptData($data['data']);
-        }
-        if (empty($data['user_id'])) {
-            http_response_code(401);
-            exit;
-        }
-        if (!empty($data['user_id'])) {
-            $stmtCheck = $dipr_read_db->prepare("SELECT session_id FROM user_sessions WHERE user_id = :uid");
-            $stmtCheck->execute([':uid' => $data['user_id']]);
-            $existingSession = $stmtCheck->fetchColumn();
-            // Validate session
-            if (empty($existingSession)) {
-                http_response_code(401);
-                exit;
-            }
-        }
+    $data = decryptData($data['data']);
+}
+if (empty($data['user_id'])) {
+    echo json_encode([
+        "success" => 0,
+        "message" => "Invalid user_id."
+
+    ]);
+    http_response_code(400);
+    exit;
+}
+if (!empty($data['user_id'])) {
+    $stmtCheck = $dipr_read_db->prepare("SELECT session_id FROM user_sessions WHERE user_id = :uid");
+    $stmtCheck->execute([':uid' => $data['user_id']]);
+    $existingSession = $stmtCheck->fetchColumn();
+
+    // Validate session
+    if (empty($existingSession)) {
+        echo json_encode([
+            "success" => 0,
+            "message" => "session existed."
+
+        ]);
+        http_response_code(400);
+
+        exit;
+    }
+}
 // Validate input
 $badFields = [];
 validateInputRecursive($data, $badFields);
 if (!empty($badFields)) {
     $messages = [];
     foreach ($badFields as $field => $reasons) {
-        $messages[] = "$field: " . implode(', ', (array)$reasons);
+        $messages[] = "$field: " . implode(', ', (array) $reasons);
     }
     http_response_code(400);
     echo json_encode([
@@ -165,7 +181,7 @@ switch ($action) {
                 echo json_encode(["success" => 1, "message" => "Data inserted successfully"]);
             } else {
                 http_response_code(500);
-              //  echo json_encode(["success" => 0, "message" => "Database execution failed"]);
+                //  echo json_encode(["success" => 0, "message" => "Database execution failed"]);
             }
         } catch (Exception $e) {
             error_log("Error inserting data: " . $e->getMessage());
@@ -204,7 +220,7 @@ switch ($action) {
                 echo json_encode(["success" => 1, "message" => "Data updated successfully"]);
             } else {
                 http_response_code(500);
-               // echo json_encode(["success" => 0, "message" => "Database execution failed"]);
+                // echo json_encode(["success" => 0, "message" => "Database execution failed"]);
             }
         } catch (Exception $e) {
             error_log("Error updating data: " . $e->getMessage());
@@ -216,7 +232,7 @@ switch ($action) {
     case 'delete':
         if (empty($data['slno'])) {
             http_response_code(400);
-          //  echo json_encode(["success" => 0, "message" => "SLNO is required"]);
+            //  echo json_encode(["success" => 0, "message" => "SLNO is required"]);
             exit;
         }
 
@@ -231,7 +247,7 @@ switch ($action) {
                 echo json_encode(["success" => 1, "message" => "Data deleted successfully"]);
             } else {
                 http_response_code(500);
-               // echo json_encode(["success" => 0, "message" => "Database execution failed"]);
+                // echo json_encode(["success" => 0, "message" => "Database execution failed"]);
             }
         } catch (Exception $e) {
             error_log("Error deleting data: " . $e->getMessage());

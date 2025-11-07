@@ -35,11 +35,11 @@ session_start();
 
 define('DATE_FORMAT', 'Y-m-d H:i:s.u');
 
-$logPath  = '../../logs/fn_report_reportdata/';
-$service  = 'v1/fn_report_reportdata';
-$method   = $_SERVER['REQUEST_METHOD'];
+$logPath = '../../logs/fn_report_reportdata/';
+$service = 'v1/fn_report_reportdata';
+$method = $_SERVER['REQUEST_METHOD'];
 $endpoint = $_SERVER['PHP_SELF'];
-$reqTime  = date(DATE_FORMAT);
+$reqTime = date(DATE_FORMAT);
 
 try {
     if ($method !== 'POST') {
@@ -56,7 +56,7 @@ try {
     // $p = $_POST['data'];
     // $p = json_decode($_POST['data'], true);
 
-  
+
     if (!$p || !is_array($p)) {
         throw new Exception('Invalid or corrupted payload');
     }
@@ -69,32 +69,61 @@ try {
     }
 
     /* ── Handle File Upload ─────────────────────────────── */
-    if (!empty($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = __DIR__ . '/../uploads/';
-        if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
 
-        $filename   = time() . '_' . basename($_FILES['file']['name']);
-        $targetFile = $uploadDir . $filename;
+    // print_r($_FILES);
+    if (!empty($_FILES['file']) && isset($_FILES['file']['error']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
 
+        $fileData= json_decode($_POST['fileData'],true);
+
+        // ✅ Use absolute path for uploads
+        $uploadDir =$fileData['upload_dir'];  // or adjust path as needed
+
+        // ✅ Ensure directory exists and is writable
+        if (!is_dir($uploadDir)) {
+            if (!mkdir($uploadDir, 0777, true) && !is_dir($uploadDir)) {
+                throw new Exception("Failed to create upload directory: $uploadDir");
+            }
+        }
+
+        // ✅ Create unique filename
+        $filename = $fileData['filename'];
+        $targetFile = $uploadDir ."/". $fileData['filename'];
+
+        // ✅ Move uploaded file safely
         if (move_uploaded_file($_FILES['file']['tmp_name'], $targetFile)) {
             $p['p_file_path'] = '/uploads/' . $filename;
             $p['p_file_name'] = $filename;
+
+            echo json_encode([
+                'success' => 1,
+                'message' => 'File uploaded successfully',
+                'file_path' => $p['p_file_path'],
+                'file_name' => $p['p_file_name']
+            ]);
+            exit; // ✅ stop further processing if upload-only test
         } else {
-            throw new Exception('File upload failed');
+            throw new Exception('File upload failed: unable to move file.');
         }
+
+    } else if (!empty($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_OK) {
+
+        // ❌ Catch PHP upload errors
+        throw new Exception('File upload error: ' . $_FILES['file']['error']);
     }
 
+    //  exit();
     /* ── Prepare helper functions ───────────────────────── */
     $pgArray = fn(array $arr): string =>
         '{' . implode(',', array_map(fn($s) => '"' . str_replace('"', '\"', trim($s)) . '"', $arr)) . '}';
 
     $toJsonb = function ($val): ?string {
-        if (empty($val)) return null;
+        if (empty($val))
+            return null;
         if (is_array($val) && array_values($val) === $val)
             throw new Exception('filter_conditions & sort_columns must be JSON objects');
         return json_encode($val, JSON_UNESCAPED_UNICODE);
     };
-    
+
     /* ── Choose stored procedure ────────────────────────── */
     switch ($action) {
         case 'insert':
@@ -116,18 +145,18 @@ try {
 
     /* ── Build parameters ───────────────────────────────── */
     $params = [
-        ':_table_name'            => trim($p['_table_name'] ?? ''),
-        ':selected_columns'       => !empty($p['selected_columns']) ? $pgArray($p['selected_columns']) : null,
-        ':filter_conditions'      => $toJsonb($p['filter_conditions'] ?? null),
-        ':group_by_columns'       => !empty($p['group_by_columns']) ? $pgArray($p['group_by_columns']) : null,
-        ':sort_columns'           => $toJsonb($p['sort_columns'] ?? null),
-        ':limit_rows'             => isset($p['limit_rows']) ? (int) $p['limit_rows'] : null,
-        ':offset_rows'            => isset($p['offset_rows']) ? (int) $p['offset_rows'] : null,
-        ':count_columns'          => !empty($p['count_columns']) ? $pgArray($p['count_columns']) : null,
-        ':sum_columns'            => !empty($p['sum_columns']) ? $pgArray($p['sum_columns']) : null,
+        ':_table_name' => trim($p['_table_name'] ?? ''),
+        ':selected_columns' => !empty($p['selected_columns']) ? $pgArray($p['selected_columns']) : null,
+        ':filter_conditions' => $toJsonb($p['filter_conditions'] ?? null),
+        ':group_by_columns' => !empty($p['group_by_columns']) ? $pgArray($p['group_by_columns']) : null,
+        ':sort_columns' => $toJsonb($p['sort_columns'] ?? null),
+        ':limit_rows' => isset($p['limit_rows']) ? (int) $p['limit_rows'] : null,
+        ':offset_rows' => isset($p['offset_rows']) ? (int) $p['offset_rows'] : null,
+        ':count_columns' => !empty($p['count_columns']) ? $pgArray($p['count_columns']) : null,
+        ':sum_columns' => !empty($p['sum_columns']) ? $pgArray($p['sum_columns']) : null,
         ':distinct_count_columns' => !empty($p['distinct_count_columns']) ? $pgArray($p['distinct_count_columns']) : null,
-        ':p_file_path'            => $p['p_file_path'] ?? null,
-        ':p_file_name'            => $p['p_file_name'] ?? null
+        ':p_file_path' => $p['p_file_path'] ?? null,
+        ':p_file_name' => $p['p_file_name'] ?? null
     ];
 
     /* ── Build SQL ──────────────────────────────────────── */
@@ -152,24 +181,24 @@ try {
             $k,
             $v,
             is_null($v) ? PDO::PARAM_NULL :
-                (in_array($k, [':limit_rows', ':offset_rows']) ? PDO::PARAM_INT : PDO::PARAM_STR)
+            (in_array($k, [':limit_rows', ':offset_rows']) ? PDO::PARAM_INT : PDO::PARAM_STR)
         );
     }
 
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
     $respTime = date(DATE_FORMAT);
 
     if ($action === 'select') {
         $result_data = json_decode($result['dynamicreport'], true);
         $rows = $result_data['data'] ?? [];
-        $count = (int)($result_data['total_count'] ?? 0);
+        $count = (int) ($result_data['total_count'] ?? 0);
 
         echo json_encode([
             'success' => $rows ? 1 : 0,
             'message' => $rows ? 'Report data and count fetched' : 'No data found',
-            'data' => $rows ? $rows: [],
+            'data' => $rows ? $rows : [],
             'total_count' => $count
         ]);
     } else {

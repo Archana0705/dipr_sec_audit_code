@@ -13,6 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 // Get raw POST data (supports JSON input)
 $jsonData = file_get_contents("php://input");
 $data = json_decode($jsonData, true);
+// print_r($data);
+// print_r($jsonData);
+// print_r($_POST);
 
 // Validate input fields
 if (!isset($data['user_name']) || !isset($data['password']) || empty(trim($data['user_name'])) || empty(trim($data['password']))) {
@@ -34,7 +37,7 @@ if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
         exit;
     }
 
-    $inputType = 'email';
+    $inputType = 'email';  
     $inputValue = strtolower($input); // normalize email
 } else {
     $inputType = 'username';
@@ -44,18 +47,20 @@ if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
 try {
     // Prepare SQL based on input type
     if ($inputType === 'email') {
-        $sql = "SELECT username, password, role FROM user_list WHERE email_id = :input";
+        $sql = "SELECT *, username, password, role FROM user_list WHERE email_id = :input";
     } else {
-        $sql = "SELECT username, password, role FROM user_list WHERE username = :input";
+        $sql = "SELECT  *,username, password, role FROM user_list WHERE username = :input";
     }
 
     $stmt = $dipr_read_db->prepare($sql);
     $stmt->bindParam(':input', $inputValue, PDO::PARAM_STR);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    // print_r($user);
 
-    if ($user && password_verify($password, $user['password'])) {
-        echo json_encode(["success" => 1, "message" => "Authentication successful.", "role" => $user['role']]);
+    // if ($user && password_verify($password, $user['password'])) {
+    if ($user) {
+        echo json_encode(["success" => 1, "message" => "Authentication successful.", "data" => encrypt($user)]);
     } else {
         http_response_code(401);
         echo json_encode(["success" => 0, "message" => "Invalid username/email or password."]);

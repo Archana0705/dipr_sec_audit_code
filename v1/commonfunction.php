@@ -15,7 +15,8 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 session_start();
 //  $stmtTruncate = $dipr_read_db->prepare("TRUNCATE TABLE user_sessions");
 //     $stmtTruncate->execute();
-function respondServerError($message = "Internal server error", $httpCode = 500, $exception = null) {
+function respondServerError($message = "Internal server error", $httpCode = 500, $exception = null)
+{
     if ($exception instanceof Exception) {
         error_log("DB ERROR: " . $exception->getMessage());
     }
@@ -23,10 +24,11 @@ function respondServerError($message = "Internal server error", $httpCode = 500,
     echo json_encode(["success" => 0, "message" => $exception->getMessage()]);
     exit;
 }
-function checkRateLimit($ip, $maxRequests = 1, $windowSeconds = 10) {
+function checkRateLimit($ip, $maxRequests = 1, $windowSeconds = 10)
+{
     $key = "rate_limit_" . md5($ip);
     $now = time();
-    
+
     if (!isset($_SESSION[$key])) {
         $_SESSION[$key] = [];
     }
@@ -40,28 +42,29 @@ function checkRateLimit($ip, $maxRequests = 1, $windowSeconds = 10) {
         echo json_encode(["success" => 0, "message" => "Rate limit exceeded. Try later."]);
         exit;
     }
-} 
+}
 checkRateLimit($_SERVER['REMOTE_ADDR']);
- function containsForbiddenPattern($value, &$found = null) {
+function containsForbiddenPattern($value, &$found = null)
+{
     $found = [];
     if (preg_match('/[<>&\'"]/', $value)) {
         $found[] = 'forbidden characters < > & \' "';
     }
 
     $patterns = [
-        '/<\s*script\b/i'                     => '<script>',
-        '/<\s*style\b/i'                      => '<style>',
-        '/on\w+\s*=/i'                        => 'event_handler (onclick, onerror, etc.)',
-        '/style\s*=/i'                         => 'style attribute',
-        '/javascript\s*:/i'                    => 'javascript: URI',
-        '/data\s*:/i'                           => 'data: URI',
-        '/expression\s*\(/i'                    => 'CSS expression()',
-        '/url\s*\(\s*["\']?\s*javascript\s*:/i'=> 'url(javascript:...)',
-        '/<\s*iframe\b/i'                      => '<iframe>',
-        '/<\s*svg\b/i'                         => '<svg>',
-        '/<\s*img\b[^>]*on\w+/i'               => 'img with on* handler',
-        '/<\s*meta\b/i'                        => '<meta>',
-        '/<\/\s*script\s*>/i'                  => '</script>',
+        '/<\s*script\b/i' => '<script>',
+        '/<\s*style\b/i' => '<style>',
+        '/on\w+\s*=/i' => 'event_handler (onclick, onerror, etc.)',
+        '/style\s*=/i' => 'style attribute',
+        '/javascript\s*:/i' => 'javascript: URI',
+        '/data\s*:/i' => 'data: URI',
+        '/expression\s*\(/i' => 'CSS expression()',
+        '/url\s*\(\s*["\']?\s*javascript\s*:/i' => 'url(javascript:...)',
+        '/<\s*iframe\b/i' => '<iframe>',
+        '/<\s*svg\b/i' => '<svg>',
+        '/<\s*img\b[^>]*on\w+/i' => 'img with on* handler',
+        '/<\s*meta\b/i' => '<meta>',
+        '/<\/\s*script\s*>/i' => '</script>',
     ];
 
     foreach ($patterns as $pat => $desc) {
@@ -71,7 +74,8 @@ checkRateLimit($_SERVER['REMOTE_ADDR']);
     }
     return !empty($found);
 }
-function validateInputRecursive($data, &$badFields, $parentKey = '') {
+function validateInputRecursive($data, &$badFields, $parentKey = '')
+{
     if (is_array($data)) {
         foreach ($data as $k => $v) {
             $keyName = $parentKey === '' ? $k : ($parentKey . '.' . $k);
@@ -79,7 +83,8 @@ function validateInputRecursive($data, &$badFields, $parentKey = '') {
         }
         return;
     }
-    if (!is_string($data)) return;
+    if (!is_string($data))
+        return;
 
     $value = $data;
     $found = [];
@@ -87,7 +92,7 @@ function validateInputRecursive($data, &$badFields, $parentKey = '') {
         $badFields[$parentKey] = $found;
     }
 }
-$inputData  = file_get_contents("php://input");
+$inputData = file_get_contents("php://input");
 $data = json_decode($inputData, true);
 if (!$data && !empty($_POST)) {
     $data = $_POST;
@@ -100,18 +105,18 @@ if (isset($data['data'])) {
 //     http_response_code(400);
 //      exit;
 // }
- 
+
 if (empty($data['action'])) {
     http_response_code(400);
-     exit;
+    exit;
 }
- $badFields = [];
+$badFields = [];
 validateInputRecursive($data, $badFields);
 
 if (!empty($badFields)) {
     $messages = [];
     foreach ($badFields as $field => $reasons) {
-        $messages[] = "$field: " . implode(', ', (array)$reasons);
+        $messages[] = "$field: " . implode(', ', (array) $reasons);
     }
     http_response_code(400);
     // echo json_encode([
@@ -124,69 +129,78 @@ if (!empty($badFields)) {
 $action = $data['action'] ?? null;
 $request_id = $data['request_id'] ?? null;
 unset($data['request_id']);
-$limit = isset($data['limit']) && $data['limit'] !== null ? max(1, (int)$data['limit']) : null;
-$offset = $limit !== null ? (isset($data['offset']) ? max(0, (int)$data['offset']) : 0) : null;
+$limit = isset($data['limit']) && $data['limit'] !== null ? max(1, (int) $data['limit']) : null;
+$offset = $limit !== null ? (isset($data['offset']) ? max(0, (int) $data['offset']) : 0) : null;
 $search = $data['search'] ?? null;
 $search_key = $data['search_key'] ?? null;
 
 switch ($action) {
-   
- case 'function_call':
-    $functionName = $data['function_name'] ?? null;
-    $params = $data['params'] ?? [];
-    $columns = $data['columns'] ?? '*';
-    $limit = isset($data['limit']) ? (int)$data['limit'] : 10;
-    $offset = isset($data['offset']) ? (int)$data['offset'] : 0;
 
-    if (!$functionName) {
-        echo json_encode(["success" => 0, "message" => "Missing function_name"]);
-        exit;
-    }
+    case 'function_call':
+        $functionName = $data['function_name'] ?? null;
+        $params = $data['params'] ?? [];
+        $columns = $data['columns'] ?? '*';
+        $limit = isset($data['limit']) ? (int) $data['limit'] : 10;
+        $offset = isset($data['offset']) ? (int) $data['offset'] : 0;
 
-    try {
-        // Base SQL query
-        $paramPlaceholders = implode(', ', array_map(fn($k) => ':' . $k, array_keys($params)));
-        $sql = "SELECT $columns FROM $functionName($paramPlaceholders) LIMIT :limit OFFSET :offset";
-
-        $stmt = $dipr_read_db->prepare($sql);
-        foreach ($params as $key => $value) {
-            $stmt->bindValue(":$key", $value);
+        if (!$functionName) {
+            echo json_encode(["success" => 0, "message" => "Missing function_name"]);
+            exit;
         }
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-        $stmt->execute();
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // 🔹 Count total records (for pagination)
-        $countSql = "SELECT COUNT(*) AS total_count FROM $functionName($paramPlaceholders)";
-        $countStmt = $dipr_read_db->prepare($countSql);
-        foreach ($params as $key => $value) {
-            $countStmt->bindValue(":$key", $value);
+        try {
+            // Base SQL query
+            $paramPlaceholders = implode(', ', array_map(fn($k) => ':' . $k, array_keys($params)));
+            $sql = "SELECT $columns FROM $functionName($paramPlaceholders) LIMIT :limit OFFSET :offset";
+
+            $stmt = $dipr_read_db->prepare($sql);
+            foreach ($params as $key => $value) {
+                $stmt->bindValue(":$key", $value);
+            }
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $stmt->execute();
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // 🔹 Count total records (for pagination)
+            $countSql = "SELECT COUNT(*) AS total_count FROM $functionName($paramPlaceholders)";
+            $countStmt = $dipr_read_db->prepare($countSql);
+            foreach ($params as $key => $value) {
+                $countStmt->bindValue(":$key", $value);
+            }
+            $countStmt->execute();
+            $countRow = $countStmt->fetch(PDO::FETCH_ASSOC);
+            $totalCount = $countRow['total_count'] ?? 0;
+
+            echo json_encode([
+                "success" => 1,
+                "message" => "Data retrieved successfully",
+                "data" => encrypt($rows),
+                "pagination" => [
+                    "limit" => $limit,
+                    "offset" => $offset,
+                    "total" => (int) $totalCount
+                ]
+            ]);
+            exit;
+
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(["success" => 0, "message" => "Database error", "error" => $e->getMessage()]);
+            exit;
         }
-        $countStmt->execute();
-        $countRow = $countStmt->fetch(PDO::FETCH_ASSOC);
-        $totalCount = $countRow['total_count'] ?? 0;
-
-        echo json_encode([
-            "success" => 1,
-            "message" => "Data retrieved successfully",
-            "data" => encrypt($rows),
-            "pagination" => [
-                "limit" => $limit,
-                "offset" => $offset,
-                "total" => (int)$totalCount
-            ]
-        ]);
-        exit;
-
-    } catch (Exception $e) {
-        http_response_code(500);
-        echo json_encode(["success" => 0, "message" => "Database error", "error" => $e->getMessage()]);
-        exit;
-    }
-    break;
 
 
-        default:
+        break;
+
+    case 'add_user':
+
+        // Your code for 'add_user' action goes here
+        break;
+
+
+
+
+    default:
         http_response_code(400);
 }
