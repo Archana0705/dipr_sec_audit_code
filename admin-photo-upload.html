@@ -1546,13 +1546,25 @@
               },
               limit: data.length,      // number of records per page
               offset: data.start,      // starting record index
+              searchable_columns: ["file_name", "language", "created_by"]
             };
 
             // If search box is used
             if (data.search && data.search.value) {
               payload.search = data.search.value;
             }
+            // Add sorting info
+            if (data.order && data.order.length > 0) {
+              const orderInfo = data.order[0];
+              const columnIndex = orderInfo.column;
+              const columnName = data.columns[columnIndex].data || data.columns[columnIndex].name || null;
+              const orderDir = orderInfo.dir;
 
+              if (columnName) {
+                payload.order_by = columnName;
+                payload.order_dir = orderDir;
+              }
+            }
             $.ajax({
               url: `${BASE_API_URL}/commonfunction`,
               method: "POST",
@@ -1567,15 +1579,15 @@
                   draw: data.draw,
                   recordsTotal: total,
                   recordsFiltered: total,
-                  data: decryptedData.map((item) => [
-                    `<a href="javascript:void(0);" class="photo-edit" data-id="${item.id}">
-                      <i class="bi bi-pencil-square"></i>
-                    </a>`,
-                    item.file_name || "-",
-                    item.language || "-",
-                    item.created_by || "-",
-                    item.created_on || "-"
-                  ]),
+                  data: decryptedData.map((item) => ({
+                    edit: `<a href="javascript:void(0);" class="photo-edit" data-id="${item.id}">
+                            <i class="bi bi-pencil-square"></i>
+                          </a>`,
+                    file_name: item.file_name || "-",
+                    language: item.language || "-",
+                    created_by: item.created_by || "-",
+                    created_on: item.created_on || "-"
+                  }))
                 });
               },
               error: function (xhr) {
@@ -1590,11 +1602,11 @@
             });
           },
           columns: [
-            { title: "Edit", orderable: false },
-            { title: "File Name" },
-            { title: "Language" },
-            { title: "Created By" },
-            { title: "Created On" },
+            { title: "Edit", orderable: false, data: "edit" },
+            { title: "File Name", data: "file_name" },
+            { title: "Language", data: "language" },
+            { title: "Created By", data: "created_by" },
+            { title: "Created On", data: "created_on" },
           ],
         });
       }
@@ -1729,11 +1741,26 @@
               params: { p_language: langSwitch },
               limit: data.length,   // page size
               offset: data.start,   // starting row index
+              searchable_columns: ["v_name", "v_desc", "v_url", "language", "created_by"]
             };
 
-            // Add search text if user typed something
+            // Add search text
             if (data.search && data.search.value) {
               payload.search = data.search.value;
+            }
+
+            // Add sorting info
+            if (data.order && data.order.length > 0) {
+              const orderInfo = data.order[0];
+              const columnIndex = orderInfo.column;
+              const columnDef = data.columns[columnIndex];
+              const columnName = columnDef.data || columnDef.name || null;
+              const orderDir = orderInfo.dir;
+
+              if (columnName) {
+                payload.order_by = columnName;
+                payload.order_dir = orderDir;
+              }
             }
 
             $.ajax({
@@ -1745,22 +1772,22 @@
                 const decryptedData = decryptData(res.data) || [];
                 const total = res.pagination?.total || decryptedData.length;
 
-                // Send formatted data back to DataTables
+                // Map data correctly using keys
                 callback({
                   draw: data.draw,
                   recordsTotal: total,
                   recordsFiltered: total,
-                  data: decryptedData.map((item) => [
-                    `<a href="javascript:void(0);" class="video-edit" data-id="${item.id}">
-                      <i class="bi bi-pencil-square"></i>
-                    </a>`,
-                    item.v_name || "-",
-                    item.v_desc || "-",
-                    item.v_url || "-",
-                    item.language || "-",
-                    item.created_by || "-",
-                    item.created_on || "-"
-                  ]),
+                  data: decryptedData.map((item) => ({
+                    edit: `<a href="javascript:void(0);" class="video-edit" data-id="${item.id}">
+                            <i class="bi bi-pencil-square"></i>
+                          </a>`,
+                    v_name: item.v_name || "-",
+                    v_desc: item.v_desc || "-",
+                    v_url: item.v_url || "-",
+                    language: item.language || "-",
+                    created_by: item.created_by || "-",
+                    created_on: item.created_on || "-"
+                  })),
                 });
               },
               error: function (xhr) {
@@ -1775,13 +1802,13 @@
             });
           },
           columns: [
-            { title: "Edit", orderable: false },
-            { title: "Video Name" },
-            { title: "Description" },
-            { title: "Video URL" },
-            { title: "Language" },
-            { title: "Created By" },
-            { title: "Created On" },
+            { title: "Edit", data: "edit", orderable: false },
+            { title: "Video Name", data: "v_name" },
+            { title: "Description", data: "v_desc" },
+            { title: "Video URL", data: "v_url" },
+            { title: "Language", data: "language" },
+            { title: "Created By", data: "created_by" },
+            { title: "Created On", data: "created_on" },
           ],
         });
       }

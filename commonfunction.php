@@ -128,7 +128,9 @@ $limit = isset($data['limit']) && $data['limit'] !== null ? max(1, (int)$data['l
 $offset = $limit !== null ? (isset($data['offset']) ? max(0, (int)$data['offset']) : 0) : null;
 $search = $data['search'] ?? null;
 $search_key = $data['search_key'] ?? null;
-
+$orderBy = $data['order_by'] ?? null;
+$orderDir = strtolower($data['order_dir'] ?? 'asc');
+if (!in_array($orderDir, ['asc', 'desc'])) $orderDir = 'asc';
 switch ($action) {
    
  case 'function_call':
@@ -173,7 +175,30 @@ switch ($action) {
         }
         // Base SQL query
         $paramPlaceholders = implode(', ', array_map(fn($k) => ':' . $k, array_keys($params)));
-        $sql = "SELECT $columns FROM $functionName($paramPlaceholders) LIMIT :limit OFFSET :offset";
+        $sql = "SELECT $columns FROM $functionName($paramPlaceholders)";
+
+        // Add search filter
+        if (!empty($search) && !empty($data['searchable_columns']) && is_array($data['searchable_columns'])) {
+            $safeColumns = [];
+            foreach ($data['searchable_columns'] as $col) {
+                // Sanitize column names (prevent SQL injection)
+                if (preg_match('/^[a-zA-Z0-9_]+$/', $col)) {
+                    $safeColumns[] = "$col ILIKE :search";
+                }
+            }
+            if (!empty($safeColumns)) {
+                $sql .= " WHERE (" . implode(' OR ', $safeColumns) . ")";
+            }
+        }
+
+        // Add order by
+        if (!empty($orderBy)) {
+            $sql .= " ORDER BY " . preg_replace('/[^a-zA-Z0-9_]/', '', $orderBy) . " " . strtoupper($orderDir);
+        }
+
+        // Add pagination
+        $sql .= " LIMIT :limit OFFSET :offset";
+
 
         $stmt = $dipr_read_db->prepare($sql);
         foreach ($params as $key => $value) {
@@ -181,6 +206,9 @@ switch ($action) {
         }
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        if (!empty($search)) {
+            $stmt->bindValue(':search', '%' . $search . '%');
+        }
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
