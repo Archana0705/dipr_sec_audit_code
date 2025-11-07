@@ -94,13 +94,7 @@ try {
             $p['p_file_path'] = '/uploads/' . $filename;
             $p['p_file_name'] = $filename;
 
-            echo json_encode([
-                'success' => 1,
-                'message' => 'File uploaded successfully',
-                'file_path' => $p['p_file_path'],
-                'file_name' => $p['p_file_name']
-            ]);
-            exit; // ✅ stop further processing if upload-only test
+           
         } else {
             throw new Exception('File upload failed: unable to move file.');
         }
