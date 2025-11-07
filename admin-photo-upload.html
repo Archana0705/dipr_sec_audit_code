@@ -1620,8 +1620,8 @@
           action: "function_call",
           function_name: isEdit ? "fn_upd_govt_attachments" : "fn_ins_govt_attachments",
           params: {
-            p_id: id || null,
-            p_file_attachment_name: file ? `/uploads/${file.name}` : $("#photoFileName").val(),
+            ...(isEdit && { p_id: id || null }),
+            p_file_attachment_name: file ? `/uploads/${file.name}` : null,
             p_file_name: file ? file.name : $("#photoFileName").val(),
             p_mimetype: file ? file.type : null,
             p_p_date: $("#photoDate").val(),
@@ -1825,10 +1825,13 @@
         } else {
             $("#urlError").addClass("d-none");
         }
+        const id = $(this).data("id"); // undefined for new uploads
+        const isEdit = !!id;
         const payload = {
           action: "function_call",
-          function_name: "fn_ins_govt_attachment_video",
+          function_name: isEdit ? "fn_upd_govt_attachment_video" : "fn_ins_govt_attachment_video",
           params: {
+            ...(isEdit && { p_id: id || null }),
             p_name: $("#videoName").val(),
             p_desc: $("#videoDescription").val(),
             p_url: $("#videoUrl").val(),
@@ -1859,13 +1862,19 @@
       });
 
       $(document).on("click", ".video-edit", function () {
-        const row = $(this).closest("tr");
-        $("#videoLanguage").val(row.find("td:eq(2)").text());
-        $("#videoDate").val(row.find("td:eq(4)").text());
-        $("#videoFileName").val(row.find("td:eq(1)").text()).show();
-        $("#videoFile").hide();
-        $("#videoSubmitBtn").addClass("d-none");
-        $("#videoDeleteBtn").removeClass("d-none").data("id", $(this).data("id"));
+        const table = $("#videoTable").DataTable();
+        const rowData = table.row($(this).closest("tr")).data();
+
+        $("#videoLanguage").val(rowData.language);
+        $("#videoDate").val(rowData.created_on); // if this is your date
+        $("#videoName").val(rowData.v_name);
+        $("#videoUrl").val(rowData.v_url);
+        $("#videoDescription").val(rowData.v_desc);
+        const id = $(this).data("id");
+
+        // Toggle buttons
+        $("#videoSubmitBtn").removeClass("d-none").text("Update").data("id", id);
+        $("#videoDeleteBtn").removeClass("d-none").data("id", id);
         $("#videoAttachmentModal").modal("show");
       });
 
@@ -1875,7 +1884,7 @@
 
         const payload = {
           action: "function_call",
-          function_name: "fn_del_govt_attachments",
+          function_name: "fn_del_govt_attachments_video",
           params: { p_id: id },
         };
 
