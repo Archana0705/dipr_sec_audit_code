@@ -171,10 +171,11 @@ switch ($action) {
             }
 
             // Update params with stored file path
-            $data['params']['p_file_attachment_name'] = "/uploads/" . $safeName;
+            $params['p_file_attachment_name'] = "/uploads/" . $safeName;
         }
         // Base SQL query
         $paramPlaceholders = implode(', ', array_map(fn($k) => ':' . $k, array_keys($params)));
+
         $sql = "SELECT $columns FROM $functionName($paramPlaceholders)";
 
         // Add search filter
