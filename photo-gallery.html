@@ -684,7 +684,6 @@
         });
     </script>
     <script>
-        const apiUrl = "https://tngis.tnega.org/lcap_api/dipr-lcap-api/v1/general/gallery/photo_gallery";
         let langSwitch = localStorage.getItem('siteLang') || 'en';
         let dateValue = "";
 
@@ -697,7 +696,7 @@
 
         function fetchPhotos(langSwitch, dateValue) {
             $.ajax({
-                url: apiUrl,
+                url: `${BASE_API_URL}/general/gallery/photo_gallery`,
                 method: "GET", headers: {
                     "X-App-Key": "dipr",
                     "X-App-Name": "dipr"
@@ -720,7 +719,7 @@
                     // Render photo cards
                     // Render photo cards
                     data.forEach(function (item) {
-                        var fullUrl = "https://tngis.tnega.org/lcap_api/dipr-lcap-api/v1" + item.file_attachment_name;
+                        var fullUrl = `${BASE_API_URL}${item.file_attachment_name}`;
                         var cardHTML = `
         <li class="a-CardView-item">
   <div class="a-CardView has-title has-body">

@@ -1126,7 +1126,7 @@
               <ul class="press-list">
                 ${groupedData[date].map(item => `
                   <li>
-                    <a href="https://tngis.tnega.org/lcap_api/dipr-lcap-api/v1${decodeURIComponent(item.press_file_name)}"
+                    <a href="${BASE_API_URL}${decodeURIComponent(item.press_file_name)}"
                       target="_blank">
                       ${item.press_name}
                     </a>
