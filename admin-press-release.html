@@ -1099,7 +1099,7 @@
           function_name: isEdit ? "fn_upd_press_release" : "fn_ins_press_release",
           params: {
             ...(isEdit && { p_id: id || null }),
-            p_file_attachment_name: file ? `/uploads/${file.name}` : null,
+            p_file_attachment_name: file ? `/uploads/tn_govt_press_release/${file.name}` : null,
             p_press_release_no: null,
             p_press_name: file ? file.name : $("#pressFileName").val(),
             p_mimetype: file ? file.type : null,

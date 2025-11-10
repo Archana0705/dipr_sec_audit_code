@@ -1075,28 +1075,24 @@
         }
 
         if (!isValid) return; // Stop submission if validation fails
-        var insertPayload = {
 
-          "action": "insert",
-          "table": "TN_PRESS_NOTES",
-          "PRESS_NOTE_NAME": file && file.name ? file.name : null,
-          "ATTACHMENT_NAME": file ? `/uploads/${file.name}` : null,
-          "MIMETYPE": file && file.type ? file.type : null,
-          "PN_DATE": date,
-          "press_note_no": 3,
-          "language": language,
-          "user_id": userId,
-        };
-
-        var encryptedPayload = {
-          data: encryptData(insertPayload)
-        };
+        // ✅ Build FormData payload
+        const formData = new FormData();
+        formData.append("action", "insert");
+        formData.append("table", "TN_PRESS_NOTES");
+        formData.append("PRESS_NOTE_NAME", file.name);
+        formData.append("file", file);  // 👈 real file upload
+        formData.append("PN_DATE", date);
+        formData.append("press_note_no", 3);
+        formData.append("language", language);
+        formData.append("upload_type", "file");
 
         $.ajax({
           url: `${BASE_API_URL}/general/commonApi`,
-          type: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify(encryptedPayload),
+          type: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
           success: function (response) {
             if (response.success === 1) {
               showSuccessToast("Created successfully!");
