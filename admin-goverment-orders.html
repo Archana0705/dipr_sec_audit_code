@@ -593,10 +593,6 @@
                 class="a-MenuBar-label" href="sections.html" title="" target="">Sections</a></li>
             <li class="a-MenuBar-item" data-id="" data-disabled="" data-hide="" data-shortcut="" data-icon=""><a
                 class="a-MenuBar-label" href="download-forms.html" title="" target="">Download Forms</a></li>
-            <li class="a-MenuBar-item admin-menu-show" data-id="" data-disabled="" data-hide="" data-shortcut=""
-              data-icon=""><a class="a-MenuBar-label" href="admin-google-sheets.html" title="" target="">Google
-                Sheets - Report</a>
-            </li>
             <li class="a-MenuBar-item admin-menu-show a-Menu--current" data-current="true" data-id="" data-disabled=""
               data-hide="" data-shortcut="" data-icon=""><a class="a-MenuBar-label" href="" title=""
                 target="">Administration</a>
@@ -1066,7 +1062,7 @@
 
       $("#openPressModalBtn").on("click", function () {
         resetPressModal();
-        $("#pressAttachmentModal .modal-title").text("Upload Press Release");
+        $("#pressAttachmentModal .modal-title").text("Upload Government Order");
         $("#pressAttachmentModal").modal("show");
       });
       function fetchPressData() {
@@ -1094,7 +1090,7 @@
               tableRows += `
                 <tr>
                   <td class="u-tL">
-                    <a data-id="${item.id}" data-file="${item.order_name}" id="open-modal-btn" href="javascript:void(0);">
+                    <a href="javascript:void(0);" class="press-edit" data-id="${item.id}">
                       <i class="bi bi-pencil-square"></i>
                     </a>
                   </td>
@@ -1164,7 +1160,7 @@
 
         const payload = {
           action: "function_call",
-          function_name: isEdit ? "fn_upd_press_release" : "fn_ins_govt_order",
+          function_name: isEdit ? "fn_upd_govt_order" : "fn_ins_govt_order",
           params: {
             ...(isEdit && { p_id: id || null }),
             p_order_name: file ? file.name : $("#pressFileName").val(),
@@ -1223,11 +1219,11 @@
 
       $("#pressDeleteBtn").on("click", function () {
         const id = $(this).data("id");
-        if (!id || !confirm("Delete this press?")) return;
+        if (!id || !confirm("Delete this order?")) return;
 
         const payload = {
           action: "function_call",
-          function_name: "fn_del_press_release",
+          function_name: "fn_del_govt_orders",
           params: { p_id: id },
         };
 
@@ -1241,7 +1237,7 @@
           processData: false,
           contentType: false,
           success: function () {
-            alert("Press deleted successfully.");
+            alert("Order deleted successfully.");
             $("#pressAttachmentModal").modal("hide");
             fetchPressData();
           },

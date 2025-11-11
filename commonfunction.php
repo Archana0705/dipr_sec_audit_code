@@ -41,7 +41,7 @@ function checkRateLimit($ip, $maxRequests = 1, $windowSeconds = 10) {
         exit;
     }
 } 
-checkRateLimit($_SERVER['REMOTE_ADDR']);
+// checkRateLimit($_SERVER['REMOTE_ADDR']);
  function containsForbiddenPattern($value, &$found = null) {
     $found = [];
     if (preg_match('/[<>&\'"]/', $value)) {
@@ -147,14 +147,21 @@ switch ($action) {
 
     try {
         // Handle file upload if mimetype indicates image
-        if (isset($data['params']['p_mimetype']) && strpos($data['params']['p_mimetype'], 'image/') === 0) {
+        if (isset($data['params']['p_mimetype']) && (strpos($data['params']['p_mimetype'], 'image/') === 0 || $data['params']['p_mimetype'] === 'application/pdf')) {
             if (!isset($_FILES['file']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK) {
                 http_response_code(400);
                 echo json_encode(["success" => 0, "message" => "File upload failed or missing."]);
                 exit;
             }
-
-            $uploadDir = '../uploads/';
+            if ($functionName == 'fn_ins_govt_attachments' || $functionName == 'fn_upd_govt_attachments') {
+                $uploadDir = '../v1/uploads/govt_attachements/';
+            } elseif ($functionName == 'fn_ins_press_release' || $functionName == 'fn_upd_press_release') {
+                $uploadDir = '../v1/uploads/tn_govt_press_release/';
+            } elseif ($functionName == 'fn_ins_govt_order' || $functionName == 'fn_upd_govt_order') {
+                $uploadDir = '../v1/uploads/tn_govt_orders/';
+            } else {
+                $uploadDir = '../uploads/';
+            }
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0755, true);
             }
@@ -171,7 +178,15 @@ switch ($action) {
             }
 
             // Update params with stored file path
-            $params['p_file_attachment_name'] = "/uploads/" . $safeName;
+            if ($functionName == 'fn_ins_govt_attachments' || $functionName == 'fn_upd_govt_attachments') {
+                $params['p_file_attachment_name'] = "/uploads/govt_attachements/" . $safeName;
+            } elseif ($functionName == 'fn_ins_press_release' || $functionName == 'fn_upd_press_release') {
+                $params['p_file_attachment_name'] = "/uploads/tn_govt_press_release/" . $safeName;
+            } elseif ($functionName == 'fn_ins_govt_order' || $functionName == 'fn_upd_govt_order') {
+                $params['p_order_file_name'] = "/uploads/tn_govt_orders/" . $safeName;
+            } else {
+                $params['p_file_attachment_name'] = "/uploads/" . $safeName;
+            }
         }
         // Base SQL query
         $paramPlaceholders = implode(', ', array_map(fn($k) => ':' . $k, array_keys($params)));
